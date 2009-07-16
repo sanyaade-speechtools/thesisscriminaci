@@ -16,6 +16,9 @@ import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +39,7 @@ import org.aitools.programd.parser.BotsConfigurationFileParser;
 import org.aitools.programd.processor.ProcessorException;
 import org.aitools.programd.processor.aiml.AIMLProcessorRegistry;
 import org.aitools.programd.processor.botconfiguration.BotConfigurationElementProcessorRegistry;
+import org.aitools.programd.server.core.test.TestSupport;
 import org.aitools.programd.util.AIMLWatcher;
 import org.aitools.programd.util.ClassUtils;
 import org.aitools.programd.util.DeveloperError;
@@ -167,6 +171,10 @@ public class Core
 
     /** The <code>*</code> wildcard. */
     public static final String ASTERISK = "*";
+    
+    private static Map<String, Object> pluginSupportMap;
+    
+    public final static String pluginXmlLocation = "conf/_plugins.xml";
 
     /**
      * Initializes a new Core object with default property values
@@ -1014,4 +1022,31 @@ public class Core
     {
         return this.logger;
     }
+    
+    //XXX questa funzione mi serve per caricare i vari plugin (ossia inserire i processor e riempire la mappa
+    //pluginSupportMap
+    public void loadPlugin(){    	
+    	/*List<String> list = new ArrayList<String>();
+    	list.addAll(Arrays.asList(AIMLProcessorRegistry.getPROCESSOR_LIST()));
+    	
+    	list.add("org.aitools.programd.processor.test.TestProcessor");
+    	
+    	AIMLProcessorRegistry.setPROCESSOR_LIST(list.toArray(new String[list.size()]));    	
+    	
+    	this.loadPluginSupportMap();*/
+    }
+    
+    private void loadPluginSupportMap(){
+    	pluginSupportMap = new HashMap<String, Object>();
+    	
+    	pluginSupportMap.put("TestSupport", new TestSupport());
+    }
+
+	public static void setPluginSupportMap(Map<String, Object> pluginSupportMap) {
+		Core.pluginSupportMap = pluginSupportMap;
+	}
+
+	public static Map<String, Object> getPluginSupportMap() {
+		return pluginSupportMap;
+	}
 }

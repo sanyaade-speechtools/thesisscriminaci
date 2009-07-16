@@ -125,7 +125,6 @@ public class XMLChatLogLayout extends Layout
     /**
      * @see org.apache.log4j.spi.OptionHandler#activateOptions()
      */
-    @Override
     public void activateOptions()
     {
         // Do nothing.

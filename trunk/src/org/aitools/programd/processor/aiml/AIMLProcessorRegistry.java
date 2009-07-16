@@ -23,7 +23,7 @@ public class AIMLProcessorRegistry extends ProcessorRegistry<AIMLProcessor>
     private static final String XMLNS = "http://alicebot.org/2001/AIML-1.0.1";
 
     /** The list of processors (fully-qualified class names). */
-    private static final String[] PROCESSOR_LIST = { "org.aitools.programd.processor.aiml.BotProcessor",
+    private static String[] PROCESSOR_LIST = { "org.aitools.programd.processor.aiml.BotProcessor",
                                                      "org.aitools.programd.processor.aiml.ConditionProcessor",
                                                      "org.aitools.programd.processor.aiml.DateProcessor",
                                                      "org.aitools.programd.processor.aiml.FormalProcessor", 
@@ -60,4 +60,12 @@ public class AIMLProcessorRegistry extends ProcessorRegistry<AIMLProcessor>
     {
         super(XMLNS, PROCESSOR_LIST);
     }
+
+	public static String[] getPROCESSOR_LIST() {
+		return PROCESSOR_LIST;
+	}
+
+	public synchronized static void setPROCESSOR_LIST(String[] pROCESSORLIST) {
+		PROCESSOR_LIST = pROCESSORLIST;
+	}
 }
