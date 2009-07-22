@@ -1,0 +1,6 @@
+<plugins>
+	<plugin>
+		<param name="name">test</param>
+		<param name="directory">./test</param>
+	</plugin>
+</plugins>

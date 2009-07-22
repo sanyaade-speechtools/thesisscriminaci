@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -24,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 
 import org.aitools.programd.bot.Bot;
@@ -58,6 +63,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * The "core" of Program D, independent of any interfaces.
@@ -174,6 +181,7 @@ public class Core
     
     private static Map<String, Object> pluginSupportMap;
     
+    //XXX
     public final static String pluginXmlLocation = "conf/_plugins.xml";
 
     /**
@@ -226,6 +234,40 @@ public class Core
     protected void start()
     {
         Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler());
+        
+        try {
+			loadPlugin();
+		} catch (SAXException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ParserConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         // Use the stdout and stderr appenders in a special way, if they are defined.
         ConsoleStreamAppender stdOutAppender = ((ConsoleStreamAppender)Logger.getLogger("programd").getAppender("stdout"));
@@ -1025,21 +1067,104 @@ public class Core
     
     //XXX questa funzione mi serve per caricare i vari plugin (ossia inserire i processor e riempire la mappa
     //pluginSupportMap
-    public void loadPlugin(){    	
-    	/*List<String> list = new ArrayList<String>();
-    	list.addAll(Arrays.asList(AIMLProcessorRegistry.getPROCESSOR_LIST()));
+    public void loadPlugin() throws SAXException, IOException, ParserConfigurationException, ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{    	
     	
-    	list.add("org.aitools.programd.processor.test.TestProcessor");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		
+		Document doc = builder.parse(pluginXmlLocation);
+		
+		NodeList list = doc.getChildNodes();
+		
+		Map<String, File> pluginDirectories = new HashMap<String, File>();
+		Map<String, Class<?>> pluginProcessor = new HashMap<String, Class<?>>();
+		Map<String, Class<?>> pluginSupport = new HashMap<String, Class<?>>();		
+		
+		if(list.getLength()==1){
+			Node plugins = list.item(0);					
+			
+			list = plugins.getChildNodes();
+			
+			for(int i=0; i<list.getLength(); i++){
+				if(list.item(i).getNodeType()!=Node.TEXT_NODE){
+					Node plugin = list.item(i);
+					
+					NodeList properties = plugin.getChildNodes();
+					String name = null;
+					String directory = null;
+					for(int j=0; j<properties.getLength(); j++){
+						if(properties.item(j).getNodeType()!=Node.TEXT_NODE){
+							if(properties.item(j).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("name")){
+								name = properties.item(j).getTextContent();
+							}else if(properties.item(j).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("directory")){
+								directory = properties.item(j).getTextContent();
+							}
+						}
+					}
+					if(name!=null && directory!=null){
+						pluginDirectories.put(name, new File(directory));
+					}					
+				}
+			}
+		}
+		
+		for(String plugin:pluginDirectories.keySet()){
+			if(pluginDirectories.get(plugin).exists()){
+				String pluginXmlConfig = pluginDirectories.get(plugin).getAbsolutePath()+File.separator+"plugin.xml";
+				Document pluginDoc = builder.parse(pluginXmlConfig);
+
+				NodeList pList = pluginDoc.getChildNodes();
+
+				if(pList.getLength()==1){
+					Node plugins = pList.item(0);					
+					
+					pList = plugins.getChildNodes();					
+
+					String processor = null;
+					String support = null;
+					for(int i=0; i<pList.getLength(); i++){
+						if(pList.item(i).getNodeType()!=Node.TEXT_NODE){
+							if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processor")){
+								processor = pList.item(i).getTextContent();
+							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("support")){
+								support = pList.item(i).getTextContent();
+							}
+						}						
+					}
+					
+					if(processor!=null && support !=null){
+						Class<?> cProcessor = Class.forName(processor);
+						Class<?> cSupport = Class.forName(support);	
+						
+						pluginProcessor.put(plugin, cProcessor);
+						pluginSupport.put(plugin, cSupport);
+					}					
+				}
+				
+			}
+		}
+		
+		List<String> processorList = new ArrayList<String>();
+		processorList.addAll(Arrays.asList(AIMLProcessorRegistry.getPROCESSOR_LIST()));
+		
+		for(String plugin:pluginProcessor.keySet()){
+			processorList.add(pluginProcessor.get(plugin).getCanonicalName());
+		}
     	
-    	AIMLProcessorRegistry.setPROCESSOR_LIST(list.toArray(new String[list.size()]));    	
+    	AIMLProcessorRegistry.setPROCESSOR_LIST(processorList.toArray(new String[processorList.size()]));    	
     	
-    	this.loadPluginSupportMap();*/
+    	this.loadPluginSupportMap(pluginSupport);
     }
     
-    private void loadPluginSupportMap(){
+    private void loadPluginSupportMap(Map<String, Class<?>> pluginSupport) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
     	pluginSupportMap = new HashMap<String, Object>();
     	
-    	pluginSupportMap.put("TestSupport", new TestSupport());
+    	for(String plugin:pluginSupport.keySet()){
+    		Class<?> sClass = pluginSupport.get(plugin);
+    		Constructor<?> constructor = sClass.getConstructor();
+    	   		
+    		pluginSupportMap.put(plugin, constructor.newInstance());
+    	}
     }
 
 	public static void setPluginSupportMap(Map<String, Object> pluginSupportMap) {
