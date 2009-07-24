@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sch="http://www.ascc.net/xml/schematron"
+	targetNamespace="http://alicebot.org/2001/AIML-1.0.1" elementFormDefault="qualified"
+	attributeFormDefault="unqualified" version="1.0" xml:lang="EN">
+
+	<xs:complexType name="TestMixedTemplateContentContainer" mixed="true">
+		<xs:complexContent>
+      		<xs:extension base="MixedTemplateContentContainer">
+      			<xs:attribute name="query" type="xs:string"></xs:attribute>
+      		</xs:extension>
+      	</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:group name="pluginProcessorElements">
+		<xs:choice>
+			<xs:element name="test" type="TestMixedTemplateContentContainer"></xs:element>	
+		</xs:choice>
+	</xs:group>	
+</xs:schema>

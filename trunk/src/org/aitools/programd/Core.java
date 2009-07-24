@@ -1162,7 +1162,7 @@ public class Core
     	for(String plugin:pluginSupport.keySet()){
     		Class<?> sClass = pluginSupport.get(plugin);
     		Constructor<?> constructor = sClass.getConstructor();
-    	   		
+    	   		System.out.println(plugin);
     		pluginSupportMap.put(plugin, constructor.newInstance());
     	}
     }

@@ -4,6 +4,7 @@
 	xmlns:sch="http://www.ascc.net/xml/schematron"
 	targetNamespace="http://alicebot.org/2001/AIML-1.0.1" elementFormDefault="qualified"
 	attributeFormDefault="unqualified" version="1.0" xml:lang="EN">
+	<xs:include schemaLocation="AIML-plugin.xsd"/>
 	<xs:element name="aiml">
 		<xs:annotation>
 			<xs:documentation>An AIML object is represented by an aiml element in an XML document.</xs:documentation>
@@ -115,6 +116,7 @@
 			<xs:group ref="transformationalElements"/>
 			<xs:group ref="covertElements"/>
 			<xs:group ref="externalProcessorElements"/>
+			<xs:group ref="pluginProcessorElements"/>
 			<xs:any namespace="##other" processContents="lax"/>
 		</xs:choice>
 	</xs:complexType>
