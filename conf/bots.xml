@@ -9,6 +9,7 @@
         <sentence-splitters href="sentence-splitters.xml"/>
         <listeners href="listeners.xml"/>
         <learn>../resources/aiml/aaa/*.aiml</learn>
+        <learn>../test/aiml/*.aiml</learn>        
         <!--<learn>../aiml/alice/*.aiml</learn>
         <learn>../aiml/FrenchAIML/*.aiml</learn>
         <learn>../aiml/GermanAlice/*.aiml</learn>
