@@ -5,17 +5,20 @@
 	targetNamespace="http://alicebot.org/2001/AIML-1.0.1" elementFormDefault="qualified"
 	attributeFormDefault="unqualified" version="1.0" xml:lang="EN">
 
-	<xs:complexType name="TestMixedTemplateContentContainer" mixed="true">
-		<xs:complexContent>
-      		<xs:extension base="MixedTemplateContentContainer">
-      			<xs:attribute name="query" type="xs:string"></xs:attribute>
-      		</xs:extension>
-      	</xs:complexContent>
-	</xs:complexType>
-	
+	<!--container-->
+<xs:complexType name="TestMixedTemplateContentContainer" mixed="true">
+			<xs:complexContent>
+      			<xs:extension base="MixedTemplateContentContainer">
+      				<xs:attribute name="query" type="xs:string"></xs:attribute>
+      			</xs:extension>
+      		</xs:complexContent>
+		</xs:complexType>
+<!--end container-->
 	<xs:group name="pluginProcessorElements">
 		<xs:choice>
-			<xs:element name="test" type="TestMixedTemplateContentContainer"></xs:element>	
+			<!--processor elements-->
+<xs:element name="test" type="TestMixedTemplateContentContainer"></xs:element>
+<!--end processor elements-->	
 		</xs:choice>
 	</xs:group>	
 </xs:schema>

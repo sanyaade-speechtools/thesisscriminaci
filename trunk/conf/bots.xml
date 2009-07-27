@@ -9,16 +9,8 @@
         <sentence-splitters href="sentence-splitters.xml"/>
         <listeners href="listeners.xml"/>
         <learn>../resources/aiml/aaa/*.aiml</learn>
-        <learn>../test/aiml/*.aiml</learn>        
-        <!--<learn>../aiml/alice/*.aiml</learn>
-        <learn>../aiml/FrenchAIML/*.aiml</learn>
-        <learn>../aiml/GermanAlice/*.aiml</learn>
-        <learn>../aiml/maria/*.aiml</learn>
-        <learn>../aiml/standard/*.aiml</learn>
-        <testing>
-            <test-suite-path>../resources/testing/AIML.xml</test-suite-path>
-            <report-directory>/var/log/programd/test-reports</report-directory>
-        </testing>
-        <learn>../resources/testing/AIML.aiml</learn>-->
+        <!--plugins aiml-->
+<learn>/Users/mario/Project/Tesi/thesisscriminaci/./test/aiml/*.aiml</learn>
+<!--end plugins aiml-->        
     </bot>
 </bots>
