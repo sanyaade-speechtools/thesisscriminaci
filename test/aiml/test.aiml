@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 ../../resources/schema/AIML.xsd">
 
 <category>
-	<pattern>TESTPLUGING</pattern>
+	<pattern>TESTPLUGIN</pattern>
 	<template><test>Questo è un test</test></template>
 </category>  
 
