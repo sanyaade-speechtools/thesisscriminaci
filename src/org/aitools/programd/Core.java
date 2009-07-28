@@ -1136,16 +1136,26 @@ public class Core
 					
 					pList = plugins.getChildNodes();					
 
-					String processor = null;
-					String support = null;
+					List<String> processor = new ArrayList<String>();
+					List<String> support = new ArrayList<String>();
 					String container = null;
 					String elementProcessor = null;
 					for(int i=0; i<pList.getLength(); i++){
 						if(pList.item(i).getNodeType()!=Node.TEXT_NODE){
-							if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processor")){
-								processor = pList.item(i).getTextContent();
-							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("support")){
-								support = pList.item(i).getTextContent();
+							if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processors")){
+								NodeList prs = pList.item(i).getChildNodes();
+								for(int j=0; j<prs.getLength(); j++){
+									if(prs.item(j).getNodeType()!=Node.TEXT_NODE){
+										processor.add(prs.item(j).getTextContent());
+									}
+								}
+							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("supports")){
+								NodeList prs = pList.item(i).getChildNodes();
+								for(int j=0; j<prs.getLength(); j++){
+									if(prs.item(j).getNodeType()!=Node.TEXT_NODE){
+										support.add(prs.item(j).getTextContent());
+									}
+								}
 							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("container")){
 								container = pList.item(i).getTextContent().trim();
 							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processorElement")){
@@ -1154,12 +1164,17 @@ public class Core
 						}						
 					}
 					
-					if(processor!=null && support !=null){
-						Class<?> cProcessor = Class.forName(processor);
-						Class<?> cSupport = Class.forName(support);	
+					if(processor.size()>0 && support.size()>0){
 						
-						pluginProcessor.put(plugin, cProcessor);
-						pluginSupport.put(plugin, cSupport);
+						for(String p:processor){
+							Class<?> cProcessor = Class.forName(p);
+							pluginProcessor.put(plugin, cProcessor);
+						}
+						
+						for(String s:support){
+							Class<?> cSupport = Class.forName(s);
+							pluginSupport.put(plugin, cSupport);
+						}
 						
 						if(container!=null){
 							pluginContainer.put(plugin, container);

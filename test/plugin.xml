@@ -1,7 +1,11 @@
 <plugin>
 	<param name="name">Test</param>
-	<param name="processor">org.aitools.programd.processor.test.TestProcessor</param>
-	<param name="support">org.aitools.programd.server.core.test.TestSupport</param>
+	<param name="processors">
+		<param name="processor">org.aitools.programd.processor.test.TestProcessor</param>
+	</param>
+	<param name="supports">
+		<param name="support">org.aitools.programd.server.core.test.TestSupport</param>
+	</param>
 	<param name="container">
 		<![CDATA[
 		<xs:complexType name="TestMixedTemplateContentContainer" mixed="true">
