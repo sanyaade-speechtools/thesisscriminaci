@@ -10,7 +10,7 @@
         <listeners href="listeners.xml"/>
         <learn>../resources/aiml/aaa/*.aiml</learn>
         <!--plugins aiml-->
-<learn>/Users/mario/Project/Tesi/thesisscriminaci/./test/aiml/*.aiml</learn>
+<learn>/Users/mario/Project/Tesi/thesisscriminaci/./plugins/test/aiml/*.aiml</learn>
 <!--end plugins aiml-->        
     </bot>
 </bots>

@@ -219,6 +219,6 @@ GENERAL NOTES
     -->
     
     <!--Configuration file for plugins. [URL: plugins.xml]-->
-    <entry key="programd.conf-location.plugins">plugins.xml</entry>
+    <entry key="programd.conf-location.plugins">_plugins.xml</entry>
     
 </properties>

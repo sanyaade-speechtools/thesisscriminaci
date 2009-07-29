@@ -1,4 +1,4 @@
-#Tue Jul 28 21:59:53 CEST 2009
+#Wed Jul 29 22:12:55 CEST 2009
 memory=nothing
 age=how many
 we=we
@@ -8,7 +8,7 @@ meta=set
 like=to chat
 that.4=Hello?  Is anyone there?
 that.3=Are you still undefined?
-that.2=Questo \u008F un test; TEST\! ciao
+that.2=Hello\!
 that.1=Questo \u008F un test; TEST\! ciao
 sign=your starsign
 name=JUDGE 
@@ -18,14 +18,14 @@ etype=Unknown
 last=\n\n\n\n\n\n\n\nTESTPLUGING \n \n \n \n \n \n \n \n
 input.4=CONNECT
 input.3=Enter
-input.2=TESTPLUGIN
+input.2=CONNECT
 fifth=\n\n\n\n\nTESTPLUGING \n \n \n \n \n
 input.1=TESTPLUGIN
 them=them
 job=your job
 want=to talk to me
 heard=where
-it=\  Enter   
+it=it
 is=a client
 third=\n\n\nTESTPLUGIN \n \n \n
 thought=nothing
