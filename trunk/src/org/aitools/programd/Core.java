@@ -187,7 +187,7 @@ public class Core
     private static Map<String, Object> pluginSupportMap;
     
     //XXX
-    public final static String pluginXmlLocation = "conf/_plugins.xml";
+    public final static String pluginXmlLocation = "conf/plugins.xml";
     public final static String pluginAIMLPluginLocation = "resources/schema/AIML-plugin.xsd";
     public final static String botsXMLLocation = "conf/bots.xml";
     
@@ -1222,14 +1222,16 @@ public class Core
     		}
     	}	  	
 
-    	Class<?>[] parameters = new Class[]{URL.class};
+    	if(urls.size()>0){
+    		Class<?>[] parameters = new Class[]{URL.class};
 
-    	URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-    	Class<?> sysclass = URLClassLoader.class;
+    		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+    		Class<?> sysclass = URLClassLoader.class;
 
-    	Method method = sysclass.getDeclaredMethod("addURL", parameters);
-    	method.setAccessible(true);
-    	method.invoke(sysloader, urls.toArray());
+    		Method method = sysclass.getDeclaredMethod("addURL", parameters);
+    		method.setAccessible(true);
+    		method.invoke(sysloader, urls.toArray());
+    	}
     }
     
     private void loadPluginSupportMap(Map<String, Class<?>> pluginSupport) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
