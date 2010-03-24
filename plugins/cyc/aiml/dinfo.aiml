@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 ../../resources/schema/AIML.xsd">
+
+
+ <category>
+	<pattern>START</pattern>
+	<template>		
+		Hi, can I help you?
+ 	</template>
+ </category>
+ 
+ <category>
+	<pattern>* THESIS TOPIC</pattern>
+	<template>		
+		Yes, for sure. You can do a thesis on:
+		<cycsystem>(cyc-query '(#isa ?WHAT #$ResearchTopic))</cycsystem>
+ 	</template>
+ </category>
+ 
+ 
+ <category>
+	<pattern>YES *</pattern>
+	<that>UHM, OK, MAYBE YOU ARE INTERESTED IN *</that>
+	<template>		
+	Ok. <srai>WHO WORKS ON <get name="topic"/></srai>
+ 	</template>
+ </category> 
+ 
+ 
+<category>
+	<pattern>EXPLAIN ME *</pattern>
+	<template>
+		<cycsystem>(fi-ask '(#$comment <cycterm><star index="1"/></cycterm> ?REPLY) #$EverythingPSC )</cycsystem>
+	</template>
+</category>
+
+<category>
+	<pattern>I WANT TO DO A THESIS WITH *</pattern>
+	<template>
+		<think><set name="researcher"><star index="1"/></set></think>
+		Ok, <star index="1"/> works on <set name="topic"><cycrandom>(fi-ask '(#$expertRegarding <cycterm><star index="1"/></cycterm> ?WHAT) #$EverythingPSC )</cycrandom></set>
+	</template>
+</category>
+
+ <category>
+	<pattern>I'D LIKE TO DO A THESIS WITH *</pattern>
+	<template>
+		<srai>I WANT TO DO A THESIS WITH <star/></srai>		
+	</template>
+</category> 
+
+<category>
+	<pattern>I WANT TO DO A THESIS AT *</pattern>
+	<template>
+		Ok, you may talk to <set name="researcher"><cycrandom>(fi-ask '(#$employees <cycterm><star index="1"/></cycterm> ?WHO) #$EverythingPSC )</cycrandom></set>
+	</template>
+</category>
+
+ <category>
+	<pattern>I'D LIKE TO DO A THESIS AT *</pattern>
+	<template>
+		<srai>I WANT TO DO A THESIS AT <star/></srai>		
+	</template>
+</category> 
+
+<category>
+	<pattern>WHO WORKS ON *</pattern>
+	<template>
+		<set name="researcher"><cycrandom>(fi-ask '(#$expertRegarding ?WHO <cycterm><star index="1"/></cycterm>) #$EverythingPSC )</cycrandom></set> is an expert on it.
+	</template>
+</category>
+
+<category>
+	<pattern>WHO WORKS ON IT</pattern>
+	<template>
+		<srai>WHO WORKS ON <get name="topic"/></srai>
+	</template>
+</category>
+
+<category>
+	<pattern>CAN I DO A THESIS WITH *</pattern>
+	<template>		
+		<think><set name="researcher"><star/></set></think>
+		<cyccondition query="(cyc-query '(#$and (#$employees #$Unipa &amp;lt;cycterm&amp;gt;&amp;lt;star index=&amp;quot;1&amp;quot;/&amp;gt;&amp;lt;/cycterm&amp;gt;) (#$isa &amp;lt;cycterm&amp;gt;&amp;lt;star index=&amp;quot;1&amp;quot;/&amp;gt;&amp;lt;/cycterm&amp;gt; #$Professor)) #$EverythingPSC)">
+  					Yes, you can
+  		</cyccondition>
+		<cyccondition query="(cyc-query '(#$and (#$employees #$Unipa &amp;lt;cycterm&amp;gt;&amp;lt;star index=&amp;quot;1&amp;quot;/&amp;gt;&amp;lt;/cycterm&amp;gt;) (#$not (#$isa &amp;lt;cycterm&amp;gt;&amp;lt;star index=&amp;quot;1&amp;quot;/&amp;gt;&amp;lt;/cycterm&amp;gt; #$Professor))) #$EverythingPSC)">
+					No, <star index="1"/> is not a Professor, you must do a thesis with a Professor
+		</cyccondition>
+		<cyccondition query="(cyc-query '(#$not (#$employees #$Unipa &amp;lt;cycterm&amp;gt;&amp;lt;star index=&amp;quot;1&amp;quot;/&amp;gt;&amp;lt;/cycterm&amp;gt;)) #$EverythingPSC)">
+					No, <star index="1"/> does not work for Unipa, you must do a thesis with a Professor of Unipa
+		</cyccondition> 
+ 	</template>
+ </category>  
+ 
+  <category>
+	<pattern>CAN I ASK A THESIS TO *</pattern>
+	<template>
+		<srai>CAN I DO A THESIS WITH <star/></srai>		
+	</template>
+</category> 
+ 
+ <category>
+	<pattern>CAN I DO A THESIS WITH HIM</pattern>
+	<template>
+		<srai>CAN I DO A THESIS WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+ <category>
+	<pattern>CAN I DO A THESIS WITH HER</pattern>
+	<template>
+		<srai>CAN I DO A THESIS WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+<category>
+	<pattern>WHICH PROFESSOR COLLABORATES WITH *</pattern>
+	<template>
+		A professor that collaborates with him is <set name="professor"><cycrandom>(fi-ask '(#$and (#$collaborators ?WHO <cycterm><star index="1"/></cycterm>) (#$isa ?WHO #$Professor)) #$EverythingPSC )</cycrandom></set>; you can do a thesis with him and work with <star index="1"/>.
+	</template>
+</category>
+
+ <category>
+	<pattern>WHICH PROFESSOR COLLABORATES WITH HIM</pattern>
+	<template>
+		<srai>WHICH PROFESSOR COLLABORATES WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+ <category>
+	<pattern>WHICH PROFESSOR COLLABORATES WITH HER</pattern>
+	<template>
+		<srai>WHICH PROFESSOR COLLABORATES WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+<category>
+	<pattern>WHO COLLABORATES WITH *</pattern>
+	<template>
+		One of the partners is <set name="researcher"><cycrandom>(fi-ask '(#$collaborators ?WHO <cycterm><star index="1"/></cycterm>) #$EverythingPSC )</cycrandom></set>.
+	</template>
+</category>
+
+ <category>
+	<pattern>WHO COLLABORATES WITH HIM</pattern>
+	<template>
+		<srai>WHO COLLABORATES WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+ <category>
+	<pattern>WHO COLLABORATES WITH HER</pattern>
+	<template>
+		<srai>WHO COLLABORATES WITH <get name="researcher"/></srai>		
+	</template>
+</category> 
+
+
+
+
+</aiml>

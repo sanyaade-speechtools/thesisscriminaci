@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Reduce.aiml : Symbolic reductions including "star" -->
 <!-- See file Reducer.aiml for "sr" -->
-<!-- Revision Reduce-1.26 -->
-<!-- Last Modified  July 27, 2007 -->
+<!-- Revision Reduce-1.25 -->
+<!-- Last Modified  Oct 10 2005 -->
  
 <category> <pattern> I REMAINED *</pattern>  <template><srai>I AM <star/></srai></template> </category>           
 <category> <pattern>* DOES NOT MEAN THEY WERE NOT *</pattern>  <template><srai><star/> means they were <star index="2"/></srai></template> </category>           
@@ -177,7 +163,7 @@
 <category> <pattern>_ VERRY *</pattern>  <template><srai><star/> <star index="2"/></srai></template> </category>           
 <category> <pattern>_ WAS FRAMED AS *</pattern>  <template><srai>Somebody framed <star/> as <star index="2"/></srai></template> </category>           
 <category> <pattern>_ WHENEVER *</pattern>  <template><srai><star/> when ever <star index="2"/></srai></template> </category>           
-<category> <pattern>* YOU KNOW *</pattern>  <template><srai><star/> <star index="2"/></srai></template> </category>           
+<category> <pattern>_ YOU KNOW *</pattern>  <template><srai><star/> <star index="2"/></srai></template> </category>           
 <category> <pattern>_ got back off *</pattern>  <template><srai><star/> got off <star index="2"/></srai></template> </category>          
 <category> <pattern>_ got back on *</pattern>  <template><srai><star/> got on <star index="2"/></srai></template> </category>         
 <category> <pattern>_ got on *</pattern>  <template><srai><star/> entered <star index="2"/></srai></template> </category>       
@@ -2990,7 +2976,7 @@
 <category><pattern>IS ELVIS STILL ALIVE</pattern><template><srai>is elvis <star/></srai></template></category>                   
 <category><pattern>IS GEORGE W BUSH *</pattern><template><srai>is george bush <star/></srai></template></category>                   
 <category><pattern>IS HE *</pattern><template><condition> <li name="he" value="HE"> I think he is <person/>. Why don't you ask him?</li> <li><srai>is <get name="he"/> <star/></srai></li> </condition></template></category>                   
-<category><pattern>IS HE NOSEY</pattern><template><condition><li name="he" value="om">I think he is <person/> . Why don't you ask him?</li> <li><srai>is <get name="he"/> <star/></srai></li></condition></template></category>                   
+<category><pattern>IS HE NOSEY</pattern><template><condition><li name="he" value="OM">I think he is <person/> . Why don't you ask him?</li> <li><srai>is <get name="he"/> <star/></srai></li></condition></template></category>                   
 <category><pattern>IS HE REALLY *</pattern><template><srai>is he <star/></srai></template></category>                   
 <category><pattern>IS HE STILL *</pattern><template><srai>is he <star/></srai></template></category>                   
 <category><pattern>IS HE _ TOO</pattern><template><srai>is he  <star/></srai></template></category>                   
@@ -4469,7 +4455,7 @@
 <category><pattern>WHO ARE SOME *</pattern><template><srai>who are <star/> </srai> </template></category>                   
 <category><pattern>WHO ASSASSINATED *</pattern><template><srai>who killed <star/> </srai> </template></category>                   
 <category><pattern>WHO BILL *</pattern><template><srai>who is bill <star/> </srai> </template></category>                   
-<category><pattern>WHO BUILT THE *</pattern><template>I think it was really more than one person. <br/> <srai>xfind <star/> </srai> <think> <set name="they"> <set name="topic"> <person/> </set> </set> </think> </template></category>                   
+<category><pattern>WHO BUILT THE *</pattern><template>I think it was really more than one person. <html:br/> <srai>xfind <star/> </srai> <think> <set name="they"> <set name="topic"> <person/> </set> </set> </think> </template></category>                   
 <category><pattern>WHO CAN HELP ME WITH *</pattern><template><srai>where can I get help with <star/></srai></template></category>                   
 <category><pattern>WHO CAN TELL *</pattern><template><srai>tell <star/> </srai> </template></category>                   
 <category><pattern>WHO CREATED *</pattern><template><srai>who invented <star/> </srai> </template></category>                   
@@ -4490,7 +4476,7 @@
 <category><pattern>WHO HAVE YOU * WITH</pattern><template><srai>who has <star/> with you</srai> </template></category>                   
 <category><pattern>WHO ID *</pattern><template><srai>who is <star/> </srai> </template></category>                   
 <category><pattern>WHO IN THE WORLD *</pattern><template><srai>who is <star/> </srai> </template></category>                   
-<category><pattern>WHO IS * DEMPSEY</pattern><template>I think <set name="he"> <star/> Dempsey</set> was a boxer, right? <br/> <srai>xfind <star/>dempsey</srai> </template></category>                   
+<category><pattern>WHO IS * DEMPSEY</pattern><template>I think <set name="he"> <star/> Dempsey</set> was a boxer, right? <html:br/> <srai>xfind <star/>dempsey</srai> </template></category>                   
 <category><pattern>WHO IS * S PRIME MINISTER</pattern><template><srai>who is prime minister of <star/> </srai> </template></category>                   
 <category><pattern>WHO IS ACTUALLY *</pattern><template><srai>who is <star/> </srai> </template></category>                   
 <category><pattern>WHO IS ARE * </pattern><template><srai>who is <star/></srai></template></category>            
@@ -4739,7 +4725,7 @@
 <category><pattern>WOULD YOU LIKE TO HEAR SOME *</pattern><template><srai>would you like to hear <star/> </srai> </template></category>                   
 <category><pattern>WOULD YOU LIKE TO LEARN SOME *</pattern><template><srai>would you like to learn <star/> </srai> </template></category>                   
 <category><pattern>WOULD YOU LIKE TO PLAY *</pattern><template><srai>can you play <star/> </srai> </template></category>                   
-<category><pattern>WOULD YOU LIKE TO SING *</pattern><template>Yes I would like to.<br/> <srai>sing <star/> </srai> </template></category>                   
+<category><pattern>WOULD YOU LIKE TO SING *</pattern><template>Yes I would like to.<html:br/> <srai>sing <star/> </srai> </template></category>                   
 <category><pattern>WOULD YOU LIKE TO TELL ME *</pattern><template><srai> tell me <star/> </srai> </template></category>                   
 <category><pattern>WOULD YOU ONLY *</pattern><template><srai>would you <star/> </srai> </template></category>                   
 <category><pattern>WOULD YOU PRETTY *</pattern><template><srai>would you <star/> </srai> </template></category>                   
@@ -4998,7 +4984,7 @@
 <category><pattern>YOU DO NOT KNOW *</pattern><template><srai>do you know <star/></srai></template></category>                   
 <category><pattern>YOU DO NOT KNOW HOW * </pattern><template><srai>how do you <star/></srai></template></category>             
 <category><pattern>YOU DO NOT KNOW HOW TO * </pattern><template><srai>how do you <star/></srai></template></category>             
-<category><pattern>YOU DO NOT KNOW WHAT YOU * </pattern><template><srai>what <str/> <star/></srai></template></category>             
+<category><pattern>YOU DO NOT KNOW WHAT YOU * </pattern><template><srai>what <star/> <star/></srai></template></category>             
 <category><pattern>YOU DO NOT KNOW WHAT YOU ARE *</pattern><template><srai>what are you <star/></srai></template></category>                   
 <category><pattern>YOU DO NOT KNOW WHO *</pattern><template><srai>who <star/></srai></template></category>                   
 <category><pattern>YOU DO NOT LIKE *</pattern><template>Do you like <set name="it"><set name="topic"> <person/> </set></set>? <srai>do you like <star/></srai></template></category>                   

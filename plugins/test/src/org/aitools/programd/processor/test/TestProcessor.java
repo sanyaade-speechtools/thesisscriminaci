@@ -21,8 +21,7 @@ public class TestProcessor extends AIMLProcessor {
 			throws ProcessorException {
 		if (element.getChildNodes() != null) {
 			
-			TestSupport support = (TestSupport)Core.getPluginSupportMap().get("Test");
-			System.err.println(Core.getPluginSupportMap().get("Test"));
+			TestSupport support = (TestSupport)Core.getPluginSupportMap().get(TestSupport.class);
 			return element.getTextContent()+"; TEST! "+support.getCiao();
 		} else {
 			throw new ProcessorException(

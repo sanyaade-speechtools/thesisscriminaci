@@ -1,12 +1,15 @@
 <plugin>
-	<param name="name">Test</param>
-	<param name="processors">
-		<param name="processor">org.aitools.programd.processor.test.TestProcessor</param>
-	</param>
-	<param name="supports">
-		<param name="support">org.aitools.programd.server.core.test.TestSupport</param>
-	</param>
-	<param name="container">
+	<name>Test</name>
+	<processors>
+		<processor class="org.aitools.programd.processor.test.TestProcessor"></processor>
+	</processors>
+	<supports>
+		<support class="org.aitools.programd.server.core.test.TestSupport">		
+			<param name="s" class="java.lang.String">mondo</param>
+			<param name="i" class="java.lang.Integer">30</param>
+		</support>
+	</supports>
+	<container>
 		<![CDATA[
 		<xs:complexType name="TestMixedTemplateContentContainer" mixed="true">
 			<xs:complexContent>
@@ -15,8 +18,8 @@
       			</xs:extension>
       		</xs:complexContent>
 		</xs:complexType>]]>
-	</param>
-	<param name="processorElement">
+	</container>
+	<processorElement>
 		<![CDATA[<xs:element name="test" type="TestMixedTemplateContentContainer"></xs:element>]]>
-	</param>
+	</processorElement>
 </plugin>

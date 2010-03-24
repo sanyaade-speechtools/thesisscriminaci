@@ -1,0 +1,41 @@
+<plugin>
+	<name>Lsa</name>
+	<processors>
+		<processor class="org.aitools.programd.processor.lsa.LsaCompetence"></processor>
+		<processor class="org.aitools.programd.processor.lsa.LsaQuery"></processor>
+		<processor class="org.aitools.programd.processor.lsa.LsaRandomQuery"></processor>
+		<processor class="org.aitools.programd.processor.lsa.LsaRandomRelated"></processor>
+		<processor class="org.aitools.programd.processor.lsa.LsaRelated"></processor>
+		<processor class="org.aitools.programd.processor.lsa.LsaSpace"></processor>
+		
+	</processors>
+	<supports>
+		<support class="org.aitools.programd.server.core.lsa.LsaSupport">
+		</support>
+	</supports>
+	<container>
+		<![CDATA[
+			<xs:complexType name="LsaMixedTemplateContentContainer" mixed="true">
+				<xs:complexContent>
+					<xs:extension base="MixedTemplateContentContainer">
+						<xs:attribute name="query" type="xs:string"></xs:attribute>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+		]]>
+	</container>
+	<processorElement>
+		<![CDATA[			
+			<xs:element name="lsacompetence" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element name="lsaquery" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element name="lsarandomquery" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element name="lsarandomrelated" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element name="lsarelated" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element name="lsaspace" type="LsaMixedTemplateContentContainer" minOccurs="1" maxOccurs="1"></xs:element>			
+		]]>
+	</processorElement>
+	<services>
+		<service class="org.aitools.programd.services.LsaServices" name="lsaServices">			
+		</service>		
+	</services>	
+</plugin>

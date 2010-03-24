@@ -1,0 +1,262 @@
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2005 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: browser.html
+ * 	This page compose the File Browser dialog frameset.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>FCKeditor - Resources Browser</title>
+		<link href="browser.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="js/fckxml.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="../javascript/jsonrpc-min.js"></script>
+		<script language="javascript">
+
+/* This function is used to get cookies */
+function getCookie(name) {
+	var prefix = name + "=" 
+	var start = document.cookie.indexOf(prefix) 
+	if (start==-1) {
+		return null;
+	}
+	
+	var end = document.cookie.indexOf(";", start+prefix.length) 
+	if (end==-1) {
+		end=document.cookie.length;
+	}
+	
+	var value=document.cookie.substring(start+prefix.length, end);
+	return unescape(value);
+}
+
+function GetUrlParam( paramName )
+{
+	var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
+	var oMatch = oRegex.exec( window.top.location.search ) ;
+	
+	if ( oMatch && oMatch.length > 1 )
+		return oMatch[1] ;
+	else
+		return '' ;
+}
+
+var oConnector = new Object() ;
+oConnector.CurrentFolder	= '/' ;
+
+var sConnUrl = "connectors"; //+ GetUrlParam( 'Connector' ) ;
+
+// Gecko has some problems when using relative URLs (not starting with slash).
+if ( sConnUrl.substr(0,1) != '/' && sConnUrl.indexOf( '://' ) < 0 ){
+	sConnUrl = window.location.href.replace( /browser.html.*$/, '' ) + sConnUrl ;
+	sConnUrl = sConnUrl.replace(/\/\/filemanager/, '/filemanager');
+	}
+
+oConnector.ConnectorUrl = sConnUrl + ( sConnUrl.indexOf('?') != -1 ? '&' : '?' ) ;
+
+var sServerPath = GetUrlParam( 'ServerPath' ) ;
+if ( sServerPath.length > 0 )
+	oConnector.ConnectorUrl += 'ServerPath=' + escape( sServerPath ) + '&' ;
+
+
+if(GetUrlParam('Type') != '')
+	oConnector.ResourceType = GetUrlParam('Type');
+	
+if(GetUrlParam('OpenFile') != '')
+	oConnector.OpenFile = GetUrlParam('OpenFile');
+
+if(GetUrlParam('RelatedPath') != '')
+	oConnector.RelatedPath = GetUrlParam('RelatedPath');
+
+if(GetUrlParam('CurrentFolder') != null)
+	oConnector.CurrentFolder = GetUrlParam('CurrentFolder');
+	
+if(oConnector.ResourceType == null)
+	oConnector.ResourceType = "";
+
+oConnector.ShowAllTypes	= (oConnector.ResourceType.length == 0);
+
+if(GetUrlParam('ImageId') != '')
+	oConnector.ImgSrc = GetUrlParam('ImageId');
+else
+	oConnector.ImgSrc = getCookie("_image_id");
+
+oConnector.aTypes = [] ;
+
+oConnector.updatableTypes = [];
+
+oConnector.isMediaLibrary = false;
+
+
+
+oConnector.SendCommand = function( command, params, callBackFunction )
+{
+	var sUrl = this.ConnectorUrl + 'Command=' + command ;
+	sUrl += '&Type=' + this.ResourceType ;
+	sUrl += '&CurrentFolder=' + escape( this.CurrentFolder ) ;
+	sUrl += '&RelatedPath=' + escape( this.RelatedPath ) ;
+
+	if(this.isMediaLibrary)
+		sUrl += '&MediaLibrary=true';
+	
+	if ( params ) sUrl += '&' + params ;
+
+	var oXML = new FCKXml() ;
+	
+	if ( callBackFunction )
+		oXML.LoadUrl( sUrl, callBackFunction ) ;	// Asynchronous load.
+	else
+		return oXML.LoadUrl( sUrl ) ;
+}
+
+oConnector.CheckError = function( responseXml )
+{
+	var iErrorNumber = 0
+	var oErrorNode = responseXml.SelectSingleNode( 'Connector/Error' ) ;
+	
+	if ( oErrorNode )
+	{
+		iErrorNumber = parseInt( oErrorNode.attributes.getNamedItem('number').value ) ;
+		
+		switch ( iErrorNumber )
+		{
+			case 0 :
+				break ;
+			case 1 :	// Custom error. Message placed in the "text" attribute.
+				alert(oErrorNode.attributes.getNamedItem('text').value ) ;
+				break ;
+			case 101 :
+				alert( 'Folder already exists' ) ;
+				break ;
+			case 102 :
+				alert( 'Invalid folder name' ) ;
+				break ;
+			case 103 :
+				alert( 'You have no permissions to create the folder' ) ;
+				break ;
+			case 110 :
+				alert( 'Unknown error creating folder' ) ;
+				break ;
+			case 120 :
+				//alert( 'Configuration Error' ) ;
+				window.location = "error.html";
+				break ;
+			default :
+				alert( 'Error on your request. Error number: ' + iErrorNumber ) ;
+				break ;
+		}
+	}
+	return iErrorNumber ;
+}
+
+var oIcons = new Object() ;
+
+oIcons.AvailableIconsArray = [ 
+	'ai','avi','bmp','cs','dll','doc','exe','fla','gif','htm','html','jpg','js',
+	'mdb','mp3','pdf','ppt','rdp','swf','swt','txt','vsd','xls','xml','zip' ] ;
+	
+oIcons.AvailableIcons = new Object() ;
+
+for ( var i = 0 ; i < oIcons.AvailableIconsArray.length ; i++ )
+	oIcons.AvailableIcons[ oIcons.AvailableIconsArray[i] ] = true ;
+
+oIcons.GetIcon = function( fileName )
+{
+	var sExtension = fileName.substr( fileName.lastIndexOf('.') + 1 ).toLowerCase() ;
+
+	if ( this.AvailableIcons[ sExtension ] == true )
+		return sExtension ;
+	else
+		return 'default.icon' ;
+}
+
+window.onload = function(){
+
+	var jsonrpc = new JSONRpcClient("/programd/JSON-RPC"); 
+	
+	if(jsonrpc.lsaServices!=null){
+		
+		var result = null;
+		try{
+			result = jsonrpc.lsaServices.getAllLsaSpaces();
+		}catch(e){
+			window.close();
+		}
+		if(result != null){
+			var len = result.list.length;
+			var list = result.list;
+								
+			oConnector.aTypes = new Array(len);
+			oConnector.updatableTypes = new Array(len);	
+			
+			for(i=0; i<len;i++){
+				oConnector.aTypes[i]=[list[i].name, list[i].name];
+				oConnector.updatableTypes[i]=[list[i].name, 'true'];
+
+			}
+					
+			if (oConnector.ShowAllTypes){
+				oConnector.ResourceType = oConnector.aTypes[0][0] ;
+			}
+			
+			
+			
+			for ( var i = 0 ; i < oConnector.aTypes.length ; i++ ){	
+				AddSelectOption( parent.frames['frmResourceType'].document.getElementById('cmbType'), oConnector.aTypes[i][1], oConnector.aTypes[i][0]) ;
+				if(oConnector.aTypes[i][0] == oConnector.ResourceType){
+					parent.frames['frmResourceType'].document.getElementById('cmbType').selectedIndex = i;
+				}
+
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		else{
+			window.close();
+		}	
+	}
+	else{
+		window.close();
+	}
+
+}
+		</script>
+	</head>
+	<frameset cols="150,*" class="back" framespacing="3" bordercolor="#f1f1e3" frameborder="yes">
+		<frameset rows="50,*" framespacing="0">
+			<frame name="frmResourceType" src="frmresourcetype.html" noresize="noresize" scrolling="no" frameborder="no">
+			<frame name="frmFolders" noresize="noresize" src="frmfolders.html" scrolling="auto" frameborder="yes">
+		</frameset>
+		<frameset rows="50,*,50" framespacing="0">
+			<frame name="frmActualFolder" noresize="noresize" src="frmactualfolder.html" scrolling="no" frameborder="no">
+			<frame name="frmResourcesList" noresize="noresize" src="frmresourceslist.html" scrolling="auto" frameborder="yes">
+			<frameset cols="150,*,0" framespacing="0" frameborder="no">
+				<frame name="frmCreateFolder" noresize="noresize" src="frmcreatefolder.html" scrolling="no" frameborder="no">
+				<frame name="frmUpload" noresize="noresize" src="frmupload.html" scrolling="no" frameborder="no">
+				<frame name="frmUploadWorker" noresize="noresize" src="../../../fckblank.html" scrolling="no" frameborder="no">
+			</frameset>
+		</frameset>
+	</frameset>
+</html>

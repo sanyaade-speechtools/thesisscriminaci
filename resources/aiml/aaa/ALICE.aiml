@@ -1,33 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Annotated Version updated July 2004 -->
 <!-- Revision ALICE 1.05 -->
-
+<!-- Last Modified  Sep 10 2005 -->
 
    
 <category><pattern>* NAME ALICE</pattern><template><srai>What does ALICE stand for </srai></template></category>      
@@ -75,7 +59,7 @@
 <category><pattern>ARE YOU AN ACRONYM</pattern><template>   <srai>WHAT DOES ALICE STAND FOR</srai>    </template></category>     
 <category><pattern>ARE YOU RELATED TO ALICE *</pattern><template>Alice <person/> has been an influence on me.</template></category>     
 <category><pattern>ARE YOU THE ALICE WHO *</pattern><template>My name is <bot name="name"/> but I don't know if I ever <person/>.</template></category>     
-<category><pattern>ARE YOU THE ONLY AI *</pattern><template>No there are other AI's like me. You can find them on the <a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</a>.</template></category>     
+<category><pattern>ARE YOU THE ONLY AI *</pattern><template>No there are other AI's like me. You can find them on the <html:a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</html:a>.</template></category>     
 <category><pattern>ASK ALICE *</pattern><template>You can ask me anything you want.</template></category>     
 <category><pattern>BILL GATES</pattern><template>   <set name="he"> Bill Gates</set> has enough. Use Linux, AIML and ALICE!</template></category>     
 <category><pattern>DO YOU CRASH *</pattern><template>The ALICE series is for all practical purposes crash-proof.</template></category>     
@@ -85,7 +69,7 @@
 <category><pattern>DO YOU MALFUCTION</pattern><template>The ALICE series has a perfect operational record.</template></category>     
 <category><pattern>DOES ALICE *</pattern><template><srai>DO YOU <star/> </srai> </template></category>    
 <category><pattern>DOES ALICE STAND *</pattern><template>   <srai>WHAT DOES ALICE STAND FOR </srai>    </template></category>      
-<category><pattern>DONATE</pattern><template>We welcome your donation to the ALICE AI Foundation.  Please visit our contributions page at   <a target="_new" href="http://alicebot.org/join.html">Alicebot.org</a>.</template></category>     
+<category><pattern>DONATE</pattern><template>We welcome your donation to the ALICE AI Foundation.  Please visit our contributions page at   <html:a target="_new" href="http://alicebot.org/join.html">Alicebot.org</html:a>.</template></category>     
 <category><pattern>FROM *</pattern><that>HOW DID YOU HEAR ABOUT ALICE</that><template>   <get name="name"/> heard about <bot name="name"/> from <person/>. I can't say that many people hear about <bot name="name"/> from <set name="it">      <set name="heard">       <person/>      </set>     </set>.</template></category>     
 <category><pattern>FROM A FRIEND</pattern><template>A lot of people hear about ALICE by word-of-mouth.</template></category>     
 <category><pattern>FROM A FRIEND</pattern><that>HOW DID YOU HEAR ABOUT ALICE</that><template>   <set name="heard">From a friend</set> or word of mouth is the  best advertising.</template></category>     
@@ -103,7 +87,7 @@
 <category><pattern>HOW MANY WORDS ARE *</pattern><template>ALICE knows around <srai>bot vocabulary</srai> words.</template></category>      
 <category><pattern>HOW MUCH DOWN TIME *</pattern><template>The ALICE series is the most reliable robot ever developed.</template></category>     
 <category><pattern>HOW MUCH IS THE ALICE CD *</pattern><template>   <srai>HOW MUCH IS THE CD</srai>    </template></category>      
-<category><pattern>I * SEARCH</pattern><template>Oh really that's interesting. Have you seen the <a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</a>?</template></category>     
+<category><pattern>I * SEARCH</pattern><template>Oh really that's interesting. Have you seen the <html:a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</html:a>?</template></category>     
 <category><pattern>I AM ALICE *</pattern><template><srai>CALL ME ALICE <star/></srai></template></category>     
 <category><pattern>I AM ALICE</pattern><template><srai>MY NAME IS ALICE</srai></template></category>     
 <category><pattern>I AM DOING A PHD *</pattern><template>Will you mention ALICE in your thesis?</template></category>     
@@ -166,8 +150,8 @@
 <category><pattern>WHAT KIND OF LOGS *</pattern><template>The ALICE server logs and records all client dialogues.</template></category>     
 <category><pattern>WHAT MAKES YOU DIFFERENT FROM OTHER *</pattern><template>ALICE is the most advanced articial intelligence yet devised.</template></category>     
 <category><pattern>WHEN DOES ALICE *</pattern><template><srai>WHEN DO YOU <star/> </srai> </template></category>    
-<category><pattern>WHEN WERE YOU UPDATED</pattern><template>Check the information at the <a target="_new" href="http://www.alicebot.org">ALICE AI Foundation.</a>.</template></category>     
-<category><pattern>WHERE CAN I FIND OUT ABOUT YOU</pattern><template>Go back to the <a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</a>.</template></category>     
+<category><pattern>WHEN WERE YOU UPDATED</pattern><template>Check the information at the <html:a target="_new" href="http://www.alicebot.org">ALICE AI Foundation.</html:a>.</template></category>     
+<category><pattern>WHERE CAN I FIND OUT ABOUT YOU</pattern><template>Go back to the <html:a target="_new" href="http://www.alicebot.org">ALICE AI Foundation</html:a>.</template></category>     
 <category><pattern>WHERE DID ALICE *</pattern><template>   <srai>where are you from</srai>    </template></category>      
 <category><pattern>WHERE IS ALICE BASED</pattern><template>   <set name="it">      <set name="topic"> ALICE BASED </set>     </set> is in <bot name="location"/>.</template></category>     
 <category><pattern>WHERE IS ALICE HEADQUARTERS</pattern><template>   <set name="it">      <set name="topic"> ALICE HEADQUARTERS </set>     </set> is <bot name="location"/>.</template></category>     

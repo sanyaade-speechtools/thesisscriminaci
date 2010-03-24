@@ -1,0 +1,249 @@
+<!--
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<link href="browser.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="js/common.js"></script>
+		<script language="javascript">
+
+var oListManager = new Object() ;
+
+oListManager.Init = function()
+{
+	this.Table = document.getElementById('tableFiles') ;
+}
+
+oListManager.Clear = function()
+{
+	// Remove all other rows available.
+	while ( this.Table.rows.length > 0 )
+		this.Table.deleteRow(0) ;
+}
+
+oListManager.AddFolder = function( folderName, folderPath )
+{
+	// Create the new row.
+	var oRow = this.Table.insertRow(-1) ;
+
+	// Build the link to view the folder.
+	var sLink = '<a href="#" onclick="OpenFolder(\'' + folderPath + '\');return false;">' ;
+
+	// Add the folder icon cell.
+	var oCell = oRow.insertCell(-1) ;
+	oCell.width = 16 ;
+	oCell.innerHTML = sLink + '<img alt="" src="images/Folder22.png" width="22" height="22" border="0"></a>' ;
+
+	// Add the folder name cell.
+	oCell = oRow.insertCell(-1) ;
+	oCell.noWrap = true ;
+	oCell.colSpan = 1 ;
+	oCell.innerHTML = '&nbsp;' + sLink + folderName + '</a>' ;
+
+	// Build the link to view the folder.
+	if(oListManager.isUpdatable){
+		var dLink = '<a href="#" onclick="RenameFolder(\'' + folderName + '\');return false;"><img alt="Rename Folder" src="images/Rename.jpg" width="16" height="16" border="0"></a>' ;
+		var sLink = '<a href="#" onclick="DeleteFile(\'' + folderName + '\');return false;"><img alt="Delete Folder" src="images/Delete.png" width="16" height="16" border="0"></a>' ;
+		// Add delete file button	
+		oCell = oRow.insertCell(-1) ;
+		oCell.noWrap = true ;
+		oCell.align = 'right' ;
+		oCell.innerHTML = dLink + ' &nbsp;' + sLink ;
+	}
+	
+	
+}
+
+oListManager.AddFile = function( fileName, fileUrl, fileSize )
+{
+	// Create the new row.
+	var oRow = this.Table.insertRow(-1) ;
+
+	// Build the link to view the folder.
+	var sLink = '<a href="#" onclick="OpenFile(\'' + fileUrl + '\');return false;">' ;
+
+	// Get the file icon.
+	var sIcon = oIcons.GetIcon( fileName ) ;
+
+	// Add the file icon cell.
+	var oCell = oRow.insertCell(-1) ;
+	oCell.width = 24 ;
+	oCell.colSpan = 1 ;
+	oCell.innerHTML = sLink + '<img alt="Select File" src="images/icons/' + sIcon + '.gif" width="16" height="16" border="0"></a>' ;
+
+	// Add the file name cell.
+	oCell = oRow.insertCell(-1) ;
+	oCell.innerHTML = '&nbsp;' + sLink + fileName + '</a>' ;
+	
+	
+	// Build the link to delete the folder.
+	//alert(oListManager.isUpdatable);
+	if(oListManager.isUpdatable){
+		var dLink = '&nbsp;' + fileSize + ' KB' + '&nbsp;' + '<a href="#" onclick="RenameFolder(\'' + fileName + '\');return false;"><img alt="RenameFile" src="images/Rename.jpg" width="16" height="16" border="0"></a>';
+		var sLink = '<a href="#" onclick="DeleteFile(\'' + fileName + '\');return false;"><img alt="Delete File" src="images/Delete.png" width="16" height="16" border="0"></a>' ;
+		// Add delete file button	
+		oCell = oRow.insertCell(-1) ;
+		oCell.noWrap = true ;
+		oCell.align = 'right' ;
+		oCell.innerHTML = dLink + ' &nbsp;' + sLink ;
+	}
+}
+
+function DeleteFile(name)
+{
+	c = confirm("Are you sure to delete " + name);
+	if(c){
+		oConnector.CurrentFolder = oListManager.currentFolder + name;
+		oConnector.SendCommand('DeleteFile', null, DeleteFolderCallBack );
+	}
+}
+
+function RenameFolder(oldName)
+{
+	var sFolderName ;
+	sFolderName = prompt('Please Attention, if you rename a File or a Folder you will lost all links to it previously embedded in the HTML code.\n Type the name :', '' ) ;
+	
+	if (sFolderName == null || sFolderName.length==0)
+		return ;
+	oConnector.CurrentFolder = oListManager.currentFolder;
+	oConnector.SendCommand( 'RenameFolder', 'NewName=' + escape(sFolderName) + "&" + 'OldName=' + escape(oldName), RenameFolderCallBack ) ;
+}
+
+function RenameFolderCallBack( fckXml )
+{
+	if ( oConnector.CheckError( fckXml ) == 0 )
+		window.parent.frames['frmResourcesList'].Refresh() ;
+}
+
+function DeleteFolderCallBack(fckXml){
+	if (oConnector.CheckError( fckXml ) != 0){
+	}
+	else{
+		alert(oConnector.CurrentFolder + " deleted");
+	}
+	oConnector.CurrentFolder = oListManager.currentFolder 
+	Refresh();
+}
+
+function OpenFolder( folderPath )
+{
+	// Load the resources list for this folder.
+	window.parent.frames['frmFolders'].LoadFolders( folderPath ) ;
+}
+
+//updated by Adriano Tamburo
+function OpenFile( fileUrl )
+{
+	// Set the current folder in frmActualFolder.
+	window.parent.frames['frmActualFolder'].SetCurrentFolderUrl(fileUrl) ;
+	
+	var parent_window = null;
+	
+	if(window.top.opener != null){
+		parent_window = window.top.opener;
+	}else{
+		parent_window = window.top;
+	}	
+	
+	//check if an openFile function is defined
+	if(oConnector.OpenFile != null &&  oConnector.OpenFile.length > 0){
+	   if(oConnector.ImgSrc != null && parent_window.document.getElementById(oConnector.ImgSrc)!= null)
+			parent_window.document.getElementById(oConnector.ImgSrc).src=fileUrl;
+			
+	   if(oConnector.OpenFile != null && parent_window.document.getElementById(oConnector.OpenFile)!= null)
+		   parent_window.document.getElementById(oConnector.OpenFile).value = fileUrl;
+	   
+	   if(parent_window.selectValue != null){
+	   		parent_window.selectValue(fileUrl,oConnector.OpenFile);
+	   }
+	   
+	   if(parent_window.closeTeka != null){
+			parent_window.closeTeka();
+	   }
+	   
+	   parent_window.closeWindowPopup();	
+	}
+	
+	
+	//for MCE editor plugin
+	if(window.top.opener == null || window.top.opener.tinyfck == null)
+		return;
+	window.top.opener.tinyfck.document.forms[0].elements[window.top.opener.tinyfck_field].value = fileUrl;
+	
+	if (window.top.opener.tinyfck.document.forms[0].elements[window.top.opener.tinyfck_field].onchange != null) {
+		window.top.opener.tinyfck.document.forms[0].elements[window.top.opener.tinyfck_field].onchange();
+	}
+	
+	window.top.close();
+	window.top.opener.tinyfck.focus();
+}
+
+function LoadResources( resourceType, folderPath )
+{
+	oListManager.Clear() ;
+	oListManager.currentFolder = folderPath;
+	oConnector.ResourceType = resourceType ;
+	
+	for ( var i = 0 ; i < oConnector.aTypes.length ; i++ )
+	{	
+		if (oConnector.updatableTypes[i][0] == resourceType ){
+			if(oConnector.updatableTypes[i][1]=='false'){
+				oListManager.isUpdatable = false;
+			}else{
+				oListManager.isUpdatable = true;
+			}
+		}
+	}
+	
+	oConnector.CurrentFolder = folderPath;
+	oConnector.SendCommand( 'GetFoldersAndFiles', null, GetFoldersAndFilesCallBack ) ;
+}
+
+function Refresh()
+{
+	LoadResources( oConnector.ResourceType, oConnector.CurrentFolder ) ;
+}
+
+function GetFoldersAndFilesCallBack( fckXml )
+{
+	if ( oConnector.CheckError( fckXml ) != 0 )
+		return ;
+
+	// Get the current folder path.
+	var oNode = fckXml.SelectSingleNode( 'Connector/CurrentFolder' ) ;
+	var sCurrentFolderPath	= oNode.attributes.getNamedItem('path').value ;
+	var sCurrentFolderUrl	= oNode.attributes.getNamedItem('url').value ;
+
+	// Set the current folder in frmActualFolder.
+	window.parent.frames['frmActualFolder'].SetCurrentFolderUrl(sCurrentFolderUrl) ;
+	
+	// Add the Folders.	
+	var oNodes = fckXml.SelectNodes( 'Connector/Folders/Folder' ) ;
+	for ( var i = 0 ; i < oNodes.length ; i++ )
+	{
+		var sFolderName = oNodes[i].attributes.getNamedItem('name').value ;
+		oListManager.AddFolder( sFolderName, sCurrentFolderPath + sFolderName + "/" ) ;
+	}
+	
+	// Add the Files.	
+	var oNodes = fckXml.SelectNodes( 'Connector/Files/File' ) ;
+	for ( var i = 0 ; i < oNodes.length ; i++ )
+	{
+		var sFileName = oNodes[i].attributes.getNamedItem('name').value ;
+		var sFileSize = oNodes[i].attributes.getNamedItem('size').value ;
+		oListManager.AddFile( sFileName, sCurrentFolderUrl + sFileName, sFileSize ) ;
+	}
+}
+
+window.onload = function()
+{
+	oListManager.Init() ;
+	window.top.IsLoadedResourcesList = true ;
+}
+		</script>
+	</head>
+	<body class="FileArea" bottomMargin="10" leftMargin="10" topMargin="10" rightMargin="10">
+		<table id="tableFiles" cellSpacing="1" cellPadding="0" width="100%" border="0"  class="back">
+		</table>
+	</body>
+</html>

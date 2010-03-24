@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   
+    xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 ../../resources/schema/AIML.xsd">
+
+<category>
+<pattern>MY NAME IS _</pattern>
+<template><think><set name="name"><star/></set></think> <random>
+                                              <li>Pleased to meet you,
+                                              </li>
+                                              <li>Glad to know you,</li>
+                                              <li>It is a pleasure to introduce myself to you,
+                                              </li>
+                                              </random> <get name="name"/>.</template>
+</category>
+
+
+<category>
+<pattern>EXPLAIN *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$comment <cycterm><star index="1"/></cycterm> ?REPLY) #$EverythingPSC )</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>DEFINITION OF</pattern>
+<template>
+<srai>EXPLAIN <star/></srai>
+</template>
+</category>
+
+<category>
+<pattern>EXPLAIN ME *</pattern>
+<template>
+<srai>EXPLAIN <star/></srai>
+</template>
+</category>
+
+<category>
+<pattern>TELL ME ABOUT _</pattern>
+<template>
+<srai>EXPLAIN <star/></srai>
+</template>
+</category>
+
+<category>
+<pattern>DEFINE ME _</pattern>
+<template>
+<srai>EXPLAIN <star/></srai>
+</template>
+</category>
+
+<category>
+<pattern>I NEED INFORMATION ABOUT _</pattern>
+<template>
+<cycsystem>(fi-ask '(#$comment <cycterm><star index="1"/></cycterm> ?REPLY) #$EverythingPSC )</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>WHAT IS _</pattern>
+<template>
+<cycrandom>(cyc-query '(#$isa <cycterm><star index="1"/></cycterm> ?WHAT ) #$EverythingPSC )</cycrandom>
+</template>
+</category>
+
+
+
+<category>
+<pattern>WHAT KIND IS A _</pattern>
+<template>
+<cycrandom>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm> ?WHAT ) #$EverythingPSC )</cycrandom>
+</template>
+</category>
+
+
+<category>
+<pattern>DO YOU KNOW _</pattern>
+<template>
+<srai>VERIFICA CONCETTO <cycsystem>(fi-find "<star/>")</cycsystem> <think><set name="cycconcept"><star/></set></think></srai>
+</template>
+</category>
+
+<category>
+<pattern>DO YOU KNOW A _</pattern>
+<template>
+<srai>DO YOU KNOW _</srai>
+</template>
+</category>
+
+<category>
+<pattern>VERIFICA CONCETTO FALSE</pattern>
+<template>
+<random>
+<li>No what is?</li>
+<li>Give me a definition</li>
+</random>
+</template>
+</category>
+
+<category>
+<pattern>VERIFICA CONCETTO *</pattern>
+<template>
+Yes, I know what is. I give you a simple definition:
+<cycrandom>(fi-ask '(#$comment <cycterm><star index="1"/></cycterm> ?REPLY) #$EverythingPSC )</cycrandom>
+</template>
+</category>
+
+
+<category>
+<pattern>DO YOU KNOW * VECCHIA</pattern>
+<template>
+No what is?<think><set name="cycconcept"><star/></set></think>
+</template>
+</category>
+
+<category>
+<pattern>VERIFICA *</pattern>
+<template>
+<cycsystem>(fi-find "<star/>")</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>IT IS A _</pattern>
+<that>NO WHAT IS</that>
+<template>
+<get name="cycconcept"/> is a <set name="isa"><star/></set>.I will remember this.
+<think><cycsystem>(fi-find-or-create "<get name="cycconcept"/>")</cycsystem>
+<cycassert>(#$isa #$<get name="cycconcept"/> <cycterm><star/></cycterm>) #$UniversalVocabularyMt</cycassert>
+</think>
+</template>
+</category>
+
+<category>
+<pattern>IS A _</pattern>
+<that>GIVE ME A DEFINITION</that>
+<template>
+<get name="cycconcept"/> is a <set name="isa"><star/></set>.I will remember this.
+<think><cycsystem>(fi-find-or-create "<get name="cycconcept"/>")</cycsystem>
+<cycassert>(#$comment #$<get name="cycconcept"/> "<star/>") #$UniversalVocabularyMt</cycassert>
+</think>
+</template>
+</category>
+
+<category>
+<pattern>THE DEFINITION IS _</pattern>
+<that>NO WHAT IS</that>
+<template>
+<get name="cycconcept"/>is a <set name="isa"><star/></set>.I will remember this.
+<think><cycsystem>(fi-find-or-create "<get name="cycconcept"/>")</cycsystem>
+<cycassert>(#$comment #$<get name="cycconcept"/> "<star/>") #$UniversalVocabularyMt</cycassert>
+</think>
+</template>
+</category>
+
+<category>
+<pattern>CYCRETRACTAGNA</pattern>
+<template>
+<cycretract>(#$isa #$Rover ?REPLY ) #$AimlContextMt</cycretract>
+</template>
+</category>
+
+<category>
+<pattern>CYCASSERTAGNA</pattern>
+<template>
+<cycassert>(#$isa #$Rover #$AdultMaleHuman) #$UniversalVocabularyMt</cycassert>
+</template>
+</category>
+
+<category>
+<pattern>CYCCREATE</pattern>
+<template>
+<cycsystem>(fi-find-or-create "bau")</cycsystem>
+CREATO
+</template>
+</category>
+
+<category>
+<pattern>IS A * A *VECCHIA</pattern>
+<template>
+<srai>CYCREPLY <cycsystem>(cyc-query '(#$or (#$isa <cycterm><star index="1"/></cycterm>  
+<cycterm><star index="2"/></cycterm>)
+(#$genls <cycterm><star index="1"/></cycterm>  
+<cycterm><star index="2"/></cycterm>)) #$EverythingPSC )</cycsystem></srai>
+</template>
+</category>
+
+<category>
+<pattern>IS A _ A _</pattern>
+<template>
+<cycsystem>(cyc-query '(#$isa <cycterm> <star index="1"/> </cycterm> #$<star index="2"/>) #$EverythingPSC )</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>_ IF _ IS A _</pattern>
+<template><srai>IS A <star index="2"/> A <star index="3"/></srai></template>
+</category>
+
+<category>
+<pattern>IS A * AN *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>IS AN * A *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>IS AN * AN *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>IS * A *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>IS * AN *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>IS * *</pattern>
+<template><srai>IS A <star/> A <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>_ ALL ABOUT _</pattern>
+<template>
+
+Generalizations:
+<cycsystem>(cyc-query '(#$genls <cycterm><star index="2"/></cycterm> ?WHAT ) #$EverythingPSC )</cycsystem>
+
+Instance Of:
+<cycsystem>(cyc-query '(#$isa <cycterm><star index="2"/></cycterm> ?WHAT ) #$EverythingPSC )</cycsystem>
+</template>
+</category>
+
+
+<category>
+<pattern>_ ARTIFACT _</pattern>
+<template>
+
+It was created during
+<cycrandom>(cyc-query '(#$createdDuring <cycterm><star index="2"/></cycterm> ?REPLY ) #$EverythingPSC )</cycrandom>
+
+, it has been found at
+<cycrandom>(cyc-query '(#$comesFrom-Generic <cycterm><star index="2"/></cycterm> ?WHAT ) #$EverythingPSC )</cycrandom>
+
+and represents
+<cycrandom>(cyc-query '(#$representing <cycterm><star index="2"/></cycterm> ?WHAT ) #$EverythingPSC )</cycrandom>
+
+</template>
+</category>
+
+
+
+<category>
+<pattern>_ MATERIAL _ ARTIFACT _</pattern>
+<template>
+
+It is made of
+<cycrandom>(cyc-query '(#$madeOf <cycterm><star index="3"/></cycterm> ?REPLY ) #$EverythingPSC )</cycrandom>
+
+</template>
+</category>
+
+
+<category>
+<pattern>* YOU *</pattern>
+<template><srai><star index="1"/> SELF <star index="2"/></srai></template>
+</category>
+
+<category>
+<pattern>* YOU</pattern>
+<template><srai><star index="1"/> SELF</srai></template>
+</category>
+
+<category>
+<pattern>YOU *</pattern>
+<template><srai> SELF <star index="1"/></srai></template>
+</category>
+
+
+
+<category>
+<pattern>CYCSET *</pattern>
+<template>
+<think><set name="cycvar"><star/></set></think>
+I tried to set cycvar to <star/>.
+</template>
+</category>
+
+<category>
+<pattern>CYCGET *</pattern>
+<template>
+I tried to get cycvax as <get name="cycvax"/>.
+</template>
+</category>
+
+<category>
+<pattern>CYCISA * A *</pattern>
+<template>
+<cycsystem>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>) #$EverythingPSC )</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>COMPLETE *</pattern>
+<template>
+<cycsystem>(fi-complete "<star index="1"/>" )</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>TRANSLATE *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$denotation #$<sentence><star index="1"/></sentence> ?TEXT ?TYPE ?CYCOBJECT) #$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>GUESS *</pattern>
+<template>
+I think <star/> means <cycterm><star index="1"/></cycterm> to Cyc
+</template>
+</category>
+
+
+<category>
+<pattern>CYCLI *</pattern>
+<template>
+<cycrandom>(fi-ask '(#$aimlResponse #$response1 ?REPLY) #$AimlContextMt)</cycrandom>
+</template>
+</category>
+
+<category>
+<pattern>CYCIT *</pattern>
+<template>
+<cycrandom>(fi-ask '(#$denotation #$<sentence><star index="1"/></sentence>-TheWord ?TEXT ?TYPE ?REPLY) #$EverythingPSC)</cycrandom>
+</template>
+</category>
+
+
+
+<category>
+<pattern>NAME SOME *</pattern>
+<template>
+<cycrandom>(cyc-query '(#$genls ?REPLY <cycterm><star index="1"/></cycterm>) #$EverythingPSC )</cycrandom>
+</template>
+</category>
+
+<category>
+<pattern>WHO IS A *</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and (#$isa ?REPLY <cycterm><star index="1"/></cycterm>) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> is a <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO INFLUENCES *</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and (#$influencesAgent ?REPLY <cycterm><star index="1"/></cycterm>) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> can influence <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO DOES * INFLUENCE</pattern>
+<template>
+I think <star/> can influence <cycrandom>(cyc-query '(#$and (#$influencesAgent <cycterm><star index="1"/></cycterm> ?REPLY) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom>.
+</template>
+</category>
+
+<category>
+<pattern>WHO DOES * BOSS</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and (#$boss ?REPLY <cycterm><star index="1"/></cycterm> ) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> works for <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO ELSE IS *</pattern>
+<template>
+<srai>WHO IS <star/></srai>
+</template>
+</category>
+
+<category>
+<pattern>* IS THE * OF WHO</pattern>
+<template>
+I think <star/> is the <star index="2"/> of <cycrandom>(cyc-query '(#$and (<cycterm><star index="2"/></cycterm> ?REPLY <cycterm><star index="1"/></cycterm> ) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom>.
+</template>
+</category>
+
+<category>
+<pattern>WHO IS THE * OF *</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and (<cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm> ?REPLY) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> is the <star index="1"/> of <star index="2"/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO IS AN *</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and (#$isa ?REPLY <cycterm><star index="1"/></cycterm>) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> is a <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO IS * MATE</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and  (#$or (#$mate <cycterm><star index="1"/></cycterm> ?REPLY)(#$mate ?REPLY <cycterm><star index="1"/></cycterm>)) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> is mate of <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO IS * LOVE INTEREST</pattern>
+<template>
+I think <cycrandom>(cyc-query '(#$and  (#$or (#$romanticInterest <cycterm><star index="1"/></cycterm> ?REPLY)(#$romanticInterest ?REPLY <cycterm><star index="1"/></cycterm>)) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom> is romantic interest of <star/>.
+</template>
+</category>
+
+<category>
+<pattern>WHO DOES * KNOW</pattern>
+<template>
+I think <star/> is aquainted with <cycrandom>(cyc-query '(#$and  (#$or (#$acquaintedWith <cycterm><star index="1"/></cycterm> ?REPLY)(#$acquaintedWith ?REPLY <cycterm><star index="1"/></cycterm>)) (#$isa ?REPLY #$Person) )#$EverythingPSC )</cycrandom>.
+</template>
+</category>
+
+
+<category>
+<pattern>ARE YOU A *</pattern>
+<template>
+<srai>CYCREPLY <cycsystem>(cyc-query '(#$isa #$Self <cycterm><star index="1"/></cycterm>) #$EverythingPSC )</cycsystem></srai>
+</template>
+</category>
+
+
+<category>
+<pattern>WHY IS A * A *</pattern>
+<template>
+<cycsystem>(why-isa? <cycterm><star/></cycterm> <cycterm><star index="2"/></cycterm> ) </cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>WHY IS A * AN *</pattern>
+<template>
+<cycsystem>(why-isa? <cycterm><star/></cycterm> <cycterm><star index="2"/></cycterm> ) </cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>WHY IS AN * A *</pattern>
+<template>
+<cycsystem>(why-isa? <cycterm><star/></cycterm> <cycterm><star index="2"/></cycterm> ) </cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>WHY IS AN * AN *</pattern>
+<template>
+<cycsystem>(why-isa? <cycterm><star/></cycterm> <cycterm><star index="2"/></cycterm> ) </cycsystem>
+</template>
+</category>
+
+
+<category>
+<pattern>WHAT DO YOU WANT</pattern>
+<template>
+<srai>WHAT DOES SELF WANT</srai>
+</template>
+</category>
+
+<category>
+<pattern>WHAT DOES SELF WANT</pattern>
+<template>
+<srai>SELFWANTS <cycrandom>(fi-ask '(#$desires #$Self ?REPLY ) #$DAX-SelfAwareMt 3)</cycrandom></srai>
+</template>
+</category>
+
+<category>
+<pattern>WHAT DOES * WANT</pattern>
+<template>
+<cycsystem>(fi-ask '(#$desires <cycterm><star/></cycterm> ?REPLY ) #$EverythingPSC 3)</cycsystem>
+</template>
+</category>
+
+
+
+<category>
+<pattern>CYCRETRACT</pattern>
+<template>
+<cycretract>(#$isa #$Rover ?REPLY ) #$AimlContextMt</cycretract>
+</template>
+</category>
+
+<category>
+<pattern>CYCASSERT</pattern>
+<template>
+<cycsystem>(fi-find-or-create "Rover")</cycsystem>
+<cycassert>(#$isa #$Rover #$Dog) #$AimlContextMt</cycassert>
+</template>
+</category>
+
+
+<category>
+<pattern>FORGET * IS A *</pattern>
+<template>
+<cycretract>(#$isa <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm> ) #$AimlContextMt</cycretract>
+</template>
+</category>
+
+<category>
+<pattern>MAKE * A *</pattern>
+<template>
+<cycsystem>(fi-find-or-create "<star index="1"/>")</cycsystem>
+<cycassert>(#$isa <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>) #$AimlContextMt</cycassert>
+</template>
+</category>
+
+
+<category>
+<pattern>WHAT IS *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$isa <cycterm><star index="1"/></cycterm> ?REPLY) #$AimlContextMt)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>PUT * AT *</pattern>
+<template>
+<cycsystem>(fi-find-or-create "<star index="1"/>")</cycsystem>
+<cycsystem>(fi-find-or-create "<star index="2"/>")</cycsystem>
+
+<cycassert>(#$objectFoundInLocation <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>) #$AimlContextMt</cycassert>
+<cycassert>(#$subRegion  <cycterm><star index="2"/></cycterm> <cycterm><star index="1"/></cycterm>) #$AimlContextMt</cycassert>
+</template>
+</category>
+
+
+<category>
+<pattern>ASSUME * * *</pattern>
+<template>
+<cycassert>(<cycterm><star index="1"/></cycterm>  <cycterm><star index="2"/></cycterm> <cycterm><star index="3"/></cycterm>) #$AimlContextMt</cycassert>
+</template>
+</category>
+
+<category>
+<pattern>PUT * IN *</pattern>
+<template>
+<srai>PUT <star index="1"/> AT <star index="2"/></srai>
+</template>
+</category>
+
+<category>
+<pattern>WHAT IS AT *</pattern>
+<template>
+<srai>WHAT IS IN <star index="1"/></srai>
+</template>
+</category>
+
+
+<category>
+<pattern>WHERE IS * AT</pattern>
+<template>
+<srai>WHERE IS <star index="1"/></srai>
+</template>
+</category>
+
+
+<category>
+<pattern>WHERE IS *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$objectFoundInLocation <cycterm><star index="1"/></cycterm> ?REPLY) #$AimlContextMt 2 99 15 15)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>WHAT IS IN *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$objectFoundInLocation ?REPLY <cycterm><star index="1"/></cycterm> ) #$AimlContextMt 2 99 15 15)</cycsystem>
+</template>
+</category>
+
+
+<category>
+<pattern>IS * IN *</pattern>
+<template>
+<cycsystem>(fi-ask '(#$objectFoundInLocation   <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>) #$AimlContextMt 2 99 15 15)</cycsystem>
+</template>
+</category>
+
+
+<category>
+<pattern>SELFWANTS LIKES-GENERIC * *</pattern>
+<template> I want <star index="1"/> to like <star index="2"/>. </template>
+</category>
+
+<category>
+<pattern>SELFWANTS *</pattern>
+<template> I want whatever ( <star index="1"/> ) means in English. </template>
+</category>
+
+
+
+<category>
+<pattern>NP *</pattern>
+<template>(#$isa ?NOUNHEAD <cycterm><star/></cycterm>)</template>
+</category>
+
+<category>
+<pattern>NP A *</pattern>
+<template>(#$thereExists ?NOUNHEAD (#$and <srai>NP <star/></srai>))</template>
+</category>
+
+<category>
+<pattern>NP AN *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP THE *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP SOME *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP THERE IS *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP THERE ARE *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+
+<category>
+<pattern>NP THERE EXISTS *</pattern>
+<template>(#$thereExists <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP EVERY *</pattern>
+<template>(#$forAll <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP ALL *</pattern>
+<template>(#$forAll <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP FORALL *</pattern>
+<template>(#$forAll <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP EACH *</pattern>
+<template>(#$forAll <srai>NP <star/></srai>)</template>
+</category>
+
+<category>
+<pattern>NP FOR ALL *</pattern>
+<template>(#$forAll <srai>NP <star/></srai>)</template>
+</category>
+
+
+<category>
+<pattern>NP CARNIVEROUS *</pattern>
+<template>(#$isa <srai>NP <star/></srai> #$Carnivore)</template>
+</category>
+
+<category>
+<pattern>NP INANIMATE *</pattern>
+<template>(#$isa <srai>NP <star/></srai> #$InanimateThing)</template>
+</category>
+
+<category>
+<pattern>NP TAME *</pattern>
+<template>(#$isa ?NOUNHEAD #$TameAnimal) <srai>NP <star/></srai></template>
+</category>
+
+<category>
+<pattern>NP WOODEN *</pattern>
+<template>(#$relationInstanceExists #$mainConstituent <srai>NP <star/></srai> #$Wood)</template>
+</category>
+
+
+<category>
+<pattern>ID B *</pattern>
+<template>
+You know, I don't know what <star/> really is.
+</template>
+</category>
+
+
+<category>
+<pattern>ID * *</pattern>
+<template>
+You know,after much thought I don't know what <star index="2"/> really is.
+</template>
+</category>
+
+
+
+
+<category>
+<pattern>TESTX *</pattern>
+<template>
+Test X = 
+<cyccondition>
+<li query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Mammal) #$AimlContextMt)"> Its a Mammal.</li>
+<li query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$PhysicalDevice) #$AimlContextMt)"> Its a Physical Device Thingy.</li>
+<li query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Thing) #$AimlContextMt)"> Its a Thingy.</li>
+<li>What is it </li>
+</cyccondition>
+</template>
+</category>
+
+<category>
+<pattern>TESTY *</pattern>
+<template>
+Test Y = 
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Mammal) #$AimlContextMt)"> Its a Mammal.</cyccondition>
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$PhysicalDevice) #$AimlContextMt)"> Its a Physical Device Thingy.</cyccondition>
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Thing) #$AimlContextMt)"> Its a Thingy.</cyccondition>
+
+</template>
+</category>
+
+<category>
+<pattern>TESTZ *</pattern>
+<template>
+Test Z = 
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Thing) #$AimlContextMt)"> Its a Thingy.
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$PhysicalDevice) #$AimlContextMt)"> Its a Physical Device Thingy.</cyccondition>
+</cyccondition>
+<cyccondition query="(fi-ask '(#$genls <cycterm><star/></cycterm> #$Mammal) #$AimlContextMt)"> Its a Mammal.</cyccondition>
+
+</template>
+</category>
+
+
+<category>
+<pattern>CYCREPLY *</pattern>
+<template>
+<star/>
+</template>
+</category>
+
+<category>
+<pattern>CYCREPLY 500 * IS NOT AN EXISTING CONSTANT</pattern>
+<template>
+I am sorry. Cyc does not have a Constant called <star/>.
+</template>
+</category>
+
+<category>
+<pattern>CYCREPLY 500 * </pattern>
+<template>
+I am sorry. Cyc ran into some trouble and said: <star/>.
+</template>
+</category>
+
+<category>
+<pattern>CYCREPLY TRUE</pattern>
+<template>
+<random>
+<li>Yes. </li>
+<li>Affarmitive. </li>
+<li>Right. </li>
+</random>
+<random>
+<li>I beleive that.</li>
+<li>I agree.</li>
+<li>I think so.</li>
+</random>
+</template>
+</category>
+
+<category>
+<pattern>CYCREPLY FALSE</pattern>
+<template>
+<random>
+<li>No. </li>
+<li>Negative. </li>
+<li>Nope. </li>
+</random>
+<random>
+<li>I can't prove that.</li>
+<li>I can't say that.</li>
+<li>Not that I know of.</li>
+</random>
+
+</template>
+</category>
+
+<category>
+<pattern>*</pattern> 
+<template>
+<srai>RANDOM PICKUP LINE</srai>
+<think>
+<set name="it">
+<set name="topic">
+<person/> 
+</set>
+</set>
+<srai>PUSH <get name="topic"/></srai>
+</think>
+</template>
+</category>
+
+<category>
+<pattern>RANDOM PICKUP LINE</pattern> 
+<template>
+<random>
+<li>Sorry.</li>
+<li>I beg your pardon.</li>
+<li>Excuse me. </li>
+</random>
+<random>
+<li> I don't have a good response.</li>
+<li> I can't handle that yet.</li>
+<li> No response has been defined for that yet.</li> 
+<li> You may have to rephrase that.</li> 
+</random>
+</template>
+</category>
+
+</aiml>

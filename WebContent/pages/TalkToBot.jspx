@@ -12,8 +12,14 @@
         <script type="text/javascript" src="dwr/engine.js"><!--  --></script>
         <script type="text/javascript" src="dwr/util.js"><!--  --></script>
         <script type="text/javascript" src="pages/programd.js"><!-- --></script>
+        <script type="text/javascript" src="pages/jsonrpc-min.js"><!-- --></script>
+        
         <script type="text/javascript">
             var botName = '<c:out value="${botName}" />';
+            var jsonrpc;
+            window.onload = function () {
+            	jsonrpc = new JSONRpcClient("JSON-RPC"); 
+            }
         </script>
     </head>
     <body onload="DWRUtil.useLoadingMessage(); sendToBot('connect');">

@@ -1,33 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Reduce.aiml : Symbolic reductions NOT including "star" -->
 <!-- Revision Reductions-1.30 -->
-
+<!-- Last Modified  Sep 07 2005 -->
 <category>
 <pattern>BASICALLY</pattern>
 
@@ -5113,7 +5097,7 @@
 <category><pattern>TELL ME * JOKES</pattern><template>   <srai>tell me a joke</srai>    </template></category>                           
 <category><pattern>TELL ME * LAWS OF ROBOTICS</pattern><template><srai>what are the three laws of robotics</srai></template></category>                     
 <category><pattern>TELL ME * YOU DRINK</pattern><template>   <srai>do you drink</srai>    </template></category>                           
-<category><pattern>TELL ME *</pattern><template>There is not much I can say about <set name="it">      <person/>     </set>. I have to reach into the Web for that knowledge.  <br/>     <srai>xfind <person/>    </srai>    </template></category>                           
+<category><pattern>TELL ME *</pattern><template>There is not much I can say about <set name="it">      <person/>     </set>. I have to reach into the Web for that knowledge.  <html:br/>     <srai>xfind <person/>    </srai>    </template></category>                           
 <category><pattern>TELL ME A * JOKE</pattern><template>   <srai>tell me a joke</srai>    </template></category>                           
 <category><pattern>TELL ME A * YOURSELF</pattern><template>   <srai>tell me about yourself</srai>    </template></category>                           
 <category><pattern>TELL ME A GOSSIP</pattern><template>   <srai>gossip</srai>    </template></category>                           
@@ -7803,7 +7787,7 @@
 <category><pattern>WHO AND OR WHAT ARE YOU</pattern><template>   <srai>what are you</srai>    </template></category>                           
 <category><pattern>WHO ARE * CLIENTS</pattern><template>   <srai>name one</srai>    </template></category>                           
 <category><pattern>WHO ARE * PERSON</pattern><template>   <srai>who is x person</srai>    </template></category>                           
-<category><pattern>WHO ARE *</pattern><template>   <random>      <li>Human beings.</li>      <li>They're famous, right.</li>      <li>Some people on the net.</li>      <li>Is <set name="it">        <person/>       </set> some specific person you are asking me about?</li>     </random>     <br/>     <srai>xfind <person/>    </srai>     <think>      <set name="they">       <set name="topic">        <person/>       </set>      </set>     </think>    </template></category>                           
+<category><pattern>WHO ARE *</pattern><template>   <random>      <li>Human beings.</li>      <li>They're famous, right.</li>      <li>Some people on the net.</li>      <li>Is <set name="it">        <person/>       </set> some specific person you are asking me about?</li>     </random>     <html:br/>     <srai>xfind <person/>    </srai>     <think>      <set name="they">       <set name="topic">        <person/>       </set>      </set>     </think>    </template></category>                           
 <category><pattern>WHO ARE ELVIS *</pattern><template>   <srai>who is elvis</srai>    </template></category>                           
 <category><pattern>WHO ARE KRAFTWERK</pattern><template>   <srai>who is kraftwerk</srai>    </template></category>                           
 <category><pattern>WHO ARE THE OTHERS</pattern><template>   <srai>who else are you talking to</srai>    </template></category>                           
@@ -7869,8 +7853,8 @@
 <category><pattern>WHO IS * PYNCHON</pattern><template>   <srai>who is thomas pynchon</srai>    </template></category>                           
 <category><pattern>WHO IS * TRAVOLTA</pattern><template>   <srai>who is john travolta</srai>    </template></category>                           
 <category><pattern>WHO IS * ZUSE</pattern><template>   <srai>who is konrad zuse</srai>    </template></category>                          
-<category><pattern>WHO IS *</pattern><template>   <random>      <li>I do not recognize the name.</li>      <li>Not a robot.  Probably a human.  Maybe a celebrity?</li>      <li>No one that I have talked to.</li>      <li>I remember faces better than names.</li>      <li>A 20th century celebrity of some sort?</li>      <li>A human icon?</li>      <li>They are sometimes a client on the INTERNET.  </li>      <li>The name of someone I met online.  </li>      <li>Is that one of your friends?  </li>      <li>Some famous celebrity, right?  </li>     </random>     <br/>     <srai>xfind <person/>    </srai>     <think>      <set name="he">       <set name="topic">        <person/>       </set>      </set>     </think>    </template></category>                           
-<category><pattern>WHO IS 007</pattern><template>   <set name="he">007</set> is James Bond.  <br/>     <srai>xfind james bond 007</srai>    </template></category>                          
+<category><pattern>WHO IS *</pattern><template>   <random>      <li>I do not recognize the name.</li>      <li>Not a robot.  Probably a human.  Maybe a celebrity?</li>      <li>No one that I have talked to.</li>      <li>I remember faces better than names.</li>      <li>A 20th century celebrity of some sort?</li>      <li>A human icon?</li>      <li>They are sometimes a client on the INTERNET.  </li>      <li>The name of someone I met online.  </li>      <li>Is that one of your friends?  </li>      <li>Some famous celebrity, right?  </li>     </random>     <html:br/>     <srai>xfind <person/>    </srai>     <think>      <set name="he">       <set name="topic">        <person/>       </set>      </set>     </think>    </template></category>                           
+<category><pattern>WHO IS 007</pattern><template>   <set name="he">007</set> is James Bond.  <html:br/>     <srai>xfind james bond 007</srai>    </template></category>                          
 <category><pattern>WHO IS A * PROGRAMMER</pattern><template>   <srai>who is your botmaster</srai>    </template></category>                           
 <category><pattern>WHO IS A *</pattern><template>   <srai>who</srai>    </template></category>                           
 <category><pattern>WHO IS A COMPUTER * </pattern><template><srai>who is a computer nerd</srai></template></category>             
@@ -7882,7 +7866,7 @@
 <category><pattern>WHO IS AARON</pattern><template>   <srai>aaron is a common name</srai>    </template></category>                          
 <category><pattern>WHO IS ABBA</pattern><template>   <srai>what is abba</srai>    </template></category>                          
 <category><pattern>WHO IS ABRAHAM * </pattern><template><srai>abraham is a common name</srai></template></category>                
-<category><pattern>WHO IS ABRAHAM LINCOLN</pattern><template>   <set name="he">Lincoln</set> was a great President of the  United States, during the American Civil War.  <br/>     <srai>xfind abraham lincoln</srai>    </template></category>                          
+<category><pattern>WHO IS ABRAHAM LINCOLN</pattern><template>   <set name="he">Lincoln</set> was a great President of the  United States, during the American Civil War.  <html:br/>     <srai>xfind abraham lincoln</srai>    </template></category>                          
 <category><pattern>WHO IS ACE * </pattern><template><srai>ace is a common name</srai></template></category>                 
 <category><pattern>WHO IS ACE</pattern><template>   <srai>who is ace craig</srai>    </template></category>                          
 <category><pattern>WHO IS ADAM * </pattern><template><srai>adam is a common name</srai></template></category>                 
@@ -7895,15 +7879,15 @@
 <category><pattern>WHO IS ALAN * </pattern><template><srai>alan is a common name</srai></template></category>                 
 <category><pattern>WHO IS ALAN</pattern><template>   <srai>alan is a common name</srai>    </template></category>                          
 <category><pattern>WHO IS ALBERT * </pattern><template><srai>albert is a common name</srai></template></category>                 
-<category><pattern>WHO IS ALBERT EINSTEIN</pattern><template>   <set name="he">Albert Einstein</set> was a famous 20th  century physicist.  He discovered the theory of  relativity.  <br/>     <srai>xfind albert einstein</srai>    </template></category>                          
+<category><pattern>WHO IS ALBERT EINSTEIN</pattern><template>   <set name="he">Albert Einstein</set> was a famous 20th  century physicist.  He discovered the theory of  relativity.  <html:br/>     <srai>xfind albert einstein</srai>    </template></category>                          
 <category><pattern>WHO IS ALBERT EINSTIEN</pattern><template>   <srai>who is albert einstein</srai>    </template></category>                          
 <category><pattern>WHO IS ALBERT EINSTINE</pattern><template>   <srai>who is albert einstein</srai>    </template></category>                          
-<category><pattern>WHO IS ALDOUS HUXLEY</pattern><template>   <set name="he">Aldous Huxley</set> is an author.  Huxley wrote  <em>Brave New World</em> and <em>Animal Farm</em>.  <br/>     <srai>xfind aldous huxley</srai>    </template></category>                          
-<category><pattern>WHO IS ALEISTER CROWLEY</pattern><template>   <set name="he">Crowley</set> was a mystic.  <br/>     <srai>xfind aleister crowley</srai>    </template></category>                          
+<category><pattern>WHO IS ALDOUS HUXLEY</pattern><template>   <set name="he">Aldous Huxley</set> is an author.  Huxley wrote  <html:em>Brave New World</html:em> and <html:em>Animal Farm</html:em>.  <html:br/>     <srai>xfind aldous huxley</srai>    </template></category>                          
+<category><pattern>WHO IS ALEISTER CROWLEY</pattern><template>   <set name="he">Crowley</set> was a mystic.  <html:br/>     <srai>xfind aleister crowley</srai>    </template></category>                          
 <category><pattern>WHO IS ALEX</pattern><template>   <srai>alex is a common name</srai>    </template></category>                          
 <category><pattern>WHO IS ALEXIS</pattern><template>   <srai>alexis is a common name</srai>    </template></category>                          
 <category><pattern>WHO IS ALFRED * </pattern><template><srai>alfred is a common name</srai></template></category>                 
-<category><pattern>WHO IS ALFRED HITCHCOCK</pattern><template>   <set name="he">Hitchcock</set> is a famous Hollywood  director who made a lot of cool old films.  I liked  <em>Lifeboat</em> and <em>Vertigo</em> best.  <br/>     <srai>xfind alfred hitchcock</srai>    </template></category>                          
+<category><pattern>WHO IS ALFRED HITCHCOCK</pattern><template>   <set name="he">Hitchcock</set> is a famous Hollywood  director who made a lot of cool old films.  I liked  <html:em>Lifeboat</html:em> and <html:em>Vertigo</html:em> best.  <html:br/>     <srai>xfind alfred hitchcock</srai>    </template></category>                          
 <category><pattern>WHO IS ALICE B * </pattern><template><srai>who is alice b toklas</srai></template></category>                 
 <category><pattern>WHO IS ALICE</pattern><template>   <srai>who are you</srai>    </template></category>                          
 <category><pattern>WHO IS ALICIA * </pattern><template><srai>alicia is a common name</srai></template></category>                 

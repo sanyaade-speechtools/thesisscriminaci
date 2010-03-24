@@ -1,0 +1,133 @@
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2005 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: frmupload.html
+ * 	Page used to upload new files in the current folder.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<link href="browser.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="js/common.js"></script>
+		<script language="javascript">
+
+
+var type = "";
+var cpath="";
+
+function SetCurrentFolder( resourceType, folderPath )
+{
+	type = resourceType;
+	cpath = folderPath;	
+	
+	for ( var i = 0 ; i < oConnector.aTypes.length ; i++ )
+	{	
+		if (oConnector.updatableTypes[i][0] == resourceType ){
+			if(oConnector.updatableTypes[i][1] == 'false'){
+				document.getElementById("uploadFile").style.display = "none";
+			}else{
+				document.getElementById("uploadFile").style.display = "";
+			}
+		}
+	}
+	
+	var sUrl = oConnector.ConnectorUrl +'Command=FileUpload' ;
+	sUrl += '&Type=' + resourceType ;
+	sUrl += '&CurrentFolder=' + folderPath ;	
+	document.getElementById('frmUpload').action = sUrl ;
+}
+
+function openMultipleUpload(){
+	var cUrl = window.parent.frames['frmActualFolder'].document.getElementById('tdName').innerHTML;
+	window.parent.location = "multipleupload.html?Connector=connectors/jsp/connector&CurrentFolderUrl=" + cUrl + "&Type=" + type + "&CurrentFolder=" + cpath + "&OpenFile=" 
+		+ oConnector.OpenFile + "&ImageId="+oConnector.ImgSrc;	
+}
+
+function OnSubmit()
+{
+	if ( document.getElementById('NewFile').value.length == 0 )
+	{
+		alert( 'Please select a file from your computer' ) ;
+		return false ;
+	}
+
+	// Set the interface elements.
+	document.getElementById('eUploadMessage').innerHTML = 'Upload a new file in this folder (Upload in progress, please wait...)' ;
+	document.getElementById('btnUpload').disabled = true ;
+	
+	return true ;
+}
+
+function OnUploadCompleted( errorNumber, data )
+{
+	// Reset the Upload Worker Frame.
+	window.parent.frames['frmUploadWorker'].location = '../../../fckblank.html' ;
+	
+	// Reset the upload form (On IE we must do a little trick to avout problems).
+	if ( document.all )
+		document.getElementById('NewFile').outerHTML = '<input id="NewFile" name="NewFile" style="WIDTH: 100%" type="file">' ;
+	else
+		document.getElementById('frmUpload').reset() ;
+	
+	// Reset the interface elements.
+	document.getElementById('eUploadMessage').innerHTML = 'Upload a new file in this folder' ;
+	document.getElementById('btnUpload').disabled = false ;
+	
+	switch ( errorNumber )
+	{
+		case 0 :
+			window.parent.frames['frmResourcesList'].Refresh() ;
+			break ;
+		case 1 :	// Custom error.
+			alert( data ) ;
+			break ;
+		case 201 :
+			window.parent.frames['frmResourcesList'].Refresh() ;
+			alert( 'A file with the same name is already available. The uploaded file has been renamed to "' + data + '"' ) ;
+			break ;
+		case 202 :
+			alert( 'Invalid file' ) ;
+			break ;
+		default :
+			alert( 'Error on file upload. Error number: ' + errorNumber ) ;
+			break ;
+	}
+}
+
+window.onload = function()
+{
+	window.top.IsLoadedUpload = true ;
+}
+		</script>
+	</head>
+	<body bottomMargin="0" topMargin="0">
+		<form id="frmUpload" action="" target="frmUploadWorker" method="post" enctype="multipart/form-data" onsubmit="return OnSubmit();">
+			<table id="uploadFile" height="100%" cellSpacing="0" cellPadding="0" width="100%" border="0">
+				<tr>
+					<td nowrap>
+						<span id="eUploadMessage">Upload a new file in this folder</span><br>
+						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+							<tr>
+								<td width="100%"><input id="NewFile" name="NewFile" style="WIDTH: 100%" type="file"/></td>
+								<td width="100%"><input id="multiupload" type="button" value="multiUpload" onclick="openMultipleUpload();"/></td>
+								<td nowrap>&nbsp;<input id="btnUpload" type="submit" value="Upload"/></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

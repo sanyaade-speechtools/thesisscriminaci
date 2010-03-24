@@ -65,19 +65,23 @@ abstract public class Settings
             this.properties.loadFromXML(propertiesPath.openStream());
         }
         catch (InvalidPropertiesFormatException e)
-        {
+        {	
+        	e.printStackTrace();
             throw new UserError("Invalid properties format: ", e);
         }
         catch (IOException e)
         {
+        	e.printStackTrace();
             throw new DeveloperError("I/O Exception while loading properties from \"" + propertiesPath.toString() + "\".", e);
         }
         catch (NullPointerException e)
         {
+        	e.printStackTrace();
             throw new DeveloperError("Unable to open FileInputStream for \"" + propertiesPath + "\".", e);
         }
         catch (ClassCastException e)
         {
+        	e.printStackTrace();
             throw new UserError(
                     "There is a problem with the format of your XML properties file.  Not all valid XML is actually accepted by the JDK's XML Properties parser!",
                     e);

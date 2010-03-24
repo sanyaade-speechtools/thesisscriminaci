@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   
+    xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 ../../resources/schema/AIML.xsd">
+
+<category>
+	<pattern>PROVA</pattern>
+	<template>ok</template>
+</category>  
+
+<category>
+	<pattern>RFID1</pattern>
+	<template><set name="room"><cycsystem>java -jar rfid.jar</cycsystem></set></template>
+</category>  
+
+<category>
+	<pattern>RFID</pattern>
+	<template>You are in <set name="room">ROOM3</set>, in front of <set name="showcase">SHOWCASE17</set>
+	<srai>SHOWCASE *</srai></template>
+</category>  
+
+<category>
+	<pattern>SHOWCASE *</pattern>
+	<template>This showcase contains... </template>
+</category>  
+
+<category>
+	<pattern>* INFORMATION ABOUT *</pattern>
+	<template><cycsystem>(cyc-query '(#$comment <cycterm><star index="2"/></cycterm>  ?X)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>WHEN * WAS CREATED</pattern>
+	<template><cycsystem>(fi-ask '(#$createdDuring <cycterm><star index="1"/></cycterm>  ?REPLY)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>* COMES</pattern>
+	<template><cycsystem>(cyc-query '(#$comesFrom-Generic <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>ARTIFACT *</pattern>
+<template> It belongs to
+
+<cycrandom>(cyc-query '(#$createdDuring <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycrandom>
+
+it has been found at 
+
+<cycrandom>(cyc-query '(#$comesFrom-Generic <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycrandom> 
+
+
+and represents 
+
+<cycrandom>(cyc-query '(#$representing <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycrandom>
+</template>
+</category>
+
+
+
+
+<category>
+	<pattern>IS * AN ANIMAL</pattern>
+	<template>la risposta è  <cycsystem>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm>  #$Animal)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>IS * AN *</pattern>
+	<template>la risposta è  <cycsystem>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+
+<category>
+	<pattern>PROVO CYC</pattern>
+	<template>ss<cyccondition query="(fi-ask '(#$isa #$Dog #$Mammal) #$BaseKB)">zz</cyccondition></template>
+</category>
+
+<category>
+	<pattern>ISAINFORMATION *</pattern>
+	<template><cycsystem>(cyc-query '(#$isa ?X <cycterm><star/></cycterm>  )#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+
+</aiml>

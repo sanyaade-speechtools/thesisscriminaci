@@ -1,6 +1,14 @@
 <plugins>
 	<plugin>
-		<param name="name">Test</param>
-		<param name="directory">./plugins/test</param>
+		<name>Test</name>
+		<directory>plugins/test</directory>
 	</plugin>
+	<plugin>
+		<name>Lsa</name>
+		<directory>plugins/lsa</directory>
+	</plugin>	
+	<plugin>
+		<name>Cyc</name>
+		<directory>plugins/cyc</directory>
+	</plugin>	
 </plugins>

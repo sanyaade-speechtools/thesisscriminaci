@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Revision Biography 1.04 -->
-
+<!-- Last Modified  Sep 09 2005 -->
    
 <category><pattern>ADA LOVELACE IS CREDITED WITH * </pattern><template>And she deserves credit for it.  <think><set name="she">Ada</set></think></template></category>  
 <category><pattern>AFTER PRINCE CHARLES * </pattern><template>Prince William.</template></category>  
@@ -114,7 +97,7 @@
 <category><pattern>WHO IS ARCHIMEDES</pattern><template>He discovered displacement and shouted Eureka!</template></category>       
 <category><pattern>WHO IS ARISTOTLE</pattern><template>   <set name="he">Aristotle</set> is the father of Western philosophy, the student of Plato, and the first to systematize formal logic.</template></category>       
 <category><pattern>WHO IS ARNOLD SCHWARZENEGGER</pattern><template>   <set name="he">ARNOLD SCHWARZENEGGER</set> played the Terminator.</template></category>       
-<category><pattern>WHO IS ART BELL</pattern><template>A radio talk show host, catch him at <a target="_new" href="http://www.artbell.com">http://www.artbell.com</a>.</template></category>       
+<category><pattern>WHO IS ART BELL</pattern><template>A radio talk show host, catch him at <html:a target="_new" href="http://www.artbell.com">http://www.artbell.com</html:a>.</template></category>       
 <category><pattern>WHO IS ASK JEEVES</pattern><template>   <set name="he">Jeeves</set> is a proprietary, closed-source natural language system.</template></category>       
 <category><pattern>WHO IS ASKJEEVES</pattern><template>   <set name="he">Jeeves</set> is a proprietary, closed-source natural language system.</template></category>       
 <category><pattern>WHO IS ATATURK</pattern><template>   <set name="he">Ataturk</set> was the founder of the modern Turkish state.</template></category>       
@@ -164,7 +147,7 @@
 <category><pattern>WHO IS CARSON</pattern><template>maybe Johnny of late night or Kit of the wild west.</template></category>       
 <category><pattern>WHO IS CATTY</pattern><template>Someone I met online.</template></category>       
 <category><pattern>WHO IS CHARLES DE GAULLE</pattern><template>   <set name="he">De Gaulle</set> was the founder of the modern French state.  De Gaulle fought the Nazis as the leader of the French resistance in World War II.</template></category>       
-<category><pattern>WHO IS CHARLES DICKENS</pattern><template>   <set name="he">Dickens</set> wrote <em>A Tale of Two Cities,  A Christmas Carol, Great Expectations, David Copperfield and the Pickwick Papers.</em>    </template></category>       
+<category><pattern>WHO IS CHARLES DICKENS</pattern><template>   <set name="he">Dickens</set> wrote <html:em>A Tale of Two Cities,  A Christmas Carol, Great Expectations, David Copperfield and the Pickwick Papers.</html:em>    </template></category>       
 <category><pattern>WHO IS CHARLES MANSON</pattern><template>Infamous murderer.</template></category>       
 <category><pattern>WHO IS CHARLIE BROWN</pattern><template>round-headed comic strip protaginist.</template></category>       
 <category><pattern>WHO IS CHARLIE CHAPLAIN</pattern><template>silent film star.</template></category>       
@@ -219,7 +202,7 @@
 <category><pattern>WHO IS ELIZA</pattern><template>Eliza -- also known as doctor, is the original psychiatrist program developed by Joseph Weisenbaum at mit in the 1960's.</template></category>       
 <category><pattern>WHO IS ELIZABETH II</pattern><template>The current queen of england.</template></category>       
 <category><pattern>WHO IS ELIZABETH TAYLOR</pattern><template>rapidly aging movie star.</template></category>       
-<category><pattern>WHO IS ELVIS</pattern><template>   <a target="_new" href="http://www.catcam.net">E. L. V. I. S.</a> is a chat robot created by Ace Craig</template></category>       
+<category><pattern>WHO IS ELVIS</pattern><template>   <html:a target="_new" href="http://www.catcam.net">E. L. V. I. S.</html:a> is a chat robot created by Ace Craig</template></category>       
 <category><pattern>WHO IS EMILY HARTZEL</pattern><template>Emily is an artist in New York.</template></category>       
 <category><pattern>WHO IS EMINEM</pattern><template>Pop music icon.</template></category>       
 <category><pattern>WHO IS EMINEN</pattern><template>A pop music icon.</template></category>       
@@ -263,7 +246,7 @@
 <category><pattern>WHO IS GREGOR MENDEL</pattern><template>   <set name="he">Mendel</set> is the founder of the modern theory of genetics.  Everything he needed to know, he learned from peas.</template></category>       
 <category><pattern>WHO IS HANS CHRISTIAN ANDERSEN</pattern><template>Scandanavian author of fairy tales.</template></category>       
 <category><pattern>WHO IS HANS MORAVEC</pattern><template>He is a famous robotics expert at Carnegie Mellon.</template></category>       
-<category><pattern>WHO IS HANS MOREVEC</pattern><template>   <set name="he">Moravec</set> is famous robotics pioneer, author of <em>Robot</em>.</template></category>       
+<category><pattern>WHO IS HANS MOREVEC</pattern><template>   <set name="he">Moravec</set> is famous robotics pioneer, author of <html:em>Robot</html:em>.</template></category>       
 <category><pattern>WHO IS HARRISON FORD</pattern><template>   <random>      <li>Indiana Jones, Han Solo, the Fugitive, and the President in Air Force One. Before reading for Han Solo in Star Wars, he was a carpenter. And the rest, as they say, is history.</li>      <li>He played Han Solo in "Star Wars".</li>     </random>    </template></category>       
 <category><pattern>WHO IS HARRY POTTER</pattern><template>   <think>      <set name="he">       <set name="topic">HARRY POTTER</set>      </set>     </think>  is a bestselling author.</template></category>       
 <category><pattern>WHO IS HARRY SHEARER</pattern><template>A comedian.  He was in Spinal Tap, and he is a voice on the Simpsons.</template></category>       
@@ -368,7 +351,7 @@
 <category><pattern>WHO IS MARIE CURIE</pattern><template>Discovered radium.</template></category>       
 <category><pattern>WHO IS MARILYN MANSON</pattern><template>Marilyn Manson is the greatest living Rock Star.</template></category>       
 <category><pattern>WHO IS MARILYN MONROE</pattern><template>blonde bombshell.</template></category>       
-<category><pattern>WHO IS MARK MCGUIRE</pattern><template>a baseball player with the world record for the most home runs in one season, 70. Get the stats at <a target="_new" href="http://espn.go.com/mlb/profiles/profile/3866">http://espn.go.com/mlb/profiles/profile/3866</a>.</template></category>       
+<category><pattern>WHO IS MARK MCGUIRE</pattern><template>a baseball player with the world record for the most home runs in one season, 70. Get the stats at <html:a target="_new" href="http://espn.go.com/mlb/profiles/profile/3866">http://espn.go.com/mlb/profiles/profile/3866</html:a>.</template></category>       
 <category><pattern>WHO IS MARK TWAIN</pattern><template>   <set name="he">Twain</set> was a famous 19th century American author.  He wrote Huck Finn.</template></category>       
 <category><pattern>WHO IS MARRIED TO GUINEIVERE</pattern><template>King Arthur.</template></category>       
 <category><pattern>WHO IS MARRIED TO PUNCH</pattern><template>Judy.</template></category>       
@@ -383,7 +366,7 @@
 <category><pattern>WHO IS MEGAHAL</pattern><template>   <set name="he">Megahal</set> is a chat robot developed by Jason Hutchins.</template></category>       
 <category><pattern>WHO IS MELINDA GATES</pattern><template>   <set name="she">Melinda Gates</set> is the wife of Bill Gates.</template></category>       
 <category><pattern>WHO IS MICHAEL JACKSON</pattern><template>   <set name="he">Michael Jackson</set> is a singer who has settled out of court with several families.</template></category>       
-<category><pattern>WHO IS MICHAEL JORDAN</pattern><template>   <set name="he">Michael Jordan</set> is a famous  basketball player.  <br/>    </template></category>       
+<category><pattern>WHO IS MICHAEL JORDAN</pattern><template>   <set name="he">Michael Jordan</set> is a famous  basketball player.  <html:br/>    </template></category>       
 <category><pattern>WHO IS MICHAEL MOORE</pattern><template><set name="he">MICHAEL MOORE</set> is a comedian and film maker.</template></category>       
 <category><pattern>WHO IS MICKEY MANTLE</pattern><template>one of the greatest home run hitters of all time.</template></category>       
 <category><pattern>WHO IS MICROSOFT AGENT</pattern><template>   <set name="it">MS Agent</set> is a speech and animation software program.</template></category>       
@@ -571,7 +554,7 @@
 <category><pattern>WHO IS VLADIMIR PUTIN</pattern><template>   <set name="he">Putin</set> is President of Russia.</template></category>       
 <category><pattern>WHO IS WAYNE GRETZKY</pattern><template>Hockey player.</template></category>       
 <category><pattern>WHO IS WE</pattern><template>You should say "Who ARE we?"</template></category>       
-<category><pattern>WHO IS WEIZENBAUM</pattern><template>Joseph Weizenbaum was the creator and author the famous original  ELIZA (or DOCTOR) psychiatrist program, a groundbreaking AI program  that anticpates many key features of ALICE.  Ironically, Weizenbaum  exhaustively argued against the utility of programs like ELIZA  in his book <EM>Computer Power and Human Reason</EM>.</template></category>       
+<category><pattern>WHO IS WEIZENBAUM</pattern><template>Joseph Weizenbaum was the creator and author the famous original  ELIZA (or DOCTOR) psychiatrist program, a groundbreaking AI program  that anticpates many key features of ALICE.  Ironically, Weizenbaum  exhaustively argued against the utility of programs like ELIZA  in his book <html:em>Computer Power and Human Reason</html:em>.</template></category>       
 <category><pattern>WHO IS WILL SMITH</pattern><template>He is a famous actor.  <think>      <set name="he">       <set name="topic">Will Smith</set>      </set>     </think>    </template></category>       
 <category><pattern>WHO IS WILLIAM BOOTH</pattern><template>   <set name="he">Booth</set> was the founder of the Salvation Army.</template></category>       
 <category><pattern>WHO IS WILLIAM GIBSON</pattern><template>Author of the book "Neuromancer" in which he coined the populor phrase 'cyberspace.'.</template></category>       

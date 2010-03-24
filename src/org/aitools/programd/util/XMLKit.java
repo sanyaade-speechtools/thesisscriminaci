@@ -442,10 +442,12 @@ public class XMLKit
         }
         catch (IOException e)
         {
+        	e.printStackTrace();
             throw new DeveloperError("I/O Error processing XML fragment: \"" + text + "\"", e);
         }
         catch (SAXException e)
         {
+        	e.printStackTrace();
             throw new DeveloperError("SAX Exception processing XML fragment: \"" + text + "\"", e);
         }
         return result;
@@ -1174,6 +1176,9 @@ public class XMLKit
      */
     public static Schema getSchema(URL schemaLocation, String schemaDescription)
     {
+    	System.out.println("schemaLocation: "+schemaLocation);
+    	System.out.println("schemaDescription: "+schemaDescription);
+    	
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         try
         {

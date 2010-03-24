@@ -1,38 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
 <!-- Wordplay.aiml -->
 <!-- Free software (c)2005 SQUAREBEAR. -->
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License -->
+<!-- as published by the Free Software Foundation. -->
+<!-- Complies with AIML 1.0 Tag Set Specification -->
 <!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+
 
 <category>
 <pattern>WORDPLAY</pattern>
-<template>Welcome to my anagram game.<br/>I am going to jumble a nine letter word up and you have to guess what it is.<br/>You must solve each anagram correctly to continue.
-<br/>Type START to begin the anagram game.</template>
+<template>Welcome to my anagram game.<html:br/>I am going to jumble a nine letter word up and you have to guess what it is.<html:br/>You must solve each anagram correctly to continue.
+<html:br/>Type START to begin the anagram game.</template>
 </category>
 
 <category>
@@ -42,14 +25,14 @@
 <think><set name="anagramscore">0</set>
 <set name="topic">WORDPLAY</set>
 </think>
-Here comes the first anagram.<br/>I've jumbled a word up, but which word is it?<br/>(Type QUITGAME if you give up).<br/><br/><srai>XANAGRAM</srai></template>
+Here comes the first anagram.<html:br/>I've jumbled a word up, but which word is it?<html:br/>(Type QUITGAME if you give up).<html:br/><html:br/><srai>XANAGRAM</srai></template>
 </category>
 
 <category>
 <pattern>QUITGAME</pattern>
 <template>
-The answer was <get name="anagramanswer"/>!<br/>
-Your final score was :<get name="anagramscore"/>.<br/><br/>
+The answer was <get name="anagramanswer"/>!<html:br/>
+Your final score was :<get name="anagramscore"/>.<html:br/><html:br/>
 Type START to begin the anagram game.</template>
 </category>
 
@@ -67,14 +50,14 @@ Type START to begin the anagram game.</template>
 <li>That is the correct answer.</li>
 <li>Well done! You are good at these.</li>
 </random>
-<br/>Your score is :<get name="anagramscore"/><br/>
+<html:br/>Your score is :<get name="anagramscore"/><html:br/>
 <random>
 <li>Here comes the next one.</li>
 <li>Let's try another anagram.</li>
 <li>Tell me which word this is?</li>
 <li>Can you solve the next anagram?</li>
 </random>
-<br/>(Type QUITGAME if you give up).<br/><br/>
+<html:br/>(Type QUITGAME if you give up).<html:br/><html:br/>
 <srai>XANAGRAM</srai>
 </template>
 </category>
@@ -86,58 +69,58 @@ Type START to begin the anagram game.</template>
 <pattern>XANAGRAM</pattern>
 <template>
 <random>
-<li>Clue: Stars<br/><set name="topic">NOMSTORAY</set><think><set name="anagramanswer">ASTRONOMY</set></think></li>
-<li>Clue: Me! ;-)<br/><set name="topic">AFLUTUBEI</set><think><set name="anagramanswer">BEAUTIFUL</set></think></li>
-<li>Clue: Seashore<br/><set name="topic">SELCATION</set><think><set name="anagramanswer">COASTLINE</set></think></li>
-<li>Clue: Copy<br/><set name="topic">UPILACTED</set><think><set name="anagramanswer">DUPLICATE</set></think></li>
-<li>Clue: Creature<br/><set name="topic">TRAMWOREH</set><think><set name="anagramanswer">EARTHWORM</set></think></li>
-<li>Clue: Next<br/><set name="topic">WILOGNOLF</set><think><set name="anagramanswer">FOLLOWING</set></think></li>
-<li>Clue: Males<br/><set name="topic">NEEENTGML</set><think><set name="anagramanswer">GENTLEMEN</set></think></li>
-<li>Clue: Emphasise<br/><set name="topic">LIIGGHHHT</set><think><set name="anagramanswer">HIGHLIGHT</set></think></li>
-<li>Clue: Unreadable<br/><set name="topic">LIBELIGEL</set><think><set name="anagramanswer">ILLEGIBLE</set></think></li>
-<li>Clue: Escape<br/><set name="topic">IJKLARABE</set><think><set name="anagramanswer">JAILBREAK</set></think></li>
-<li>Clue: Typing<br/><set name="topic">BREAKYDOS</set><think><set name="anagramanswer">KEYBOARDS</set></think></li>
-<li>Clue: Oil<br/><set name="topic">BUCALRITE</set><think><set name="anagramanswer">LUBRICATE</set></think></li>
-<li>Clue: Strength<br/><set name="topic">DEMAUTING</set><think><set name="anagramanswer">MAGNITUDE</set></think></li>
-<li>Clue: Shopkeeper<br/><set name="topic">SWEETNANG</set><think><set name="anagramanswer">NEWSAGENT</set></think></li>
-<li>Clue: Rude<br/><set name="topic">FEFEVSION</set><think><set name="anagramanswer">OFFENSIVE</set></think></li>
-<li>Clue: Canopy<br/><set name="topic">UTRAPACHE</set><think><set name="anagramanswer">PARACHUTE</set></think></li>
-<li>Clue: Enquiries<br/><set name="topic">OESQUINTS</set><think><set name="anagramanswer">QUESTIONS</set></think></li>
-<li>Clue: Weather<br/><set name="topic">SPRAINDOR</set><think><set name="anagramanswer">RAINDROPS</set></think></li>
-<li>Clue: Name<br/><set name="topic">STRANGEIU</set><think><set name="anagramanswer">SIGNATURE</set></think></li>
-<li>Clue: Fruit<br/><set name="topic">RANTINGEE</set><think><set name="anagramanswer">TANGERINE</set></think></li>
-<li>Clue: Challenge<br/><set name="topic">TUMTUMAIL</set><think><set name="anagramanswer">ULTIMATUM</set></think></li>
-<li>Clue: Food<br/><set name="topic">GEBLEVATE</set><think><set name="anagramanswer">VEGETABLE</set></think></li>
-<li>Clue: Great<br/><set name="topic">FLOUNDERW</set><think><set name="anagramanswer">WONDERFUL</set></think></li>
-<li>Clue: Foreign<br/><set name="topic">PHONEBEXO</set><think><set name="anagramanswer">XENOPHOBE</set></think></li>
-<li>Clue: Child<br/><set name="topic">STRONGEYU</set><think><set name="anagramanswer">YOUNGSTER</set></think></li>
-<li>Clue: Scientist<br/><set name="topic">GLISTOOZO</set><think><set name="anagramanswer">ZOOLOGIST</set></think></li>
-<li>Clue: Cartoon<br/><set name="topic">IANMOTIAN</set><think><set name="anagramanswer">ANIMATION</set></think></li>
-<li>Clue: Mask<br/><set name="topic">FLOBINDDL</set><think><set name="anagramanswer">BLINDFOLD</set></think></li>
-<li>Clue: Occupation<br/><set name="topic">ARETRACKE</set><think><set name="anagramanswer">CARETAKER</set></think></li>
-<li>Clue: Grower<br/><set name="topic">PEERVOLED</set><think><set name="anagramanswer">DEVELOPER</set></think></li>
-<li>Clue: Meeting<br/><set name="topic">NONETRUCE</set><think><set name="anagramanswer">ENCOUNTER</set></think></li>
-<li>Clue: Fierce<br/><set name="topic">OSCOURIFE</set><think><set name="anagramanswer">FEROCIOUS</set></think></li>
-<li>Clue: Vivid<br/><set name="topic">HARPGALIC</set><think><set name="anagramanswer">GRAPHICAL</set></think></li>
-<li>Clue: Greeting<br/><set name="topic">HESKANDAH</set><think><set name="anagramanswer">HANDSHAKE</set></think></li>
-<li>Clue: Vital<br/><set name="topic">TROMPAINT</set><think><set name="anagramanswer">IMPORTANT</set></think></li>
-<li>Clue: Animal<br/><set name="topic">JIFYSHELL</set><think><set name="anagramanswer">JELLYFISH</set></think></li>
-<li>Clue: Hostage<br/><set name="topic">DEPADPINK</set><think><set name="anagramanswer">KIDNAPPED</set></think></li>
-<li>Clue: Existence<br/><set name="topic">SILLYFEET</set><think><set name="anagramanswer">LIFESTYLE</set></think></li>
-<li>Clue: Players<br/><set name="topic">ISCAMINUS</set><think><set name="anagramanswer">MUSICIANS</set></think></li>
-<li>Clue: Obvious<br/><set name="topic">YUNTRALAL</set><think><set name="anagramanswer">NATURALLY</set></think></li>
-<li>Clue: Awful<br/><set name="topic">UNSIXBOOO</set><think><set name="anagramanswer">OBNOXIOUS</set></think></li>
-<li>Clue: Dig<br/><set name="topic">TRAPETEEN</set><think><set name="anagramanswer">PENETRATE</set></think></li>
-<li>Clue: Faster<br/><set name="topic">DECKNIQUE</set><think><set name="anagramanswer">QUICKENED</set></think></li>
-<li>Clue: Parents<br/><set name="topic">STARELION</set><think><set name="anagramanswer">RELATIONS</set></think></li>
-<li>Clue: Happy<br/><set name="topic">FEASTIDIS</set><think><set name="anagramanswer">SATISFIED</set></think></li>
-<li>Clue: Communicate<br/><set name="topic">HEEPLONET</set><think><set name="anagramanswer">TELEPHONE</set></think></li>
-<li>Clue: Capitals<br/><set name="topic">SCRAPEUPE</set><think><set name="anagramanswer">UPPERCASE</set></think></li>
-<li>Clue: Opportunities<br/><set name="topic">CACAVINES</set><think><set name="anagramanswer">VACANCIES</set></think></li>
-<li>Clue: Decoration<br/><set name="topic">LAPPERLAW</set><think><set name="anagramanswer">WALLPAPER</set></think></li>
-<li>Clue: Music<br/><set name="topic">HEXPLOONY</set><think><set name="anagramanswer">XYLOPHONE</set></think></li>
-<li>Clue: Time<br/><set name="topic">STRAYEDEY</set><think><set name="anagramanswer">YESTERDAY</set></think></li>
-<li>Clue: Animals<br/><set name="topic">OKEPEROZE</set><think><set name="anagramanswer">ZOOKEEPER</set></think></li>
+<li>Clue: Stars<html:br/><set name="topic">NOMSTORAY</set><think><set name="anagramanswer">ASTRONOMY</set></think></li>
+<li>Clue: Me! ;-)<html:br/><set name="topic">AFLUTUBEI</set><think><set name="anagramanswer">BEAUTIFUL</set></think></li>
+<li>Clue: Seashore<html:br/><set name="topic">SELCATION</set><think><set name="anagramanswer">COASTLINE</set></think></li>
+<li>Clue: Copy<html:br/><set name="topic">UPILACTED</set><think><set name="anagramanswer">DUPLICATE</set></think></li>
+<li>Clue: Creature<html:br/><set name="topic">TRAMWOREH</set><think><set name="anagramanswer">EARTHWORM</set></think></li>
+<li>Clue: Next<html:br/><set name="topic">WILOGNOLF</set><think><set name="anagramanswer">FOLLOWING</set></think></li>
+<li>Clue: Males<html:br/><set name="topic">NEEENTGML</set><think><set name="anagramanswer">GENTLEMEN</set></think></li>
+<li>Clue: Emphasise<html:br/><set name="topic">LIIGGHHHT</set><think><set name="anagramanswer">HIGHLIGHT</set></think></li>
+<li>Clue: Unreadable<html:br/><set name="topic">LIBELIGEL</set><think><set name="anagramanswer">ILLEGIBLE</set></think></li>
+<li>Clue: Escape<html:br/><set name="topic">IJKLARABE</set><think><set name="anagramanswer">JAILBREAK</set></think></li>
+<li>Clue: Typing<html:br/><set name="topic">BREAKYDOS</set><think><set name="anagramanswer">KEYBOARDS</set></think></li>
+<li>Clue: Oil<html:br/><set name="topic">BUCALRITE</set><think><set name="anagramanswer">LUBRICATE</set></think></li>
+<li>Clue: Strength<html:br/><set name="topic">DEMAUTING</set><think><set name="anagramanswer">MAGNITUDE</set></think></li>
+<li>Clue: Shopkeeper<html:br/><set name="topic">SWEETNANG</set><think><set name="anagramanswer">NEWSAGENT</set></think></li>
+<li>Clue: Rude<html:br/><set name="topic">FEFEVSION</set><think><set name="anagramanswer">OFFENSIVE</set></think></li>
+<li>Clue: Canopy<html:br/><set name="topic">UTRAPACHE</set><think><set name="anagramanswer">PARACHUTE</set></think></li>
+<li>Clue: Enquiries<html:br/><set name="topic">OESQUINTS</set><think><set name="anagramanswer">QUESTIONS</set></think></li>
+<li>Clue: Weather<html:br/><set name="topic">SPRAINDOR</set><think><set name="anagramanswer">RAINDROPS</set></think></li>
+<li>Clue: Name<html:br/><set name="topic">STRANGEIU</set><think><set name="anagramanswer">SIGNATURE</set></think></li>
+<li>Clue: Fruit<html:br/><set name="topic">RANTINGEE</set><think><set name="anagramanswer">TANGERINE</set></think></li>
+<li>Clue: Challenge<html:br/><set name="topic">TUMTUMAIL</set><think><set name="anagramanswer">ULTIMATUM</set></think></li>
+<li>Clue: Food<html:br/><set name="topic">GEBLEVATE</set><think><set name="anagramanswer">VEGETABLE</set></think></li>
+<li>Clue: Great<html:br/><set name="topic">FLOUNDERW</set><think><set name="anagramanswer">WONDERFUL</set></think></li>
+<li>Clue: Foreign<html:br/><set name="topic">PHONEBEXO</set><think><set name="anagramanswer">XENOPHOBE</set></think></li>
+<li>Clue: Child<html:br/><set name="topic">STRONGEYU</set><think><set name="anagramanswer">YOUNGSTER</set></think></li>
+<li>Clue: Scientist<html:br/><set name="topic">GLISTOOZO</set><think><set name="anagramanswer">ZOOLOGIST</set></think></li>
+<li>Clue: Cartoon<html:br/><set name="topic">IANMOTIAN</set><think><set name="anagramanswer">ANIMATION</set></think></li>
+<li>Clue: Mask<html:br/><set name="topic">FLOBINDDL</set><think><set name="anagramanswer">BLINDFOLD</set></think></li>
+<li>Clue: Occupation<html:br/><set name="topic">ARETRACKE</set><think><set name="anagramanswer">CARETAKER</set></think></li>
+<li>Clue: Grower<html:br/><set name="topic">PEERVOLED</set><think><set name="anagramanswer">DEVELOPER</set></think></li>
+<li>Clue: Meeting<html:br/><set name="topic">NONETRUCE</set><think><set name="anagramanswer">ENCOUNTER</set></think></li>
+<li>Clue: Fierce<html:br/><set name="topic">OSCOURIFE</set><think><set name="anagramanswer">FEROCIOUS</set></think></li>
+<li>Clue: Vivid<html:br/><set name="topic">HARPGALIC</set><think><set name="anagramanswer">GRAPHICAL</set></think></li>
+<li>Clue: Greeting<html:br/><set name="topic">HESKANDAH</set><think><set name="anagramanswer">HANDSHAKE</set></think></li>
+<li>Clue: Vital<html:br/><set name="topic">TROMPAINT</set><think><set name="anagramanswer">IMPORTANT</set></think></li>
+<li>Clue: Animal<html:br/><set name="topic">JIFYSHELL</set><think><set name="anagramanswer">JELLYFISH</set></think></li>
+<li>Clue: Hostage<html:br/><set name="topic">DEPADPINK</set><think><set name="anagramanswer">KIDNAPPED</set></think></li>
+<li>Clue: Existence<html:br/><set name="topic">SILLYFEET</set><think><set name="anagramanswer">LIFESTYLE</set></think></li>
+<li>Clue: Players<html:br/><set name="topic">ISCAMINUS</set><think><set name="anagramanswer">MUSICIANS</set></think></li>
+<li>Clue: Obvious<html:br/><set name="topic">YUNTRALAL</set><think><set name="anagramanswer">NATURALLY</set></think></li>
+<li>Clue: Awful<html:br/><set name="topic">UNSIXBOOO</set><think><set name="anagramanswer">OBNOXIOUS</set></think></li>
+<li>Clue: Dig<html:br/><set name="topic">TRAPETEEN</set><think><set name="anagramanswer">PENETRATE</set></think></li>
+<li>Clue: Faster<html:br/><set name="topic">DECKNIQUE</set><think><set name="anagramanswer">QUICKENED</set></think></li>
+<li>Clue: Parents<html:br/><set name="topic">STARELION</set><think><set name="anagramanswer">RELATIONS</set></think></li>
+<li>Clue: Happy<html:br/><set name="topic">FEASTIDIS</set><think><set name="anagramanswer">SATISFIED</set></think></li>
+<li>Clue: Communicate<html:br/><set name="topic">HEEPLONET</set><think><set name="anagramanswer">TELEPHONE</set></think></li>
+<li>Clue: Capitals<html:br/><set name="topic">SCRAPEUPE</set><think><set name="anagramanswer">UPPERCASE</set></think></li>
+<li>Clue: Opportunities<html:br/><set name="topic">CACAVINES</set><think><set name="anagramanswer">VACANCIES</set></think></li>
+<li>Clue: Decoration<html:br/><set name="topic">LAPPERLAW</set><think><set name="anagramanswer">WALLPAPER</set></think></li>
+<li>Clue: Music<html:br/><set name="topic">HEXPLOONY</set><think><set name="anagramanswer">XYLOPHONE</set></think></li>
+<li>Clue: Time<html:br/><set name="topic">STRAYEDEY</set><think><set name="anagramanswer">YESTERDAY</set></think></li>
+<li>Clue: Animals<html:br/><set name="topic">OKEPEROZE</set><think><set name="anagramanswer">ZOOKEEPER</set></think></li>
 </random>
 </template>
 </category>

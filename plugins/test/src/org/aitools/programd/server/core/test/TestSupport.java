@@ -2,12 +2,17 @@ package org.aitools.programd.server.core.test;
 
 public class TestSupport {
 	
-	public TestSupport(){
+	private String s;
+	private Integer i;
+	
+	public TestSupport(String s, Integer i){
+		this.s=s;
+		this.i=i;
 	}
 	
 	public String getCiao(){
 		
-		return "ciao";
+		return "ciao "+s+" "+i;
 	}
 
 }
