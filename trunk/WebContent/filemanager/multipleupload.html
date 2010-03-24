@@ -1,0 +1,83 @@
+<!--
+ 
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+	<link href="browser.css" type="text/css" rel="stylesheet">
+
+<script>
+
+var oConnector = new Object();
+
+oConnector.connectUrl = GetUrlParam('Connector');
+oConnector.resourceType = GetUrlParam('Type');
+oConnector.folderPath = GetUrlParam('CurrentFolder');
+oConnector.folderUrl = GetUrlParam('CurrentFolderUrl');
+oConnector.openFile = GetUrlParam('OpenFile');
+oConnector.imgId = GetUrlParam('ImgId');
+
+var sConnUrl = GetUrlParam('Connector') ;
+// Gecko has some problems when using relative URLs (not starting with slash).
+if ( sConnUrl.substr(0,1) != '/' && sConnUrl.indexOf( '://' ) < 0 ){
+	sConnUrl = window.location.href.replace( /multipleupload.html.*$/, '' ) + sConnUrl ;
+	sConnUrl = sConnUrl.replace(/\/\/filemanager/, '/filemanager');
+}
+
+connectUrl= sConnUrl + ( sConnUrl.indexOf('?') != -1 ? '&' : '?' ) ;
+
+
+//var sUrl = connectUrl +'Command=MultipleFileUpload' ;
+var sUrl = connectUrl + 'Type=' + oConnector.resourceType ;
+sUrl += '&CurrentFolder=' + oConnector.folderPath ;	
+
+oConnector.sUrl = sUrl;
+	
+oConnector.backUrl = "browser.html?Type=" + oConnector.resourceType + "&CurrentFolder=" + oConnector.folderPath + "&OpenFile=" + oConnector.openFile + "&ImageId="+oConnector.imgId;
+
+function GetUrlParam( paramName )
+{
+	var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
+	var oMatch = oRegex.exec( window.top.location.search ) ;
+	
+	if ( oMatch && oMatch.length > 1 )
+		return oMatch[1] ;
+	else
+		return '' ;
+}
+
+
+var fileId = 0;
+var fileNumber = 0;
+function addFile()
+{
+	if(fileNumber == 10){
+		alert("Impossible to add File");
+		return;
+	}
+	fileId++;
+	fileNumber++;
+	divid = "div_" + fileId;
+	newfile = "NewFile" + fileId;
+	html = "<div id=\"" + divid + "\"><table><td><input id=\"" + newfile + "\" name=\""+ newfile + "\" style=\"WIDTH: 100%\" type=\"file\"></td>";
+	html += "<td nowrap><input value=\"Delete\" name=\"Delete\" type=\"button\" onclick=\"removeFile(" + fileId + ")\"></td></tr></table></div>";
+	document.getElementById("divMultipleUploads").innerHTML = document.getElementById("divMultipleUploads").innerHTML + html;	
+}
+
+function removeFile(id){
+	divid = "div_" + id;
+	document.getElementById(divid).innerHTML = "";
+	fileNumber--;
+}
+
+
+
+</script>
+</head>
+	<frameset rows="100,400,50" framespacing="0">			
+			<frame name="frmZipUpload" src="zipupload.html" scrolling="no" frameborder="yes">
+			<frame name="frmMultipleUploads" src="filesupload.html" scrolling="auto" frameborder="yes">
+			<frame name="frmActualFolder" src="frmactualfolder.html" scrolling="no" frameborder="yes">
+			<frame name="frmUploadWorker" src="../../../fckblank.html" scrolling="no" frameborder="no">			
+	</frameset>
+</html>

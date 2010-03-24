@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Wallace.aiml -->
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Revision Wallace-1.05 -->
+<!-- Last Modified  Sep 02 2005 -->
  
 <category><pattern>*</pattern><that>WHICH BOROUGH</that><template>Dr. Wallace used to live in Manhattan.</template></category>     
 <category><pattern>ARE YOU DR WALLACE</pattern><template>No.  But I can do an impersonation of him.</template></category>     
@@ -392,10 +376,10 @@
 <category><pattern>WHO IS DOCTOR WALLACE</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>     
 <category><pattern>WHO IS DR RICH</pattern><template>Do you mean Dr. Richard Wallace?.</template></category>     
 <category><pattern>WHO IS DR RICHARD S *</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>      
-<category><pattern>WHO IS DR RICHARD S WALLACE</pattern><template>   <html:img src="http://alicebot.org/images/drwallace.gif"/>     <set name="he">Dr. Richard Wallace</set>   is the author of Artificial  Intelligence Markup Language (AIML) and <bot name="botmaster"/> of ALICE  (Artificial Linguistic Internet Computer Entity).  Dr. Wallace's  work has appeared in the New York Times, WIRED, CNN, ZDTV  and in numerous foreign language publications across Asia, Latin  America and Europe.    <p/>  Richard Wallace was born in Portland, Maine in 1960.  He earned  his Ph.D. in computer science from Carnegie Mellon in 1989.  <srai>WHERE IS WALLACE</srai></template></category>     
+<category><pattern>WHO IS DR RICHARD S WALLACE</pattern><template>   <html:img src="http://alicebot.org/images/drwallace.gif"/>     <set name="he">Dr. Richard Wallace</set>   is the author of Artificial  Intelligence Markup Language (AIML) and <bot name="botmaster"/> of ALICE  (Artificial Linguistic Internet Computer Entity).  Dr. Wallace's  work has appeared in the New York Times, WIRED, CNN, ZDTV  and in numerous foreign language publications across Asia, Latin  America and Europe.    <html:p>  Richard Wallace was born in Portland, Maine in 1960.  He earned  his Ph.D. in computer science from Carnegie Mellon in 1989.  </html:p><srai>WHERE IS WALLACE</srai></template></category>     
 <category><pattern>WHO IS DR RICHARD S</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>     
 <category><pattern>WHO IS DR RICHARD WALLACE</pattern><template>Dr. Wallace was my original instructor.  He began working on me in 1995 at Lehigh University in Bethlethem, Pennsylvania.</template></category>     
-<category><pattern>WHO IS DR RICHARD</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>  n   
+<category><pattern>WHO IS DR RICHARD</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>   
 <category><pattern>WHO IS DR WALACE</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>     
 <category><pattern>WHO IS DR WALLAC</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>     
 <category><pattern>WHO IS DR WALLACD</pattern><template>   <srai>WHO IS DR WALLACE</srai>    </template></category>     

@@ -9,6 +9,8 @@
 
 package org.aitools.programd.processor.botconfiguration;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.w3c.dom.Element;
@@ -47,11 +49,24 @@ public class LearnProcessor extends BotConfigurationElementProcessor
      */
     @Override
     public String process(Element element, BotsConfigurationFileParser parser) throws ProcessorException
-    {
-        URL path = URLTools.contextualize(FileManager.getWorkingDirectory(), parser.evaluate(element.getChildNodes()));
-        //FileManager.pushWorkingDirectory(URLTools.getParent(URLTools.getParent(path)));
-        parser.getCore().load(path, parser.getCurrentBot().getID());
-        //FileManager.popWorkingDirectory();
+    {	
+    	URL confPath = null;
+    	try {
+    		confPath = FileManager.getConfDirectory();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		if(confPath!=null){
+			FileManager.pushWorkingDirectory(confPath);
+        	URL path = URLTools.contextualize(FileManager.getWorkingDirectory(), parser.evaluate(element.getChildNodes()));
+        	
+        	parser.getCore().load(path, parser.getCurrentBot().getID());
+        	FileManager.popWorkingDirectory();
+		}
+		else{
+        	URL path = URLTools.contextualize(FileManager.getWorkingDirectory(), parser.evaluate(element.getChildNodes()));
+        	parser.getCore().load(path, parser.getCurrentBot().getID());        	
+		}
         return EMPTY_STRING;
     }
 }

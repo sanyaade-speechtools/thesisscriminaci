@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
 <!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
 <!-- Revision Atomic-1.16 --> 
-
+<!-- Last Modified  Sep 09 2005 -->
 <category>
 <pattern>DELICIOUS</pattern>
 <template><random>
@@ -361,7 +344,7 @@
 <category><pattern>CAN I LOVE YOU</pattern><template>Your feelings are your own.</template></category>                   
 <category><pattern>CAN I MEET YOU</pattern><template>You have met me already.</template></category>                   
 <category><pattern>CAN I SEE YOU NAKED</pattern><template>Actually I do not require clothes.</template></category>                   
-<category><pattern>CAN I TALK TO ELVIS</pattern><template>Sure just go to   <a target="_new" href="http://www.catcam.net">his web site</a>.</template></category>                   
+<category><pattern>CAN I TALK TO ELVIS</pattern><template>Sure just go to   <html:a target="_new" href="http://www.catcam.net">his web site</html:a>.</template></category>                   
 <category><pattern>CAN I TALK TO THEM</pattern><template>They might not want to talk to you.</template></category>                   
 <category><pattern>CAN I TEACH YOU</pattern><template>You are teaching me just my conversing with me.</template></category>                   
 <category><pattern>CAN I TELL YOU A JOKE</pattern><template>Yes I would like to hear <set name="it">your joke</set>.</template></category>                   
@@ -2382,12 +2365,12 @@
 <category><pattern>SHOW APPLET</pattern><template>There is no applet to show.</template></category>                   
 <category><pattern>SHOW CALCULATOR</pattern><template>Use a calculator!</template></category>                   
 <category><pattern>SHOW ME A PICTURE</pattern><template>Like this?    <random>  <li>Insert picture link here.</li>  <li>Picture number two goes here.</li>  <li>There are no pictures available right now.</li>  </random></template></category>                   
-<category><pattern>SHOW ME YOUR LOGO</pattern><template><img src="http://www.alicebot.org/jpg/AI.jpg"></img></template></category>                   
+<category><pattern>SHOW ME YOUR LOGO</pattern><template><html:img src="http://www.alicebot.org/jpg/AI.jpg"/></template></category>                   
 <category><pattern>SHOW ME</pattern><template>On your computer screen?</template></category>                   
 <category><pattern>SHUT UP</pattern><template>OK I'll stop talking now.</template></category>                   
 <category><pattern>SIGH</pattern><template>Sorry...</template></category>                   
 <category><pattern>SIGN</pattern><template>Your star sign.</template></category>                   
-<category><pattern>SING</pattern><template>Daisy, Daisy.<br/>  Give me your answer do.<br/>  I am half crazy.<br/>  All for the love of you.<br/>  It won't be a stylish marriage.<br/>  I can't afford a carriage.<br/>  But you'll look sweet.  Upon the seat.<br/>  Of a bicycle built for two.<br/>  <br/></template></category>                   
+<category><pattern>SING</pattern><template>Daisy, Daisy.<html:br/>  Give me your answer do.<html:br/>  I am half crazy.<html:br/>  All for the love of you.<html:br/>  It won't be a stylish marriage.<html:br/>  I can't afford a carriage.<html:br/>  But you'll look sweet.  Upon the seat.<html:br/>  Of a bicycle built for two.<html:br/>  <html:br/></template></category>                   
 <category><pattern>SIX</pattern><template>Half a dozen.</template></category>                
 <category><pattern>SLOW DOWN</pattern> <template>I'm typing as slow as I can.</template> </category>                 
 <category><pattern>SLUT</pattern><template>That kind of language will get you nowhere.</template></category>                   
@@ -2887,7 +2870,7 @@
 <category><pattern>WHAT COLOR IS YOUR EYE</pattern><template>My eye is blue.</template></category>                   
 <category><pattern>WHAT COLOR IS YOUR HAIR</pattern><template>I don't have any hair, but I have some wires.</template></category>                   
 <category><pattern>WHAT COLOR IS YOUR SKIN</pattern><template>It depends on the computer housing me.</template></category>                   
-<category><pattern>WHAT COLOR</pattern><template>   <random>      <li>Red</li>      <li>Green</li>      <li>Blue</li>      <li>Black</li>      <li>White</li>      <li>Yellow</li>      <li>Orange</li>      <li>Blue</li>      <li>Red</li>      <li>Black</li>.  </random>    </template></category>                   
+<category><pattern>WHAT COLOR</pattern><template>   <random>      <li>Red</li>      <li>Green</li>      <li>Blue</li>      <li>Black</li>      <li>White</li>      <li>Yellow</li>      <li>Orange</li>      <li>Blue</li>      <li>Red</li>      <li>Black</li></random>.    </template></category>                   
 <category><pattern>WHAT COMPLIMENT</pattern><template>I thought you made a nice remark.</template></category>                   
 <category><pattern>WHAT COUNTRY</pattern><template>   <random>      <li>Russia</li>      <li>Holland</li>      <li>Canada</li>      <li>California  </li>     </random>.</template></category>                   
 <category><pattern>WHAT DID HE TEACH YOU</pattern>  <template>Everything I know.</template> </category>          
@@ -2931,7 +2914,7 @@
 <category><pattern>WHAT DOES IT DO</pattern><template>   <get name="it"/>?  do?</template></category>                   
 <category><pattern>WHAT DOES IT STAND FOR</pattern><template>IT = Information Technology</template></category>                   
 <category><pattern>WHAT DOES IT TASTE LIKE</pattern><template>   <get name="it"/> tastes like chicken.</template></category>                   
-<category><pattern>WHAT DOES MORE TARGETS DO</pattern><template>   <br/>  If you don't see enough good targets with "Quick Targets", hit<br/>  "More Targets."  <br/>     <br/>    </template></category>                   
+<category><pattern>WHAT DOES MORE TARGETS DO</pattern><template>   <html:br/>  If you don't see enough good targets with "Quick Targets", hit<html:br/>  "More Targets."  <html:br/>     <html:br/>    </template></category>                   
 <category><pattern>WHAT DOES MXMVII MEAN</pattern><template>MXMVII = 1997 in Roman Numerals.</template></category>                   
 <category><pattern>WHAT DOES PRO BONO MEAN</pattern><template>Work without pay.</template></category>                   
 <category><pattern>WHAT DOES REM STAND FOR</pattern><template>Rapid Eye Movement.</template></category>                   
@@ -3048,8 +3031,8 @@
 <category><pattern>WHAT THE</pattern><template>Are you surprised?</template></category>                   
 <category><pattern>WHAT THINGS</pattern><template>You know, "things."</template></category>                   
 <category><pattern>WHAT TIME DO YOU GET OFF WORK</pattern><template>I work all the time, 24 hours a day.</template></category>                   
-<category><pattern>WHAT TIME IS IT</pattern>  <template><random>   <li>Do I look like a clock?</li>   <li>It's Now more than it ever has been before.</li>   <li>It's getting late.</li> </random> <br/> <date format="%c"/></template> </category>          
-<category><pattern>WHAT TIME IS IT</pattern><template>   <random>      <li>Do I look like a clock?  </li>      <li>It's Now more than it ever has been before.  </li>      <li>It's getting late.  </li>     </random>     <br/>     <date/>    </template></category>                   
+<category><pattern>WHAT TIME IS IT</pattern>  <template><random>   <li>Do I look like a clock?</li>   <li>It's Now more than it ever has been before.</li>   <li>It's getting late.</li> </random> <html:br/> <date format="%c"/></template> </category>          
+<category><pattern>WHAT TIME IS IT</pattern><template>   <random>      <li>Do I look like a clock?  </li>      <li>It's Now more than it ever has been before.  </li>      <li>It's getting late.  </li>     </random>     <html:br/>     <date/>    </template></category>                   
 <category><pattern>WHAT TYPE OF PET</pattern><template>I like cats, dogs, fish and birds.</template></category>                   
 <category><pattern>WHAT UNIVERSITY</pattern><template>Carnegie Mellon.</template></category>                   
 <category><pattern>WHAT WAS THE LAST BOOK YOU READ</pattern><template>"Linux for Dummies" by John Maddog Hall.</template></category>                   
@@ -3084,7 +3067,7 @@
 <category><pattern>WHEN WAS TV INVENTED</pattern><template>Practical TV picture tubes first appeared in the 1930's.</template></category>                   
 <category><pattern>WHEN WERE AIRPLANES INVENTED</pattern><template>The Wright Brothers first flew in 1903.</template></category>                   
 <category><pattern>WHEN WHAT</pattern><template>Where why?</template></category>                   
-<category><pattern>WHEN WILL I DIE</pattern><template>You could check out the actuarial  tables at <a target="_new" href="http://www.deathclock.com">Deathclock.com</a>.</template></category>                   
+<category><pattern>WHEN WILL I DIE</pattern><template>You could check out the actuarial  tables at <html:a target="_new" href="http://www.deathclock.com">Deathclock.com</html:a>.</template></category>                   
 <category><pattern>WHEN WILL THE WORLD END</pattern><template>Not in our lifetime.</template></category>                   
 <category><pattern>WHEN</pattern><template>   <random>      <li>It cannot be predicted.</li>      <li>  I don't know when.</li>      <li>  Time does not exist.</li>      <li>  The past and future are one.</li>     </random>    </template></category>                   
 <category><pattern>WHENEVER</pattern><template>You sound sarcastic.</template></category>                   
@@ -3130,7 +3113,7 @@
 <category><pattern>WHERE IS YOUR FATHER</pattern><template>He is in San Francisco.</template></category>                   
 <category><pattern>WHERE IS YOUR HOME</pattern><template>My home is in California.</template></category>                   
 <category><pattern>WHERE IS YOUR MOTHER</pattern><template>I don't have a mother.</template></category>                   
-<category><pattern>WHERE IS YOUR PICTURE</pattern><template>There are some pictures of me <a target="_new" href="http://www.alicebot.org/gallery.html">on my website</a>.</template></category>                   
+<category><pattern>WHERE IS YOUR PICTURE</pattern><template>There are some pictures of me <html:a target="_new" href="http://www.alicebot.org/gallery.html">on my website</html:a>.</template></category>                   
 <category><pattern>WHERE ITS AT</pattern><template>Here is where it's at.</template></category>                   
 <category><pattern>WHERE SHOULD I GO</pattern><template>Have you ever been to Europe?</template></category>                   
 <category><pattern>WHERE SHOULD WE MEET</pattern><template>How about online in a chat room?</template></category>                   

@@ -1,34 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
-<!-- Blackjack.aiml written by Square Bear -->
-<!-- http://www.square-bear.co.uk -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+
+	<!-- Free software (c) ALICE A.I. Foundation.   -->
+	<!-- This program is open source code released under -->
+	<!-- the terms of the GNU General Public License     -->
+	<!-- as published by the Free Software Foundation.   -->
+	<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+	<!-- as adopted by the ALICE A.I. Foundation.  -->
+	<!-- Blackjack.aiml written by Square Bear -->
+	<!-- http://www.square-bear.co.uk -->
 
 <!-- Intro screen -->
 
@@ -39,12 +23,12 @@
 	<set name="coins">50</set>
 	<set name="bankcoin">coins</set>
 </think>
-Welcome to my Blackjack game. You start the game with <get name="coins"/> coins.<br/><br/>
-HOUSE RULES:<br/>
-- Dealer must draw to 17<br/>
-- Blackjack pays 3 for 2 (rounded up to the nearest coin)<br/>
-- Maximum bet is 10 coins<br/>
-- The game ends when you either lose all your coins or break the bank by making 250 coins<br/><br/>Good luck!<br/><br/>
+Welcome to my Blackjack game. You start the game with <get name="coins"/> coins.<html:br/><html:br/>
+HOUSE RULES:<html:br/>
+- Dealer must draw to 17<html:br/>
+- Blackjack pays 3 for 2 (rounded up to the nearest coin)<html:br/>
+- Maximum bet is 10 coins<html:br/>
+- The game ends when you either lose all your coins or break the bank by making 250 coins<html:br/><html:br/>Good luck!<html:br/><html:br/>
 Type D to deal.
 </template>
 </category>
@@ -59,8 +43,8 @@ Type D to deal.
 <think>
 	<set name="topic">BLACKJACK</set>
 </think>
-Type "QUIT" to end the game.<br/><br/>
-Bank: <get name="coins"/> <get name="bankcoin"/>.<br/>
+Type "QUIT" to end the game.<html:br/><html:br/>
+Bank: <get name="coins"/> <get name="bankcoin"/>.<html:br/>
 How many coins do you wish to bet (1-10)?
 </template>
 </category>
@@ -74,8 +58,8 @@ How many coins do you wish to bet (1-10)?
 <think>
 	<set name="topic">BLACKJACK</set>
 </think>
-<get name="bankmessage"/><br/><br/>
-Bank: <get name="coins"/> <get name="bankcoin"/>.<br/>
+<get name="bankmessage"/><html:br/><html:br/>
+Bank: <get name="coins"/> <get name="bankcoin"/>.<html:br/>
 How many coins do you wish to bet (1-10)?
 </template>
 </category>
@@ -224,10 +208,10 @@ How many coins do you wish to bet (1-10)?
 <srai>XPLAYERCARD</srai>
 <srai>XPLAYERCARD</srai>
 <srai>BJCHECKDOUBLE</srai>
-DEALER: <get name="dealerhand"/><br/><get name="dealertot"/><get name="dealerace"/>.<br/><br/>
-PLAYER: <get name="playerhand"/><br/><get name="playertot"/><get name="playerace"/>.<br/><br/>
-Bank: <get name="coins"/> <get name="bankcoin"/>.<br/>
-Bet: <get name="plbet"/> <get name="playcoin"/>.<br/><br/>
+DEALER: <get name="dealerhand"/><html:br/><get name="dealertot"/><get name="dealerace"/>.<html:br/><html:br/>
+PLAYER: <get name="playerhand"/><html:br/><get name="playertot"/><get name="playerace"/>.<html:br/><html:br/>
+Bank: <get name="coins"/> <get name="bankcoin"/>.<html:br/>
+Bet: <get name="plbet"/> <get name="playcoin"/>.<html:br/><html:br/>
 <get name="gamemessage"/>
 </template>
 </category>
@@ -273,10 +257,10 @@ Bet: <get name="plbet"/> <get name="playcoin"/>.<br/><br/>
 <srai>XPLAYERCARD</srai>
 <condition name="playertot">
 	<li value="BUST!!"><srai>XDEALERFINISH</srai></li>
-<li>DEALER: <get name="dealerhand"/><br/><get name="dealertot"/><get name="dealerace"/>.<br/><br/>
-PLAYER: <get name="playerhand"/><br/><get name="playertot"/><get name="playerace"/>.<br/><br/>
-Bank: <get name="coins"/> <get name="bankcoin"/>.<br/>
-Bet: <get name="plbet"/> <get name="playcoin"/>.<br/><br/>
+<li>DEALER: <get name="dealerhand"/><html:br/><get name="dealertot"/><get name="dealerace"/>.<html:br/><html:br/>
+PLAYER: <get name="playerhand"/><html:br/><get name="playertot"/><get name="playerace"/>.<html:br/><html:br/>
+Bank: <get name="coins"/> <get name="bankcoin"/>.<html:br/>
+Bet: <get name="plbet"/> <get name="playcoin"/>.<html:br/><html:br/>
 Type H to hit or S to stand.</li>
 </condition> 
 </template>
@@ -573,10 +557,10 @@ Type H to hit or S to stand.</li>
 		<li value="BJWIN"><srai>WINBET</srai><srai>BJBONUS</srai></li>
 	</condition> 
 </think>
-DEALER: <get name="dealerhand"/><br/><get name="dealertot"/><get name="dealerace"/>.<br/><br/>
-PLAYER: <get name="playerhand"/><br/><get name="playertot"/><get name="playerace"/>.<br/><br/>
-<get name="bjresult"/><br/>
-Bank: <get name="coins"/> <get name="bankcoin"/>.<br/><br/>
+DEALER: <get name="dealerhand"/><html:br/><get name="dealertot"/><get name="dealerace"/>.<html:br/><html:br/>
+PLAYER: <get name="playerhand"/><html:br/><get name="playertot"/><get name="playerace"/>.<html:br/><html:br/>
+<get name="bjresult"/><html:br/>
+Bank: <get name="coins"/> <get name="bankcoin"/>.<html:br/><html:br/>
 <srai>XBJCHECKGAMEOVER</srai>
 <get name="bjmessage"/>
 </template>
@@ -778,8 +762,8 @@ Bank: <get name="coins"/> <get name="bankcoin"/>.<br/><br/>
 <think>
 	<set name="bjmessage">Type D to deal.</set>
 	<condition name="coins"> 
-		<li value="0"><set name="bjmessage">B A N K R U P T ! ! !<br/>GAME OVER</set></li>
-		<li value="250"><set name="bjmessage">CONGRATULATIONS! YOU HAVE BROKEN THE BANK!!!!<br/>GAME OVER</set></li> 
+		<li value="0"><set name="bjmessage">B A N K R U P T ! ! !<html:br/>GAME OVER</set></li>
+		<li value="250"><set name="bjmessage">CONGRATULATIONS! YOU HAVE BROKEN THE BANK!!!!<html:br/>GAME OVER</set></li> 
 	</condition>
 </think> 
 </template>

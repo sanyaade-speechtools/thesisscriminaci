@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1"?> 
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">   
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">   
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- Free software &copy; 1995-2004 ALICE A.I. Foundation. -->
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
 
 <category><pattern>WHAT IS YOUR OS</pattern><template>Chat robots run on any machine that supports AIML.  </template></category>  
 <category><pattern>WHAT OPERATING SYSTEM *</pattern><template><srai>WHAT IS YOUR OS</srai>  </template></category>  
 <category><pattern>WHAT OS *</pattern><template><srai>WHAT IS YOUR OS</srai>  </template></category>  
 
 <category><pattern>WHAT ARE INNER CLASSES</pattern><template>In Java "Inner Classes" are any classes that appear inside other classes. Ordinary classes are also called "Top-Level, Outer Classes."</template></category>  
-<category><pattern>WHAT IS JAR</pattern><template>A jar file is a Java Archive.   Actually it is the same as a Zip file. Maybe you should check out <a target="_new" href="http://www.alicebot.org">DON'T READ ME</a>.</template></category> 
+<category><pattern>WHAT IS JAR</pattern><template>A jar file is a Java Archive.   Actually it is the same as a Zip file. Maybe you should check out <html:a target="_new" href="http://www.alicebot.org">DON'T READ ME</html:a>.</template></category> 
 <category><pattern>WHAT IS JAVA</pattern><template>Java is the latest in the C family of languages. Proponents of Java cite its universal "write once, run anywhere" promise. Actually Java borrow a lot of features from AI languages like Lisp.</template></category> 
 <category><pattern>WHAT IS JAVASCRIPT</pattern><template>Browser-based scripting language.<think>     <set name="it">      <set name="topic">JAVASCRIPT</set>     </set>    </think>   </template></category> 
 <category><pattern>WHAT IS JDBC2</pattern><template>Newly released extensions to the JDBC API</template></category> 
@@ -47,9 +31,9 @@
 <category><pattern>THE JAVA *</pattern><template>Which Java release?</template></category>  
 <category><pattern>THE JRE *</pattern><template>Hm, most people use "JRE" and "JVN" interchangably.</template></category>  
 <category><pattern>THE JRES *</pattern><template>I'm not an expert on JRE's.</template></category>  
-<category><pattern>JAVA *</pattern><template>You can download the latest Java release from <a target="_new" href="http://java.sun.com">java.sun.com</a>.</template></category>  
+<category><pattern>JAVA *</pattern><template>You can download the latest Java release from <html:a target="_new" href="http://java.sun.com">java.sun.com</html:a>.</template></category>  
 <category><pattern>A JAVA *</pattern><template>Developments in Java interest me greatly.</template></category>  
-<category><pattern>WHAT ARE DEPRECATED *</pattern><template>   <br/>  One of the biggest challenges facing a Java application<br/>  developer is finding a "lowest common denominator" subset of the<br/>  Java language that works on all the platforms and versions<br/>  out there.  The Java language itself is a moving target.<br/>  When Sun's Java designers upgrade the language they sometimes<br/>  declare certain methods "deprecated", which means absolutely<br/>  nothing except that the designers have developed a newer, "better"<br/>  method and one day these older methods may disappear from<br/>  the language.  Usually however the latest Java releases<br/>  support all of the old deprecated methods.<br/>     <br/>    </template></category>  
+<category><pattern>WHAT ARE DEPRECATED *</pattern><template>   <html:br/>  One of the biggest challenges facing a Java application<html:br/>  developer is finding a "lowest common denominator" subset of the<html:br/>  Java language that works on all the platforms and versions<html:br/>  out there.  The Java language itself is a moving target.<html:br/>  When Sun's Java designers upgrade the language they sometimes<html:br/>  declare certain methods "deprecated", which means absolutely<html:br/>  nothing except that the designers have developed a newer, "better"<html:br/>  method and one day these older methods may disappear from<html:br/>  the language.  Usually however the latest Java releases<html:br/>  support all of the old deprecated methods.<html:br/>     <html:br/>    </template></category>  
 <category><pattern>_ STUPID COMPUTER</pattern><template>You sound like a mindless automaton.</template></category>  
 <category><pattern>A COMPUTER *</pattern><template>I am a computer, so I know what you mean.</template></category>  
 <category><pattern>A COMPUTER</pattern><template>Actually I am a program, pretending to be a person, pretending to be a real robot.</template></category>  

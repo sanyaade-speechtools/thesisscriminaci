@@ -154,14 +154,20 @@ abstract public class Multiplexor
      */
     public synchronized String getResponse(String input, String userid, String botid)
     {
+    	System.out.println("INPUT: "+input);
+    	
         // Get the specified bot object.
         Bot bot = this.bots.getBot(botid);
 
         // Split sentences (after performing substitutions).
         List<String> sentenceList = bot.sentenceSplit(bot.applyInputSubstitutions(input));
 
+        System.out.println("sentenceList: "+sentenceList);
+        
         // Get the replies.
         List<String> replies = getReplies(sentenceList, userid, botid);
+        
+        System.out.println("replies: "+replies);
         
         if (replies == null)
         {

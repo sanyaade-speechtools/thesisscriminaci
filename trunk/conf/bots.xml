@@ -8,9 +8,11 @@
         <substitutions href="substitutions.xml"/>
         <sentence-splitters href="sentence-splitters.xml"/>
         <listeners href="listeners.xml"/>
-        <learn>../resources/aiml/aaa/*.aiml</learn>
         <!--plugins aiml-->
-<learn>/Users/mario/Project/Tesi/thesisscriminaci/./plugins/test/aiml/*.aiml</learn>
-<!--end plugins aiml-->        
+        
+        
+        <!--end plugins aiml-->   
+        <learn>../resources/aiml/aaa/*.aiml</learn>
+        <learn>../resources/aiml/EnglishAIML/*.aiml</learn>
     </bot>
 </bots>

@@ -237,6 +237,9 @@ abstract public class GenericParser<P extends Processor>
 
         // Search for the tag in the processor registry.
         Class<? extends P> processorClass = null;
+        
+        String localName = element.getLocalName();
+        if(localName==null) localName = element.getNodeName();
 
         String elementNamespaceURI = element.getNamespaceURI();
         boolean emitXMLNS = element.isSameNode(element.getOwnerDocument().getDocumentElement())
@@ -247,7 +250,7 @@ abstract public class GenericParser<P extends Processor>
         {
             try
             {
-                processorClass = this.processorRegistry.get(element.getLocalName());
+                processorClass = this.processorRegistry.get(localName);
             }
             catch (NotARegisteredClassException e)
             {
@@ -331,7 +334,7 @@ abstract public class GenericParser<P extends Processor>
     public String evaluate(Node node) throws ProcessorException
     {
         String response = EMPTY_STRING;
-
+        
         // Verify there is something to work with.
         if (node == null)
         {
@@ -343,12 +346,12 @@ abstract public class GenericParser<P extends Processor>
             switch (node.getNodeType())
             {
                 // Collect and process elements.
-                case Node.ELEMENT_NODE:
+                case Node.ELEMENT_NODE:                	
                     response += processElement((Element) node);
                     break;
     
                 // Text chunks should just be added to the response.
-                case Node.TEXT_NODE:
+                case Node.TEXT_NODE:    
                     response += node.getNodeValue();
                     break;
                     

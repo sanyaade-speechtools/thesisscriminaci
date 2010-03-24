@@ -8,7 +8,7 @@
     <!--Location of the Program D Core config.-->
     <context-param>
     	<param-name>programd-core-config</param-name>
-    	<param-value>file:/var/programd/conf/core.xml</param-value>
+    	<param-value>conf/core.xml</param-value>
     </context-param>
 	<!--JSP config-->
     <jsp-config>
@@ -33,6 +33,15 @@
     </listener>
     <!--Servlet Descriptors-->
     <servlet>
+    	<servlet-name>JSONRPCServlet</servlet-name>
+    	<servlet-class>org.jabsorb.JSONRPCServlet</servlet-class>
+    	    	<init-param>
+      		<param-name>gzip_threshold</param-name>
+      		<param-value>-1</param-value>
+    	</init-param>
+  	</servlet>
+    
+    <servlet>
         <servlet-name>TalkToBotServlet</servlet-name>
         <servlet-class>org.aitools.programd.server.servlet.TalkToBotServlet</servlet-class>
         <init-param>
@@ -54,6 +63,10 @@
     </servlet>
     <!--Servlet Mappings-->
     <servlet-mapping>
+    	<servlet-name>JSONRPCServlet</servlet-name>
+    	<url-pattern>/JSON-RPC</url-pattern>
+  	</servlet-mapping>	
+    <servlet-mapping>
         <servlet-name>TalkToBotServlet</servlet-name>
         <url-pattern>/TalkToBot</url-pattern>
     </servlet-mapping>
@@ -61,6 +74,29 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
+    <!--Filter Descriptors-->
+	<filter>
+		<filter-name>ServicesFilter</filter-name>
+		<filter-class>org.aitools.programd.server.servlet.ServicesFilter</filter-class>
+  	</filter>  
+    <!--Filter Mappings-->
+  	<filter-mapping>
+		<filter-name>ServicesFilter</filter-name>
+		<url-pattern>/JSON-RPC</url-pattern>
+	</filter-mapping>
+	
+    <servlet>
+      <servlet-name>ConnectorServlet</servlet-name>
+        <servlet-class>org.aitools.programd.server.servlet.ConnectorServletMultiple</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>ConnectorServlet</servlet-name>
+      <url-pattern>
+        /filemanager/connectors/*
+      </url-pattern>
+    </servlet-mapping>
+
     <!--Application-Level Security-->
     <!--
     <security-role>

@@ -50,13 +50,17 @@ import org.aitools.programd.parser.BotsConfigurationFileParser;
 import org.aitools.programd.processor.ProcessorException;
 import org.aitools.programd.processor.aiml.AIMLProcessorRegistry;
 import org.aitools.programd.processor.botconfiguration.BotConfigurationElementProcessorRegistry;
+import org.aitools.programd.server.servlet.ServicesFilter;
 import org.aitools.programd.util.AIMLWatcher;
 import org.aitools.programd.util.ClassUtils;
 import org.aitools.programd.util.DeveloperError;
 import org.aitools.programd.util.FileManager;
+import org.aitools.programd.util.GlobalProperties;
 import org.aitools.programd.util.Heart;
 import org.aitools.programd.util.JDKLogHandler;
 import org.aitools.programd.util.ManagedProcesses;
+import org.aitools.programd.util.PluginSupportParam;
+import org.aitools.programd.util.PluginsSupport;
 import org.aitools.programd.util.UnspecifiedParameterError;
 import org.aitools.programd.util.URLTools;
 import org.aitools.programd.util.UserError;
@@ -184,13 +188,12 @@ public class Core
     /** The <code>*</code> wildcard. */
     public static final String ASTERISK = "*";
     
-    private static Map<String, Object> pluginSupportMap;
+    private Map<Class<?>, Object> pluginSupportMap;
     
     //XXX
-    public final static String pluginXmlLocation = "conf/plugins.xml";
+    public final static String pluginXmlLocation = GlobalProperties.pluginXmlLocation;
     public final static String pluginAIMLPluginLocation = "resources/schema/AIML-plugin.xsd";
-    public final static String botsXMLLocation = "conf/bots.xml";
-    
+    public final static String botsXMLLocation = "conf/bots.xml";    
 
     /**
      * Initializes a new Core object with default property values
@@ -235,45 +238,43 @@ public class Core
         FileManager.setRootPath(URLTools.getParent(this.baseURL));
         start();
     }
+    
+    public void restart(){
+    	FileManager.setRootPath(URLTools.getParent(this.baseURL));
+    	//this.shutdown();
+    	this.start();
+    }
 
     /**
      * Initializes and starts up the Core.
      */
-    protected void start()
+    public void start()
     {
         Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler());
         
         try {
+        	System.out.println("Loading plugins...");
 			loadPlugin();
+			System.out.println("Plugins loaded.");
 		} catch (SAXException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ParserConfigurationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -301,6 +302,9 @@ public class Core
         
         this.aimlProcessorRegistry = new AIMLProcessorRegistry();
         this.botConfigurationElementProcessorRegistry = new BotConfigurationElementProcessorRegistry();
+        
+        System.out.println("WorkingDirectory: "+FileManager.getWorkingDirectory());
+        System.out.println("AIML_SCHEMA_LOCATION: "+AIML_SCHEMA_LOCATION);
         
         this.parser = XMLKit.getSAXParser(URLTools.contextualize(FileManager.getWorkingDirectory(), AIML_SCHEMA_LOCATION), "AIML");
         
@@ -487,7 +491,7 @@ public class Core
     public void load(URL path, String botid)
     {
         // Handle paths with wildcards that need to be expanded.
-        if (path.getProtocol().equals(FileManager.FILE))
+        if (true)
         {
             String spec = path.getFile();
             if (spec.indexOf(ASTERISK) != -1)
@@ -821,6 +825,7 @@ public class Core
      */
     public void loadBots(URL path)
     {
+    	System.out.println(path);
         if (this.settings.useWatcher())
         {
             this.logger.debug("Suspending AIMLWatcher.");
@@ -1080,15 +1085,17 @@ public class Core
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		
-		Document doc = builder.parse(pluginXmlLocation);
+		Document doc = builder.parse(FileManager.getAbsolutePath(pluginXmlLocation));
 		
 		NodeList list = doc.getChildNodes();
 		
 		Map<String, File> pluginDirectories = new HashMap<String, File>();
 		Map<String, Class<?>> pluginProcessor = new HashMap<String, Class<?>>();
-		Map<String, Class<?>> pluginSupport = new HashMap<String, Class<?>>();	
+		Map<String, Class<?>> pluginSupport = new HashMap<String, Class<?>>();
+		Map<String, List<PluginSupportParam>> pluginSupportParams = new HashMap<String, List<PluginSupportParam>>();
 		Map<String, String> pluginContainer = new HashMap<String, String>();
-		Map<String, String> pluginElementProcessor = new HashMap<String, String>();		
+		Map<String, String> pluginElementProcessor = new HashMap<String, String>();
+		Map<String, Class<?>> pluginServices = new HashMap<String, Class<?>>();
 				
 		if(list.getLength()==1){
 			Node plugins = list.item(0);					
@@ -1104,29 +1111,35 @@ public class Core
 					String directory = null;
 					for(int j=0; j<properties.getLength(); j++){
 						if(properties.item(j).getNodeType()!=Node.TEXT_NODE){
-							System.out.println(properties.item(j).getAttributes().getNamedItem("name").getNodeValue());
-							if(properties.item(j).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("name")){
+							if(properties.item(j).getNodeName().equalsIgnoreCase("name")){
 								name = properties.item(j).getTextContent();
-							}else if(properties.item(j).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("directory")){
+							}else if(properties.item(j).getNodeName().equalsIgnoreCase("directory")){
 								directory = properties.item(j).getTextContent();
 							}
 						}
 					}
 					if(name!=null && directory!=null){
-						File dir = new File(directory);
+						File dir = new File(FileManager.getAbsolutePath(directory));
 						if(dir.exists()){
 							pluginDirectories.put(name, dir);
+							PluginsSupport.addPluginPath(name, dir.getAbsolutePath());
+							File prop = new File(dir.getAbsolutePath()+File.separator+"plugin.properties");
+							if(prop.exists()){
+								PluginsSupport.addPluginPropertiesPath(name, prop.getAbsolutePath());
+							}
 						}
 					}					
 				}
 			}
 		}		
-
+		System.out.println("Loading plugin libraries...");
     	this.loadPluginLibraries(pluginDirectories);
+    	System.out.println("Plugin libraries loaded.");
 		
 		for(String plugin:pluginDirectories.keySet()){
 			if(pluginDirectories.get(plugin).exists()){
 				String pluginXmlConfig = pluginDirectories.get(plugin).getAbsolutePath()+File.separator+"plugin.xml";
+				System.out.println("Reading: "+pluginXmlConfig);
 				Document pluginDoc = builder.parse(pluginXmlConfig);
 
 				NodeList pList = pluginDoc.getChildNodes();
@@ -1138,42 +1151,80 @@ public class Core
 
 					List<String> processor = new ArrayList<String>();
 					List<String> support = new ArrayList<String>();
+					Map<String, List<PluginSupportParam>> supportParams = new HashMap<String, List<PluginSupportParam>>();
+					Map<String, Class<?>> pluginServs = new HashMap<String, Class<?>>();
+					
 					String container = null;
 					String elementProcessor = null;
 					for(int i=0; i<pList.getLength(); i++){
 						if(pList.item(i).getNodeType()!=Node.TEXT_NODE){
-							if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processors")){
+							if(pList.item(i).getNodeName().equalsIgnoreCase("processors")){
 								NodeList prs = pList.item(i).getChildNodes();
 								for(int j=0; j<prs.getLength(); j++){
 									if(prs.item(j).getNodeType()!=Node.TEXT_NODE){
-										processor.add(prs.item(j).getTextContent());
+										processor.add(prs.item(j).getAttributes().getNamedItem("class").getNodeValue());
 									}
 								}
-							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("supports")){
+							}else if(pList.item(i).getNodeName().equalsIgnoreCase("supports")){
 								NodeList prs = pList.item(i).getChildNodes();
 								for(int j=0; j<prs.getLength(); j++){
-									if(prs.item(j).getNodeType()!=Node.TEXT_NODE){
-										support.add(prs.item(j).getTextContent());
+									Node sup = prs.item(j);
+									if(sup.getNodeType()!=Node.TEXT_NODE){
+										String supportClass = sup.getAttributes().getNamedItem("class").getNodeValue();
+										support.add(supportClass);
+										List<PluginSupportParam> params = new ArrayList<PluginSupportParam>();										
+										NodeList pars = sup.getChildNodes();
+										for(int k=0; k<pars.getLength(); k++){
+											Node par = pars.item(k);
+											if(par.getNodeType()!=Node.TEXT_NODE){
+												if(par.getNodeName().equalsIgnoreCase("param")){
+													String name = par.getAttributes().getNamedItem("name").getNodeValue();
+													String paramClass = par.getAttributes().getNamedItem("class").getNodeValue();
+													String value = par.getTextContent();
+													if(name!=null&&paramClass!=null&&value!=null){
+														PluginSupportParam param = new PluginSupportParam();
+														param.setName(name);
+														param.setValue(value);
+														param.setParamClass(Class.forName(paramClass));
+														params.add(param);
+													}
+												}
+											}
+										}
+										supportParams.put(supportClass, params);
 									}
 								}
-							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("container")){
+							}else if(pList.item(i).getNodeName().equalsIgnoreCase("container")){
 								container = pList.item(i).getTextContent().trim();
-							}else if(pList.item(i).getAttributes().getNamedItem("name").getNodeValue().equalsIgnoreCase("processorElement")){
+							}else if(pList.item(i).getNodeName().equalsIgnoreCase("processorElement")){
 								elementProcessor = pList.item(i).getTextContent().trim();
+							}else if(pList.item(i).getNodeName().equalsIgnoreCase("services")){
+								NodeList prs = pList.item(i).getChildNodes();
+								for(int j=0; j<prs.getLength(); j++){
+									Node serv = prs.item(j);
+									if(serv.getNodeType()!=Node.TEXT_NODE){
+										String serviceClassName = serv.getAttributes().getNamedItem("class").getNodeValue();
+										String serviceName = serv.getAttributes().getNamedItem("name").getNodeValue();
+										
+										Class<?> serviceClass = Class.forName(serviceClassName);
+										pluginServs.put(serviceName, serviceClass);										
+									}									
+								}
 							}
 						}						
 					}
 					
-					if(processor.size()>0 && support.size()>0){
+					if(processor.size()>0 || support.size()>0 || pluginServs.size()>0){
 						
 						for(String p:processor){
 							Class<?> cProcessor = Class.forName(p);
-							pluginProcessor.put(plugin, cProcessor);
+							pluginProcessor.put(p, cProcessor);
 						}
 						
 						for(String s:support){
 							Class<?> cSupport = Class.forName(s);
-							pluginSupport.put(plugin, cSupport);
+							pluginSupport.put(s, cSupport);
+							pluginSupportParams.put(s, supportParams.get(s));
 						}
 						
 						if(container!=null){
@@ -1188,6 +1239,10 @@ public class Core
 						else{
 							pluginElementProcessor.put(plugin, "");							
 						}
+						
+						for(String name:pluginServs.keySet()){
+							pluginServices.put(name, pluginServs.get(name));
+						}
 					}					
 				}				
 			}
@@ -1196,20 +1251,25 @@ public class Core
 		List<String> processorList = new ArrayList<String>();
 		processorList.addAll(Arrays.asList(AIMLProcessorRegistry.getPROCESSOR_LIST()));
 		
-		for(String plugin:pluginProcessor.keySet()){
-			processorList.add(pluginProcessor.get(plugin).getCanonicalName());
+		for(String processor:pluginProcessor.keySet()){
+			processorList.add(pluginProcessor.get(processor).getCanonicalName());
 		}
+		
+    	AIMLProcessorRegistry.setPROCESSOR_LIST(processorList.toArray(new String[processorList.size()]));
     	
-    	AIMLProcessorRegistry.setPROCESSOR_LIST(processorList.toArray(new String[processorList.size()]));    	
-    	
+    	System.out.println("Writing Bots xml...");
     	this.writeBotsXML(pluginDirectories);
+    	System.out.println("Writing AIML Plugin XSD...");
     	this.writeAIMLPluginXSD(pluginContainer, pluginElementProcessor);
-    	this.loadPluginSupportMap(pluginSupport);
+    	System.out.println("Loading plugin support map...");
+    	this.loadPluginSupportMap(pluginSupport, pluginSupportParams);
+    	System.out.println("Setting plugin services...");
+    	this.loadPluginServices(pluginServices);
     }
     
     private void loadPluginLibraries(Map<String, File> pluginDirectories) throws MalformedURLException, ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
-    	ArrayList<URL> urls = new ArrayList<URL>();    	
-
+    	  	
+    	Map<String, URL> urlsMap = new HashMap<String, URL>();
     	for(String plugin:pluginDirectories.keySet()){
     		File dir = pluginDirectories.get(plugin);
     		File libDir = new File(dir.getAbsoluteFile()+File.separator+"lib");
@@ -1217,31 +1277,61 @@ public class Core
     		File[] files = libDir.listFiles();
     		for(File file:files){
     			if(file.getName().endsWith(".jar")){
-    				urls.add(file.toURL());
+    				urlsMap.put(file.getName(), file.toURL());
     			}
     		}
     	}	  	
 
-    	if(urls.size()>0){
+    	if(urlsMap.size()>0){
     		Class<?>[] parameters = new Class[]{URL.class};
 
-    		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+    		URLClassLoader sysloader = (URLClassLoader) this.getClass().getClassLoader();
+    		
+    		List<URL> oldUrl = Arrays.asList(sysloader.getURLs());
+    		
     		Class<?> sysclass = URLClassLoader.class;
 
     		Method method = sysclass.getDeclaredMethod("addURL", parameters);
     		method.setAccessible(true);
-    		method.invoke(sysloader, urls.toArray());
+    		
+    		for(String name:urlsMap.keySet()){
+    			URL url = urlsMap.get(name);
+    			
+    			if(!oldUrl.contains(url)){
+    				this.logger.info("Adding library "+url);
+    				Object[] array = new Object[]{url};
+        		
+        			method.invoke(sysloader, array);
+    			}
+    		}
     	}
     }
     
-    private void loadPluginSupportMap(Map<String, Class<?>> pluginSupport) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
-    	pluginSupportMap = new HashMap<String, Object>();
+    private void loadPluginSupportMap(Map<String, Class<?>> pluginSupport, Map<String, List<PluginSupportParam>> pluginSupportParams) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException{
+    	pluginSupportMap = new HashMap<Class<?>, Object>();
     	
-    	for(String plugin:pluginSupport.keySet()){
-    		Class<?> sClass = pluginSupport.get(plugin);
-    		Constructor<?> constructor = sClass.getConstructor();
-    	   		System.out.println(plugin);
-    		pluginSupportMap.put(plugin, constructor.newInstance());
+    	for(String cl:pluginSupport.keySet()){
+    		Class<?> sClass = pluginSupport.get(cl);
+    		List<PluginSupportParam> params = pluginSupportParams.get(cl);
+    		if(params!=null&&params.size()>0){
+    			Class<?>[] classes = new Class<?>[params.size()];
+    			Object[] objects = new Object[params.size()];
+    			
+    			for(int i=0; i<params.size();i++){
+    				PluginSupportParam param = params.get(i);
+    				classes[i]=param.getParamClass();
+
+    				Constructor<?> constructor = param.getParamClass().getConstructor(Class.forName("java.lang.String"));
+    				objects[i] = constructor.newInstance(param.getValue());
+    			}
+    			Constructor<?> constructor = sClass.getConstructor(classes);
+    			pluginSupportMap.put(sClass, constructor.newInstance(objects));			
+    		}
+    		else{
+    			Constructor<?> constructor = sClass.getConstructor();
+    			pluginSupportMap.put(sClass, constructor.newInstance());
+    		}
+    		
     	}
     }
     
@@ -1263,7 +1353,7 @@ public class Core
     	
     	String text = "";
     	
-    	BufferedReader bufferedReader = new BufferedReader(new FileReader(pluginAIMLPluginLocation));
+    	BufferedReader bufferedReader = new BufferedReader(new FileReader(FileManager.getAbsolutePath(pluginAIMLPluginLocation)));
     	
     	while(bufferedReader.ready()){
     		text += bufferedReader.readLine()+"\n";
@@ -1280,7 +1370,7 @@ public class Core
     	
     	text = text.substring(0, initElements)+"\n"+elements+text.substring(endElements, text.length());
     	
-    	FileWriter fileWriter = new FileWriter(pluginAIMLPluginLocation);
+    	FileWriter fileWriter = new FileWriter(FileManager.getAbsolutePath(pluginAIMLPluginLocation));
     	
     	fileWriter.write(text);
     	fileWriter.flush();
@@ -1308,7 +1398,7 @@ public class Core
 
     	String text = "";
     	
-    	BufferedReader bufferedReader = new BufferedReader(new FileReader(botsXMLLocation));
+    	BufferedReader bufferedReader = new BufferedReader(new FileReader(FileManager.getAbsolutePath(botsXMLLocation)));
     	
     	while(bufferedReader.ready()){
     		text += bufferedReader.readLine()+"\n";
@@ -1320,18 +1410,23 @@ public class Core
     	
     	text = text.substring(0, initPlugins)+"\n"+bots+text.substring(endPlugins, text.length());
     	
-    	FileWriter fileWriter = new FileWriter(botsXMLLocation);
+    	FileWriter fileWriter = new FileWriter(FileManager.getAbsolutePath(botsXMLLocation));
     	
     	fileWriter.write(text);
     	fileWriter.flush();
     	fileWriter.close();
     }
+    
+    private void loadPluginServices(Map<String, Class<?>> pluginServices){
+    	ServicesFilter.setPluginsServices(pluginServices);    	
+    	ServicesFilter.setReloadFilter(true);
+    }
 
-	public static void setPluginSupportMap(Map<String, Object> pluginSupportMap) {
-		Core.pluginSupportMap = pluginSupportMap;
+	public void setPluginSupportMap(Map<Class<?>, Object> pluginSupportMap) {
+		this.pluginSupportMap = pluginSupportMap;
 	}
 
-	public static Map<String, Object> getPluginSupportMap() {
+	public Map<Class<?>, Object> getPluginSupportMap() {
 		return pluginSupportMap;
 	}
 }

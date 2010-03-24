@@ -1,0 +1,101 @@
+<!--
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<link href="browser.css" type="text/css" rel="stylesheet">
+
+<script>
+
+
+function OnMultipleSubmit()
+{
+	document.getElementById('frmMultipleUploads').action = window.parent.oConnector.sUrl + "&Command=MultipleFileUpload"; ;
+	
+	/*if ( document.getElementById('NewFile').value.length == 0 )
+	{
+		alert( 'Please select a file from your computer' ) ;
+		return false ;
+	}*/
+
+	// Set the interface elements.
+	document.getElementById('eUploadMessage').innerHTML = 'Upload a new file in this folder (Upload in progress, please wait...)' ;
+	document.getElementById('btnUpload').disabled = true ;
+	document.getElementById('btnAddFile').disabled = true ;
+	
+	return true ;
+}
+
+
+var fileId = 0;
+var fileNumber = 0;
+function addFile()
+{
+	if(fileNumber == 10){
+		alert("Impossible to add File");
+		return;
+	}
+	fileId++;
+	fileNumber++;
+	divid = "div_" + fileId;
+	newfile = "NewFile" + fileId;
+	html = "<div id=\"" + divid + "\"><table><td><input id=\"" + newfile + "\" name=\""+ newfile + "\" style=\"WIDTH: 100%\" type=\"file\"></td>";
+	html += "<td nowrap><input value=\"Delete\" name=\"Delete\" type=\"button\" onclick=\"removeFile(" + fileId + ")\"></td></tr></table></div>";
+	document.getElementById("divMultipleUploads").innerHTML = document.getElementById("divMultipleUploads").innerHTML + html;	
+}
+
+function removeFile(id){
+	divid = "div_" + id;
+	document.getElementById(divid).innerHTML = "";
+	fileNumber--;
+}
+
+function OnUploadCompleted( errorNumber, data )
+{
+	document.getElementById("divMultipleUploads").innerHTML = "";
+	fileNumber=0;
+	fileId=0;
+	
+	// Reset the interface elements.
+	document.getElementById('eUploadMessage').innerHTML = 'Upload a new file in this folder' ;
+	document.getElementById('btnUpload').disabled = false ;
+	document.getElementById('btnAddFile').disabled = false ;
+	
+	switch ( errorNumber )
+	{
+		case 0 :
+			//alert("ok");
+			break;
+		case 1 :	// Custom error.
+			//alert(data) ;
+			break ;
+		case 201 :
+			alert( 'A file with the same name is already available. The uploaded file has been renamed to "' + data + '"' ) ;
+			break ;
+		case 202 :
+			alert( 'Invalid file' ) ;
+			break ;
+		default :
+			alert( 'Error on file upload. Error number: ' + errorNumber ) ;
+			break ;
+	}
+}
+
+
+
+</script>
+</head>
+	<body bottomMargin="0" topMargin="0">
+		<br/>
+		<br/>
+		<form id="frmMultipleUploads" target="frmUploadWorker" action="" method="post" enctype="multipart/form-data" onsubmit="return OnMultipleSubmit();">
+			<span id="eUploadMessage">Upload multiple files (max 10)</span><br>
+			<div>
+				<input id="btnAddFile" type="button" value="Add File" onclick="addFile();" />
+				<input id="btnUpload" type="submit" value="Upload" />
+			</div>	
+			<div id="divMultipleUploads">
+			</div>			
+		</form>
+	</body>
+</html>

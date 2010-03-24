@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Luckyslots.aiml -->
+<!-- Free software (c)2005 SQUAREBEAR. -->
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License -->
+<!-- as published by the Free Software Foundation. -->
+<!-- Complies with AIML 1.0 Tag Set Specification -->
 <!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+
 
 <category>
 <pattern>LUCKYSLOTS</pattern>
@@ -33,7 +18,7 @@
 <think>
 	<set name="coins">50</set>
 </think>
-Welcome to my slot machine.<br/>You start with<get name="coins"/>coins and each spin of the machine costs you 1 coin.<br/>The game is over when you have either lost all your money or made 250 coins.<br/>Good luck!<br/><br/>Type START to load the machine.
+Welcome to my slot machine.<html:br/>You start with<get name="coins"/>coins and each spin of the machine costs you 1 coin.<html:br/>The game is over when you have either lost all your money or made 250 coins.<html:br/>Good luck!<html:br/><html:br/>Type START to load the machine.
 </template>
 </category>
 
@@ -44,14 +29,14 @@ Welcome to my slot machine.<br/>You start with<get name="coins"/>coins and each 
 <pattern>START</pattern>
 <that>TYPE START TO LOAD THE MACHINE</that>
 <template>
-	Reels: -&gt; ? ? ? &lt;-<br/><br/>
-	A A A pays 100<br/>
-	K K K pays 50<br/>
-	Q Q Q pays 25<br/>
-	J J J pays 15<br/>
-	7 7 7 pays 7<br/>
-	A A - pays 2<br/><br/>
-	You have<get name="coins"/>coins in the bank.<br/><br/>
+	Reels: -&gt; ? ? ? &lt;-<html:br/><html:br/>
+	A A A pays 100<html:br/>
+	K K K pays 50<html:br/>
+	Q Q Q pays 25<html:br/>
+	J J J pays 15<html:br/>
+	7 7 7 pays 7<html:br/>
+	A A - pays 2<html:br/><html:br/>
+	You have<get name="coins"/>coins in the bank.<html:br/><html:br/>
 	<set name="slotsmessage">Type S to spin the reels</set>  
 </template>
 </category>
@@ -74,22 +59,22 @@ Welcome to my slot machine.<br/>You start with<get name="coins"/>coins and each 
 <category>
 <pattern>XSLOTSLOOP</pattern>
 <template>
-	Reels: -&gt;<set name="reels"><get name="reel1"/><get name="reel2"/><get name="reel3"/></set> &lt;-<br/>
-	<srai>XSLOTHOLD</srai><br/>
-	A A A pays 100<br/>
-	K K K pays 50<br/>
-	Q Q Q pays 25<br/>
-	J J J pays 15<br/>
-	7 7 7 pays 7<br/>
-	A A - pays 2<br/><br/>
-	<srai>XCHECKWIN</srai><br/>		
+	Reels: -&gt;<set name="reels"><get name="reel1"/><get name="reel2"/><get name="reel3"/></set> &lt;-<html:br/>
+	<srai>XSLOTHOLD</srai><html:br/>
+	A A A pays 100<html:br/>
+	K K K pays 50<html:br/>
+	Q Q Q pays 25<html:br/>
+	J J J pays 15<html:br/>
+	7 7 7 pays 7<html:br/>
+	A A - pays 2<html:br/><html:br/>
+	<srai>XCHECKWIN</srai><html:br/>		
 			<think>
 			<set name="bank">You have<get name="coins"/>coins in the bank.</set>
 				<condition name="coins"> 
 					<li value="1"><set name="bank">You have 1 coin in the bank.</set></li>
 				</condition>
 			</think>		
-		<get name="bank"/><br/><br/>
+		<get name="bank"/><html:br/><html:br/>
 	<srai>XCHECKGAMEOVER</srai><get name="slotsmessage"/> 
 </template>
 </category>
@@ -105,7 +90,7 @@ Welcome to my slot machine.<br/>You start with<get name="coins"/>coins and each 
 	<random>
 		<li><think><set name="slotsmessage">Type S to spin the reels</set></think></li>
 		<li><think><set name="slotsmessage">Type S to spin the reels</set></think></li>
-		<li>HOLD: -&gt; 1 2 3 &lt;-<think><set name="slotsmessage">HOLD AVAILABLE - Enter the reels you wish to hold. E.g. 12 will hold reels 1 and 2 and spin reel 3.<br/>Type S to spin all three.</set>
+		<li>HOLD: -&gt; 1 2 3 &lt;-<think><set name="slotsmessage">HOLD AVAILABLE - Enter the reels you wish to hold. E.g. 12 will hold reels 1 and 2 and spin reel 3.<html:br/>Type S to spin all three.</set>
 		</think></li>
 	</random>
 </template>
@@ -383,8 +368,8 @@ Welcome to my slot machine.<br/>You start with<get name="coins"/>coins and each 
 <template>
 <think>
 	<condition name="coins"> 
-		<li value="0"><set name="slotsmessage">B A N K R U P T ! ! !<br/>GAME OVER</set></li>
-		<li value="250"><set name="slotsmessage">CONGRATULATIONS! YOU HAVE BROKEN THE BANK!!!!<br/>GAME OVER</set></li> 
+		<li value="0"><set name="slotsmessage">B A N K R U P T ! ! !<html:br/>GAME OVER</set></li>
+		<li value="250"><set name="slotsmessage">CONGRATULATIONS! YOU HAVE BROKEN THE BANK!!!!<html:br/>GAME OVER</set></li> 
 	</condition>
 </think> 
 </template>

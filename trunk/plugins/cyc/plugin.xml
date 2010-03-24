@@ -1,0 +1,53 @@
+<plugin>
+	<name>Cyc</name>
+	<processors>
+		<processor class="org.aitools.programd.processor.cyc.CycConditionProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycDimProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycAssertProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycAddProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycGetProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycLogProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycRandomProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycRemProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycRetractProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycSystemProcessor"></processor>
+		<processor class="org.aitools.programd.processor.cyc.CycTermProcessor"></processor>
+	</processors>
+	<supports>
+		<support class="org.aitools.programd.server.core.cyc.CycSupport">
+			<param name="hostname" class="java.lang.String">node4.pa.icar.cnr.it:3600</param>
+		</support>
+	</supports>
+	<container>
+		<![CDATA[
+		<xs:simpleType name="CycLPatternExpression">
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+				<xs:pattern value="(.*)"/>
+			</xs:restriction>
+		</xs:simpleType>
+		<xs:complexType name="CycMixedTemplateContentContainer" mixed="true">
+			<xs:complexContent>
+				<xs:extension base="MixedTemplateContentContainer">
+					<xs:attribute name="query" type="xs:string"></xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+		]]>
+	</container>
+	<processorElement>
+		<![CDATA[			
+		<xs:element name="cyccondition" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycsystem" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycterm" type="CycMixedTemplateContentContainer" minOccurs="1" maxOccurs="unbounded"></xs:element>
+		<xs:element name="cycrandom" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cyclog" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycget" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycdim" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycassert" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycadd" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycrem" type="CycMixedTemplateContentContainer"></xs:element>
+		<xs:element name="cycretract" type="CycMixedTemplateContentContainer"></xs:element>		
+		]]>
+	</processorElement>
+</plugin>

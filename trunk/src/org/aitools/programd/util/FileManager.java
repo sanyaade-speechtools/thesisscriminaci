@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.servlet.ServletContext;
+
 import org.aitools.programd.util.DeveloperError;
 import org.apache.log4j.Logger;
 
@@ -39,6 +41,12 @@ public class FileManager
 
     /** The current working directory. */
     private static Stack<URL> workingDirectory = new Stack<URL>();
+    
+    /** */
+    private static boolean useServeltContext = false;
+    
+    /** */
+    private static ServletContext context = null;
 
     /** Put the working directory onto the stack right away. */
     static
@@ -108,23 +116,39 @@ public class FileManager
      */
     public static File getExistingFile(String path) throws FileNotFoundException
     {
-        File file = getBestFile(path);
-        if (!file.exists())
-        {
-            file = getBestFile(workingDirectory.peek().getPath() + path);
-            if (!file.exists())
-            {
-                throw new FileNotFoundException("Couldn't find \"" + path + "\".");
-            }
-        }
-        try
-        {
-            return file.getCanonicalFile();
-        }
-        catch (IOException e)
-        {
-            throw new DeveloperError("I/O Error creating the canonical form of file \"" + path + "\".", e);
-        }
+    	if(isUseServeltContext()){
+    		if(context!=null){
+    			File file = new File(context.getRealPath(path));
+    			if(file.exists()){
+        			return file;
+    			}
+    			else{
+    				throw new FileNotFoundException("Couldn't find \"" + path + "\".");
+    			}    				
+    		}
+    		else{
+    			throw new FileNotFoundException("The servlet context is null");
+    		}
+    	}
+    	else{
+    		File file = getBestFile(path);
+    		if (!file.exists())
+    		{
+    			file = getBestFile(workingDirectory.peek().getPath() + path);
+    			if (!file.exists())
+    			{
+    				throw new FileNotFoundException("Couldn't find \"" + path + "\".");
+    			}
+    		}
+    		try
+    		{
+    			return file.getCanonicalFile();
+    		}
+    		catch (IOException e)
+    		{
+    			throw new DeveloperError("I/O Error creating the canonical form of file \"" + path + "\".", e);
+    		}
+    	}
     }
     
     /**
@@ -136,28 +160,44 @@ public class FileManager
      */
     public static File getExistingDirectory(String path)
     {
-        File file = getBestFile(path);
-        if (!file.exists())
-        {
-            file = getBestFile(workingDirectory.peek().getPath() + path);
-            if (!file.exists())
-            {
-                throw new DeveloperError("Couldn't find \"" + path + "\".", new FileNotFoundException(path));
-            }
-        }
-        try
-        {
-            if (!file.isDirectory())
-            {
-                throw new DeveloperError("Could not find directory \"" + path + "\".", new FileAlreadyExistsAsFileException(file));
-            }
-            // otherwise...
-            return file.getCanonicalFile();
-        }
-        catch (IOException e)
-        {
-            throw new DeveloperError("I/O Error creating the canonical form of file \"" + path + "\".", e);
-        }
+    	if(isUseServeltContext()){
+    		if(context!=null){
+    			File file = new File(context.getRealPath(path));
+    			if(file.exists()){
+    				return file;
+    			}
+    			else{
+    				throw new DeveloperError("Couldn't find \"" + path + "\".", new FileNotFoundException(path));
+    			}    				
+    		}
+    		else{
+    			throw new DeveloperError("The servlet context is null", new NullPointerException());
+    		}
+    	}
+    	else{
+    		File file = getBestFile(path);
+    		if (!file.exists())
+    		{
+    			file = getBestFile(workingDirectory.peek().getPath() + path);
+    			if (!file.exists())
+    			{
+    				throw new DeveloperError("Couldn't find \"" + path + "\".", new FileNotFoundException(path));
+    			}
+    		}
+    		try
+    		{
+    			if (!file.isDirectory())
+    			{
+    				throw new DeveloperError("Could not find directory \"" + path + "\".", new FileAlreadyExistsAsFileException(file));
+    			}
+    			// otherwise...
+    			return file.getCanonicalFile();
+    		}
+    		catch (IOException e)
+    		{
+    			throw new DeveloperError("I/O Error creating the canonical form of file \"" + path + "\".", e);
+    		}
+    	}
     }
 
     /**
@@ -216,19 +256,28 @@ public class FileManager
      * @throws FileNotFoundException if a file with the given path cannot be
      *             located
      */
-    public static String getAbsolutePath(String path) throws FileNotFoundException
-    {
-        File file = new File(path);
-        if (file.isAbsolute())
-        {
-            return file.getAbsolutePath();
-        }
-        file = new File(root.getPath() + path);
-        if (!file.exists())
-        {
-            throw new FileNotFoundException("Could not find \"" + path + "\".");
-        }
-        return file.getAbsolutePath();
+    public static String getAbsolutePath(String path) throws FileNotFoundException{    	
+    	if(isUseServeltContext()){
+    		if(context!=null){
+    			return context.getRealPath(path);
+    		}
+    		else{
+    			throw new DeveloperError("The servlet context is null", new NullPointerException());
+    		}
+    	}
+    	else{
+    		File file = new File(path);
+    		if (file.isAbsolute())
+    		{
+    			return file.getAbsolutePath();
+    		}
+    		file = new File(root.getPath() +File.separator+ path);
+    		if (!file.exists())
+    		{
+    			throw new FileNotFoundException("Could not find \"" + path + "\".");
+    		}
+    		return file.getAbsolutePath();
+    	}
     }
 
     /**
@@ -637,6 +686,33 @@ public class FileManager
         return result.toString();
     }
 
-    /** The string &quot;{@value}&quot;. */
+    public static void setContext(ServletContext context) {
+		FileManager.context = context;
+	}
+
+	public static ServletContext getContext() {
+		return context;
+	}
+
+	public static void setUseServeltContext(boolean useServeltContext) {
+		FileManager.useServeltContext = useServeltContext;
+	}
+
+	public static boolean isUseServeltContext() {
+		return useServeltContext;
+	}
+	
+	public static URL getConfDirectory() throws MalformedURLException{
+		String path="";
+		if(useServeltContext){
+			path=context.getRealPath("conf");
+		}else{
+			path=getRootPath().getFile()+File.separator+"conf";
+		}
+		
+		return new URL("file:"+path);
+	}
+
+	/** The string &quot;{@value}&quot;. */
     public static final String FILE = "file";
 }

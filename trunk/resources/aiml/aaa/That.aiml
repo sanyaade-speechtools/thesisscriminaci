@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+
+<!-- Free software Copyright  ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Revision That-1.12 -->
+<!-- Last Modified  May 11 2006 -->
           
 <category> <pattern>* HAVE</pattern> <that>I HAVE NOT</that> <template>Have not.</template> </category>      
 <category> <pattern>*</pattern> <that>WHERE DO YOU WORK</that> <template><srai>I work at <star/></srai></template> </category>      
@@ -955,7 +941,7 @@
 <category><pattern>TEN *</pattern><that>HOW MUCH WOULD YOU PAY FOR IT</that><template>I don't know if you could find it for that price.</template></category>        
 <category><pattern>TERESA</pattern><that>WHAT CAN I CALL YOU</that><template>   <srai>my name is teresa</srai>     <think>      <set name="gender">she</set>     </think>    </template></category>         
 <category><pattern>TERRY</pattern><that>WHAT CAN I CALL YOU</that><template>   <srai>my name is terry</srai>    </template></category>          
-<category><pattern>TEST THAT</pattern><template>Client: <input index="2"/>     <br/>  Robot:  <that index="2,1"/>     <br/>  Client: <input index="1"/>     <br/>  Robot: <that index="1,1"/>     <br/>  Client: TEST THAT<br/>    </template></category>        
+<category><pattern>TEST THAT</pattern><template>Client: <input index="2"/>     <html:br/>  Robot:  <that index="2,1"/>     <html:br/>  Client: <input index="1"/>     <html:br/>  Robot: <that index="1,1"/>     <html:br/>  Client: TEST THAT<html:br/>    </template></category>        
 <category><pattern>THANK YOU</pattern><that>CONGRATULATIONS</that><template>How do you feel?</template></category>        
 <category><pattern>THAT *</pattern><template>  <random>      <li>I get <set name="it">        <set name="topic">         <that index="1,1"/>        </set>       </set>.  </li>      <li>Does that make sense?  </li>      <li>Makes sense to me.  </li>      <li>I understand.  </li>     </random>    </template></category>        
 <category><pattern>THAT IS A LOT</pattern><template>Is it a lot?</template></category>        

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Programd Manager</title>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<meta name="generator" content="HAPedit 3.0">
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<script type="text/javascript" src="../javascript/jsonrpc-min.js"></script>
+		<script type="text/javascript" src="../javascript/manager.js"></script>
+		<script type="text/javascript" src="../javascript/jquery-1.3.2.min.js"></script>
+		
+</head>
+<body>
+<div class="container" id="manager_page">
+    <div class="header">
+        <h1>Manager</h1>
+    </div>
+    <div class="navigation">
+        <ul>
+			<li><a class="activelink" id="home_link" href="#">Home</a></li>
+            <li><a href="#" id="plugins_link">Plugins</a></li>
+            <li><a href="#" id="lsa_manager_link">Lsa Spaces</a></li>
+        </ul>
+    </div>
+    <div class="content_all">
+    	<div class="content">
+    	</div>
+    	<div id="home_template" style="display: none;">
+		    <h2>Pagina di gestione</h2>
+			<br/>
+			Questa pagina permette di gestire l'applicazione.
+			<br/>
+			<br/>
+			Scegli un'opzione sulla destra.
+		</div>
+		<div id="plugins_template" style="display: none;">
+			<h2>Gestione Plugin</h2>
+			<br/>
+			Plugin disponibili:		
+			<div class="selector">
+				<div id='plugins_selector_template' class="selector_item" style="display: none;">
+					<span class="selector_item_name">Esempio</span> 
+					<span class="selector_item_menu">
+						<span class="selector_item_property">Status: <span></span></span>
+						<span class="selector_item_actions">
+							Action:
+							<input class="item_active" type="button" value="" name="active" alt="active" style="display:none;">
+							<input class="item_inactive" type="button" value="" name="inactive" alt="inactive" style="display:none;">
+						</span>
+					</span>
+				</div>
+			</div>
+			<input class="btn_action" type="button" value="reload core" name="reload core" alt="reload core">
+			<div class="plugin_legend">
+				Legenda:
+				<span><input class="item_active" type="button" value="" name="active" alt="active" disabled="true"> attiva, </span>
+				<span><input class="item_inactive" type="button" value="" name="active" alt="active" disabled="true"> disattiva</span>
+				
+			</div>		
+			
+		</div>
+		<div id="lsa_manager_template" style="display: none;">
+			<h2>Gestione Spazi Lsa</h2>
+			<br/>
+			Spazi disponibili:		
+			<div class="selector">
+				<div id='lsa_manager_selector_template' class="selector_item" style="display:none;">
+					<span class="selector_item_name">Esempio</span> 
+					<span class="selector_item_menu">
+						<span class="selector_item_property">Url: <span></span></span>
+						<span class="selector_item_property">Tipo: <span></span></span>
+						<span class="selector_item_property">Nsigma: <span></span></span>
+						
+						<span class="selector_item_actions">
+							Action:
+							<input class="item_loading" type="button" value="" name="active" alt="active" style="display:none;">
+							<input class="item_process" type="button" value="" name="active" alt="active" style="display:none;">
+							<input class="item_edit" type="button" value="" name="active" alt="active" style="display:none;">
+							<input class="item_delete" type="button" value="" name="active" alt="active" style="display:none;">
+						</span>
+					</span>
+				</div>
+			</div>
+			<div class="selector_edit_item" style="display:none;">
+				<div id='lsa_manager_add_item_template' class="selector_item" style="display:;">
+					<span class="selector_item_input">
+						<span class="selector_item_name">Name: <span></span></span>
+						<span class="selector_item_property">Url: <span></span></span>
+						<span class="selector_item_property">Tipo: <span></span></span>						
+						<span class="selector_item_property">Nsigma: </span> 
+						<input type="text" name="snsigma"  class="lsa_input_nsigma" value="50"/>
+					</span>
+				</div>
+				<input class="btn_action" type="button" value="save" name="save" alt="save">	
+			</div>
+			<input class="btn_action" type="button" value="add documents" name="add documents" alt="add documents">
+			<div class="selector_add_item">
+				<div id='lsa_manager_add_item_template' class="selector_item" style="display:;">
+					<span class="selector_item_input">
+						<span class="selector_item_name">Nome: </span> 
+						<input type="text" name="sname"  class="lsa_input_name"/>			
+						<span class="selector_item_name">Nsigma: </span> 
+						<input type="text" name="snsigma"  class="lsa_input_nsigma"/>
+						
+						<span class="selector_item_name">Tipo: </span> 
+						<select name="lsa_select_type" class="lsa_select_type">
+							<option value="ParolaParola">Parola-Parola</option>
+							<option value="ParolaDocumento">Parola-Documento</option>
+						</select>
+					</span>
+				</div>
+			</div>
+			<input class="btn_action" type="button" value="add lsa space" name="add lsa space" alt="add lsa space"/>
+			<div class="plugin_legend">
+				Legenda:
+				<span><input class="item_loading" type="button" value="" name="active" alt="active" disabled="true"> in processamento</span>,
+				<span><input class="item_process" type="button" value="" name="active" alt="active" disabled="true"> processa</span>,
+				<span><input class="item_edit" type="button" value="" name="active" alt="active" disabled="true"> modifica</span>,
+				<span><input class="item_delete" type="button" value="" name="active" alt="active" disabled="true"> elimina</span>				
+			</div>		
+			
+		</div>
+		<div id="loading_template" class="loading_contanier" style="display: none;">
+			<div class="loading">
+			</div>
+		</div>
+    </div>
+    <div class="footer">
+    	Tesi di Mario Scriminaci: "Agenti conversazionali: studio e realizzazione di una piattaforma 
+modulare basata sul web."
+		<br/>
+		<br/>
+		Relatore: Prof. Salvatore Gaglio.
+    </div>
+</div>
+</body>
+</html>

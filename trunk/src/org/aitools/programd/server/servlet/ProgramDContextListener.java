@@ -14,6 +14,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.aitools.programd.Core;
+import org.aitools.programd.util.FileManager;
+import org.aitools.programd.util.GlobalProperties;
 import org.aitools.programd.util.URLTools;
 
 /**
@@ -21,9 +23,9 @@ import org.aitools.programd.util.URLTools;
  */
 public class ProgramDContextListener implements ServletContextListener
 {
-    public static final String KEY_CORE = "core";
+    public static final String KEY_CORE = GlobalProperties.sessionKeyCore;
     
-    public static final String PARAM_CORE_CONFIG = "programd-core-config";
+    public static final String PARAM_CORE_CONFIG = GlobalProperties.paramCoreConfig;
     
     private ServletContext context = null;
 
@@ -32,6 +34,7 @@ public class ProgramDContextListener implements ServletContextListener
      */
     public void contextInitialized(ServletContextEvent sce)
     {
+    	System.out.println("Context initialized.");
         this.context = sce.getServletContext();
 
         this.context.log("Configuring Program D Core from servlet context listener.");
@@ -57,6 +60,9 @@ public class ProgramDContextListener implements ServletContextListener
         }
 
         // Set up the Program D Core.
+        FileManager.setUseServeltContext(true);
+        FileManager.setContext(context);
+        System.out.println("Core initialization...");
         Core core = new Core(baseURL, URLTools.contextualize(baseURL, config));
         this.context.setAttribute(KEY_CORE, core);
     }

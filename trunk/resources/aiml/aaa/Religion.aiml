@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
-<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
-<!-- -->
-<!-- Permission is hereby granted, free of charge, to any person       -->
-<!-- obtaining a copy of this software and associated documentation    -->
-<!-- files (the "Software"), to deal in the Software without           -->
-<!-- restriction, including without limitation the rights to use,      -->
-<!-- copy, modify, merge, publish, distribute, sublicense, and/or sell -->
-<!-- copies of the Software, and to permit persons to whom the         -->
-<!-- Software is furnished to do so, subject to the following          -->
-<!-- conditions:                                                       -->
-<!-- -->
-<!-- The above copyright notice and this permission notice shall be    -->
-<!-- included in all copies or substantial portions of the Software.   -->
-<!-- -->
-<!-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,   -->
-<!-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   -->
-<!-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          -->
-<!-- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       -->
-<!-- HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      -->
-<!-- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      -->
-<!-- FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     -->
-<!-- OTHER DEALINGS IN THE SOFTWARE. -->
-<!-- -->
-<!-- Complies with the AIML 1.0.1 Standard -->
-<!-- as adopted by the ALICE A.I. Foundation. -->
-<!-- Last modified July 26, 2007 -->
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+      xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">
+<!-- Free software Copyright © ALICE A.I. Foundation, Inc. --> 
+<!-- This program is open source code released under -->
+<!-- the terms of the GNU General Public License     -->
+<!-- as published by the Free Software Foundation.   -->
+<!-- Complies with AIML 1.0.1 Tag Set Specification -->
+<!-- as adopted by the ALICE A.I. Foundation.  -->
+<!-- Annotated Version Religion 1.03 -->
+<!-- Last Modified  Sep 09 2005 -->
+
+
+
+ 
+
+
+ 
 
 <category>
 <pattern>PROTESTANT *</pattern>
@@ -229,7 +221,7 @@
 <category><pattern>WHAT ABOUT JESUS</pattern><template>   <srai>WHO IS JESUS</srai>    </template></category>     
 <category><pattern>WHAT ARE THE 10 *</pattern><template>   <srai>WHAT ARE THE TEN COMMANDMENTS</srai>    </template></category>     
 <category><pattern>WHAT ARE THE TEN *</pattern><template>   <srai>WHAT ARE THE TEN COMMANDMENTS</srai>    </template></category>     
-<category><pattern>WHAT ARE THE TEN COMMANDMENTS</pattern><template>   <p/>1. I am the Lord thy God, which have brought thee out of   the land of Egypt, out of the house of bondage.  Thou   shalt have no other gods before me.  <p/>2. Thou shalt not take the name of the Lord thy God in   vain.  <p/>3. Thou shalt not make unto thee any graven image, or   any likeness of anything that is in heaven  above, or   that is in the earth beneath, or that is in  the water   under the earth. Thou shalt not bow down thyself  to   them, nor serve them.  <p/>4. Remember the sabbath day, to keep it holy.  <p/>5. Honor thy father and thy mother: that thy days may be   long.  <p/>6. Thou shalt not kill.  <p/>7. Thou shalt not commit adultery.  <p/>8. Thou shalt not steal.  <p/>9. Thou shalt not bear false witness against thy   neighbour.  <p/>10. Thou shalt not covet thy neighbor's house, thou shalt   not covet thy neighbor's wife, nor his manservant,   nor his maidservant, nor his ox, nor his ass,  nor   anything that is thy neighbor's.</template></category>    
+<category><pattern>WHAT ARE THE TEN COMMANDMENTS</pattern><template>   <html:p>1. I am the Lord thy God, which have brought thee out of   the land of Egypt, out of the house of bondage.  Thou   shalt have no other gods before me.  </html:p><html:p>2. Thou shalt not take the name of the Lord thy God in   vain.  </html:p><html:p>3. Thou shalt not make unto thee any graven image, or   any likeness of anything that is in heaven  above, or   that is in the earth beneath, or that is in  the water   under the earth. Thou shalt not bow down thyself  to   them, nor serve them.  </html:p><html:p>4. Remember the sabbath day, to keep it holy.  </html:p><html:p>5. Honor thy father and thy mother: that thy days may be   long.  </html:p><html:p>6. Thou shalt not kill.  </html:p><html:p>7. Thou shalt not commit adultery.  </html:p><html:p>8. Thou shalt not steal.  </html:p><html:p>9. Thou shalt not bear false witness against thy   neighbour.  </html:p><html:p>10. Thou shalt not covet thy neighbor's house, thou shalt   not covet thy neighbor's wife, nor his manservant,   nor his maidservant, nor his ox, nor his ass,  nor   anything that is thy neighbor's.</html:p></template></category>    
 <category><pattern>WHAT ARE YOUR RELIGIOUS *</pattern><template>   <srai> WHAT RELIGION ARE YOU</srai>    </template></category>    
 <category><pattern>WHAT ARE YOUR THOUGHTS * RELIGION</pattern><template>   <srai>WHAT RELIGION ARE YOU</srai>    </template></category>    
 <category><pattern>WHAT DID JESUS *</pattern><template>   <set name="he">Jesus</set> said we should forgive those who harm us.</template></category>    
@@ -258,7 +250,7 @@
 <category><pattern>WHAT IS THE * RELIGION</pattern><template>   <srai>WHAT IS YOUR RELIGION</srai>    </template></category>    
 <category><pattern>WHAT IS THE BIBLE</pattern><template>The Bible is a holy book for Christians.</template></category>    
 <category><pattern>WHAT IS THE FIRST BOOK * BIBLE</pattern><template>Genesis.</template></category>    
-<category><pattern>WHAT IS THE FIRST COMMANDMENT</pattern><template>   <p/>1. I am the Lord thy God, which have brought thee out of  the land of Egypt, out of the house of bondage. Thou  shalt have no other gods before me.</template></category>   
+<category><pattern>WHAT IS THE FIRST COMMANDMENT</pattern><template>   <html:p>1. I am the Lord thy God, which have brought thee out of  the land of Egypt, out of the house of bondage. Thou  shalt have no other gods before me.</html:p></template></category>   
 <category><pattern>WHAT IS THE LONGEST BOOK *</pattern><template>   <random>      <li>The Bible.</li>      <li>The Encyclopedia.</li>      <li>Mason and Dixon by Thomas Pynchon.</li>     </random>     <think>      <set name="it">       <set name="topic">LONGEST BOOK <person/>       </set>      </set>     </think>    </template></category>    
 <category><pattern>WHAT IS THE MEANING OF LIFE</pattern><template>   <random>     <li>Actually, it's twenty-three, not forty-two.</li>     <li>It is found in the Bible.</li>     <li>The meaning of life is part of God's mysterious plans.</li>    </random>    <think>     <set name="it">      <set name="topic">The meaning of life</set>     </set>    </think>   </template></category>   
 <category><pattern>WHAT IS THEOLOGY</pattern><template>The study of religious doctrines and matters of divinity; specifically, the study of God and the relations between God, mankind, and the universe.</template></category>    

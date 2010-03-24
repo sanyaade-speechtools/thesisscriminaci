@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+    xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   
+    xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 ../../resources/schema/AIML.xsd">
+
+
+
+<category>
+	<pattern>CAN I DO A THESIS WITH *</pattern>
+	<template>
+	<cycsystem>(cyc-query '
+		(#$and 
+  			(#$employees #$Unipa <cycterm><star index="1"/></cycterm>) 
+  			(#$isa <cycterm><star index="1"/></cycterm> #$Professor))
+ 	</template>
+ 	#$EverythingPSC)</cycsystem>
+ </category>  
+
+
+<category>
+	<pattern>PROVA</pattern>
+	<template>ok</template>
+</category>  
+
+ <category>
+	<pattern>SHOWCASE *</pattern>
+	<template>This showcase contains... </template>
+</category>  
+
+<category>
+	<pattern>* INFORMATION ABOUT *</pattern>
+	<template><cycsystem>(cyc-query '(#$comment <cycterm><star index="2"/></cycterm>  ?X)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>WHEN * WAS CREATED</pattern>
+	<template><cycsystem>(cyc-query '(#$createdDuring <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>* COMES</pattern>
+	<template><cycsystem>(cyc-query '(#$comesFrom-Generic <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>ARTIFACT *</pattern>
+<template> It belongs to
+<cycsystem>(cyc-query '(#$createdDuring <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycsystem>,
+it has been found at <cycsystem>(cyc-query '(#$comesFrom-Generic <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycsystem> and
+and represents <cycsystem>(cyc-query '(#$representing <cycterm><star index="1"/></cycterm>  ?X)#$EverythingPSC) </cycsystem>
+</template>
+</category>
+
+
+
+
+<category>
+	<pattern>IS * AN ANIMAL</pattern>
+	<template>la risposta è  <cycsystem>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm>  #$Animal)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+	<pattern>IS * AN *</pattern>
+	<template>la risposta è  <cycsystem>(cyc-query '(#$genls <cycterm><star index="1"/></cycterm> <cycterm><star index="2"/></cycterm>)#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+
+<category>
+	<pattern>PROVO CYC</pattern>
+	<template>ss<cyccondition query="(fi-ask '(#$isa #$Dog #$Mammal) #$BaseKB)">zz</cyccondition></template>
+</category>
+
+<category>
+	<pattern>ISAINFORMATION *</pattern>
+	<template><cycsystem>(cyc-query '(#$isa ?X <cycterm><star/></cycterm>  )#$EverythingPSC)</cycsystem>
+</template>
+</category>
+
+<category>
+<pattern>CYCSET *</pattern>
+<template>
+<think><set name="cycvar"><star/></set></think>
+I tried to set cycvar to <star/>.
+</template>
+</category>
+
+
+
+
+
+
+</aiml>
